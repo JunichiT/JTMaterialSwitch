@@ -15,6 +15,7 @@
 		44F628401B9C534A008E8EC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F6283E1B9C534A008E8EC2 /* LaunchScreen.storyboard */; };
 		44F6284B1B9C534A008E8EC2 /* JTMaterialSwitchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F6284A1B9C534A008E8EC2 /* JTMaterialSwitchTests.m */; };
 		44F628561B9C534A008E8EC2 /* JTMaterialSwitchUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628551B9C534A008E8EC2 /* JTMaterialSwitchUITests.m */; };
+		44F628651B9C5555008E8EC2 /* JTMaterialSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628641B9C5555008E8EC2 /* JTMaterialSwitch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		44F628511B9C534A008E8EC2 /* JTMaterialSwitchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JTMaterialSwitchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F628551B9C534A008E8EC2 /* JTMaterialSwitchUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTMaterialSwitchUITests.m; sourceTree = "<group>"; };
 		44F628571B9C534A008E8EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44F628631B9C5555008E8EC2 /* JTMaterialSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTMaterialSwitch.h; sourceTree = "<group>"; };
+		44F628641B9C5555008E8EC2 /* JTMaterialSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTMaterialSwitch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 				44F6283E1B9C534A008E8EC2 /* LaunchScreen.storyboard */,
 				44F628411B9C534A008E8EC2 /* Info.plist */,
 				44F628301B9C534A008E8EC2 /* Supporting Files */,
+				44F628631B9C5555008E8EC2 /* JTMaterialSwitch.h */,
+				44F628641B9C5555008E8EC2 /* JTMaterialSwitch.m */,
 			);
 			path = JTMaterialSwitch;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44F628651B9C5555008E8EC2 /* JTMaterialSwitch.m in Sources */,
 				44F628381B9C534A008E8EC2 /* ViewController.m in Sources */,
 				44F628351B9C534A008E8EC2 /* AppDelegate.m in Sources */,
 				44F628321B9C534A008E8EC2 /* main.m in Sources */,
