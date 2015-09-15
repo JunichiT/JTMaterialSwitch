@@ -27,10 +27,17 @@
 
 #import <UIKit/UIKit.h>
 
-#pragma mark - Fade in/out options
+#pragma mark - Switch type
 typedef enum {
   JTMaterialSwitchTypeDefault
 } JTMaterialSwitchType;
+
+#pragma mark - Initial state (on or off)
+typedef enum {
+  JTMaterialSwitchStateOn,
+  JTMaterialSwitchStateOff
+} JTMaterialSwitchState;
+
 
 
 @interface JTMaterialSwitch : UIView
@@ -38,6 +45,7 @@ typedef enum {
 
 @property (nonatomic) BOOL isOn;
 @property (nonatomic) BOOL isRaised;
+@property (nonatomic) BOOL isSliderRounded;
 
 @property (nonatomic) CGFloat sliderThickness;
 @property (nonatomic) CGFloat buttonSize;
@@ -51,4 +59,7 @@ typedef enum {
 @property (nonatomic, strong) UIButton *sliderButton;
 @property (nonatomic, strong) UIView *slider;
 
+
+- (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state;
+  
 @end

@@ -38,11 +38,16 @@
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state {
   self = [super initWithFrame:frame];
   
+  // initialize parameters
+  self.sliderThickness = 7.0;
+  self.buttonSize = 20.0;
+  
+
   CGRect sliderFrame = CGRectZero;
-  sliderFrame.size.height = 5.0;
+  sliderFrame.size.height = self.sliderThickness;
   sliderFrame.size.width = frame.size.width;
   sliderFrame.origin.x = 0.0;
   sliderFrame.origin.y = (frame.size.height-sliderFrame.size.height)/2;
@@ -54,7 +59,7 @@
   [self addSubview:self.slider];
   
   CGRect buttonFrame = CGRectZero;
-  buttonFrame.size.height = 20.0;
+  buttonFrame.size.height = self.buttonSize;
   buttonFrame.size.width = buttonFrame.size.height;
   buttonFrame.origin.x = 0.0;
   buttonFrame.origin.y = (frame.size.height-buttonFrame.size.height)/2;
