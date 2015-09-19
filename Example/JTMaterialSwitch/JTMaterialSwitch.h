@@ -38,19 +38,27 @@ typedef enum {
   JTMaterialSwitchStateOff
 } JTMaterialSwitchState;
 
-
-
 @interface JTMaterialSwitch : UIView
 
-
+#pragma mark - Properties
+#pragma State
+/** A Boolean value whether the switch is set ON */
 @property (nonatomic) BOOL isOn;
+/** A Boolean value whether the shadow of this switch button is floating */
 @property (nonatomic) BOOL isRaised;
+/** A Boolean value whether the slider of this switch button has rounded corner */
 @property (nonatomic) BOOL isSliderRounded;
 
+#pragma Size
+/** A CGFloat value to represent the slider thickness of this switch */
 @property (nonatomic) CGFloat sliderThickness;
+/** A CGFloat value to represent the switch button size(width and height) */
 @property (nonatomic) CGFloat buttonSize;
 
+#pragma Colour
+/** A UIColor property to represent the colour of the switch button when position is ON */
 @property (nonatomic, strong) UIColor *buttonOnTintColor;
+/** A UIColor property to represent the colour of the switch button when position is OFF */
 @property (nonatomic, strong) UIColor *buttonOffTintColor;
 
 @property (nonatomic, strong) UIColor *sliderOnTintColor;
@@ -59,7 +67,15 @@ typedef enum {
 @property (nonatomic, strong) UIButton *sliderButton;
 @property (nonatomic, strong) UIView *slider;
 
-
+#pragma mark - Initializer
+/**
+ *  Initializes a JTMaterialSwitch with a initial switch position(on or off).
+ *
+ *  @param frame A CGRect value for this view's frame
+ *  @param state A JTMaterialSwitchState enum as this view's initial switch pos
+ *
+ *  @return A JTFadingInfoView with frame and initial position
+ */
 - (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state;
   
 @end

@@ -30,6 +30,7 @@
 @implementation JTMaterialSwitch {
   float buttonOnPosition;
   float buttonOffPosition;
+  float bouceOffset;
 }
 
 - (id)init {
@@ -42,8 +43,11 @@
   self = [super initWithFrame:frame];
   
   // initialize parameters
+  self.buttonOnTintColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
+  self.buttonOffTintColor = [UIColor whiteColor];
   self.sliderThickness = 7.0;
   self.buttonSize = 20.0;
+  bouceOffset = 3.0f;
   
 
   CGRect sliderFrame = CGRectZero;
@@ -92,6 +96,11 @@
   [self changeButtonPosition];
 }
 
+- (BOOL)getSwitchState
+{
+  return self.isOn;
+}
+
 //The event handling method
 - (void)sliderTapped:(UITapGestureRecognizer *)recognizer
 {
@@ -102,34 +111,63 @@
 {
   if (self.isOn == true) {
     // switch movement animation
-    [UIView animateWithDuration:0.15f delay:0.1f options:UIViewAnimationOptionCurveEaseInOut animations:^ {
-      //アニメーションで変化させたい値を設定する(最終的に変更したい値)
-      CGRect buttonFrame = self.sliderButton.frame;
-      buttonFrame.origin.x = buttonOffPosition;
-      self.sliderButton.frame = buttonFrame;
-      self.sliderButton.backgroundColor = [UIColor whiteColor];
-      self.slider.backgroundColor = [UIColor lightGrayColor];
-    } completion:^(BOOL finished) {
-      // change state to false
-      self.isOn = false;
-    }];
+    [UIView animateWithDuration:0.15f
+                          delay:0.1f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       //アニメーションで変化させたい値を設定する(最終的に変更したい値)
+                       CGRect buttonFrame = self.sliderButton.frame;
+                       buttonFrame.origin.x = buttonOffPosition;
+                       self.sliderButton.frame = buttonFrame;
+                       self.sliderButton.backgroundColor = self.buttonOffTintColor;
+//                       self.sliderButton.backgroundColor = [UIColor whiteColor];
+                       self.slider.backgroundColor = [UIColor lightGrayColor];
+                     }
+                     completion:^(BOOL finished){
+                       // change state to false
+                       self.isOn = false;
+                       NSLog(@"now isOn: %d", self.isOn);
+                       // Bouncing effect: Move button a bit, for better UX
+                       [UIView animateWithDuration:0.15f
+                                        animations:^{
+                                          // Bounce to the position
+                                          CGRect buttonFrame = self.sliderButton.frame;
+                                          buttonFrame.origin.x = buttonOffPosition+bouceOffset;
+                                          self.sliderButton.frame = buttonFrame;
+                                        }];
+                     }];
   }
   
   else {
     // switch movement animation
-    [UIView animateWithDuration:0.15f delay:0.1f options:UIViewAnimationOptionCurveEaseInOut animations:^ {
-      //アニメーションで変化させたい値を設定する(最終的に変更したい値)
-      CGRect buttonFrame = self.sliderButton.frame;
-      buttonFrame.origin.x = buttonOnPosition;
-      self.sliderButton.frame = buttonFrame;
-      self.sliderButton.backgroundColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
-      self.slider.backgroundColor = [UIColor colorWithRed:127./255. green:164./255. blue:255./255. alpha:1.0];
-    } completion:^(BOOL finished) {
-      // change state to false
-      self.isOn = true;
-    }];
+    [UIView animateWithDuration:0.15f
+                          delay:0.1f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                       //アニメーションで変化させたい値を設定する(最終的に変更したい値)
+                       CGRect buttonFrame = self.sliderButton.frame;
+                       buttonFrame.origin.x = buttonOnPosition;
+                       self.sliderButton.frame = buttonFrame;
+                       self.sliderButton.backgroundColor = self.buttonOnTintColor;
+//                       self.sliderButton.backgroundColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
+//                       self.slider.backgroundColor = [UIColor colorWithRed:127./255. green:164./255. blue:255./255. alpha:1.0];
+                     }
+                     completion:^(BOOL finished){
+                       // change state to true
+                       self.isOn = true;
+                       NSLog(@"now isOn: %d", self.isOn);
+                       // Bouncing effect: Move button a bit, for better UX
+                       [UIView animateWithDuration:0.15f
+                                        animations:^{
+                                          // Bounce to the position
+                                          CGRect buttonFrame = self.sliderButton.frame;
+                                          buttonFrame.origin.x = buttonOnPosition-bouceOffset;
+                                          self.sliderButton.frame = buttonFrame;
+                                        }];
+                     }];
   }
-  NSLog(@"now isOn: %d", self.isOn);
+  
+  
 }
 
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{

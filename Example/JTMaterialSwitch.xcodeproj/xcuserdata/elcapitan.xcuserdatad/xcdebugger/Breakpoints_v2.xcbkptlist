@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JTMaterialSwitch/JTMaterialSwitch.h"
-            timestampString = "463305009.97676"
+            timestampString = "464017991.031272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66">
+            startingLineNumber = "82"
+            endingLineNumber = "82">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,45 +24,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JTMaterialSwitch/JTMaterialSwitch.h"
-            timestampString = "463305009.97676"
+            timestampString = "464017991.031272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "buttonOnTintColor"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "buttonOffTintColor"
             landmarkType = "19">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[JTMaterialSwitch buttonOnTintColor]"
-                  moduleName = "JTMaterialSwitch"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elcapitan/Desktop/JTMaterialSwitch/JTMaterialSwitch/JTMaterialSwitch.h"
-                  timestampString = "463305011.001282"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[JTMaterialSwitch setButtonOnTintColor:]"
-                  moduleName = "JTMaterialSwitch"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/elcapitan/Desktop/JTMaterialSwitch/JTMaterialSwitch/JTMaterialSwitch.h"
-                  timestampString = "463305011.001752"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JTMaterialSwitch/JTMaterialSwitch.m"
+            timestampString = "464339724.202861"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-initWithFrame:withState:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JTMaterialSwitch/ViewController.m"
+            timestampString = "464339473.401772"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

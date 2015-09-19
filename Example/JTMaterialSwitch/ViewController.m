@@ -25,10 +25,12 @@
   [self.view addSubview:jt];
   jt.center = CGPointMake(230, 130);
   
-  CGRect frame2 = CGRectMake(100, 300, 150, 50);
+  CGRect frame2 = CGRectMake(100, 300, 30, 50);
   JTMaterialSwitch *jt2 = [[JTMaterialSwitch alloc] initWithFrame:frame2
                                                         withState:JTMaterialSwitchStateOff];
-  //  jt.backgroundColor = [UIColor orangeColor];
+  jt2.buttonOffTintColor = [UIColor grayColor];
+  jt2.buttonOnTintColor  = [UIColor greenColor];
+  jt2.buttonSize = 2.0;
   [self.view addSubview:jt2];
 }
 
