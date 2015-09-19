@@ -39,6 +39,104 @@
   return self;
 }
 
+- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state {
+  
+  // initialize parameters
+  self.buttonOnTintColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
+  self.buttonOffTintColor = [UIColor whiteColor];
+  bouceOffset = 3.0f;
+  
+  CGRect frame;
+  CGRect sliderFrame = CGRectZero;
+  CGRect buttonFrame = CGRectZero;
+
+  // Determine switch size
+  switch (size) {
+    case JTMaterialSwitchSizeBig:
+      frame = CGRectMake(0, 0, 60, 45);
+      self.sliderThickness = 15.0;
+      self.buttonSize = 30.0;
+      break;
+    
+    case JTMaterialSwitchSizeNormal:
+      frame = CGRectMake(0, 0, 40, 30);
+      self.sliderThickness = 10.0;
+      self.buttonSize = 20.0;
+      break;
+      
+    case JTMaterialSwitchSizeSmall:
+      frame = CGRectMake(0, 0, 30, 25);
+      self.sliderThickness = 7.5;
+      self.buttonSize = 15.0;
+      break;
+      
+    default:
+      frame = CGRectMake(0, 0, 40, 30);
+      self.sliderThickness = 10.0;
+      self.buttonSize = 20.0;
+      break;
+  }
+  
+  sliderFrame.size.height = self.sliderThickness;
+  sliderFrame.size.width = frame.size.width;
+  sliderFrame.origin.x = 0.0;
+  sliderFrame.origin.y = (frame.size.height-sliderFrame.size.height)/2;
+  buttonFrame.size.height = self.buttonSize;
+  buttonFrame.size.width = buttonFrame.size.height;
+  buttonFrame.origin.x = 0.0;
+  buttonFrame.origin.y = (frame.size.height-buttonFrame.size.height)/2;
+  
+  // Actual initialization with selected size
+  self = [super initWithFrame:frame];
+  
+  self.slider = [[UIView alloc] initWithFrame:sliderFrame];
+  self.slider.backgroundColor = [UIColor grayColor];
+  self.slider.layer.cornerRadius = MIN(self.slider.frame.size.height, self.slider.frame.size.width)/2;
+  [self addSubview:self.slider];
+  
+  self.sliderButton = [[UIButton alloc] initWithFrame:buttonFrame];
+  self.sliderButton.backgroundColor = [UIColor whiteColor];
+  self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
+  self.sliderButton.layer.shadowOpacity = 1.0f;
+  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+  self.sliderButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+  [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+  [self.sliderButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+  
+  [self addSubview:self.sliderButton];
+  
+  buttonOnPosition = self.frame.size.width - self.sliderButton.frame.size.width + bouceOffset;
+  buttonOffPosition = self.sliderButton.frame.origin.x - bouceOffset;
+  
+  // Set button's initial position from state property
+  switch (state) {
+    case JTMaterialSwitchStateOn:
+      self.isOn = true;
+      self.sliderButton.backgroundColor = self.buttonOnTintColor;
+      CGRect buttonFrame = self.sliderButton.frame;
+      buttonFrame.origin.x = buttonOnPosition;
+      self.sliderButton.frame = buttonFrame;
+      break;
+      
+    case JTMaterialSwitchStateOff:
+      self.isOn = false;
+      self.sliderButton.backgroundColor = self.buttonOffTintColor;
+      break;
+      
+    default:
+      self.isOn = false;
+      self.sliderButton.backgroundColor = self.buttonOffTintColor;
+      break;
+  }
+  
+  UITapGestureRecognizer *singleTap =
+  [[UITapGestureRecognizer alloc] initWithTarget:self
+                                          action:@selector(sliderTapped:)];
+  [self.slider addGestureRecognizer:singleTap];
+  
+  return self;
+}
+
 - (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state {
   self = [super initWithFrame:frame];
   
@@ -189,8 +287,6 @@
                                         }];
                      }];
   }
-  
-  
 }
 
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{

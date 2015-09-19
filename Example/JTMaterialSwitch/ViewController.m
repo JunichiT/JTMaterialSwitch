@@ -25,17 +25,30 @@
   [self.view addSubview:jt];
   jt.center = CGPointMake(230, 130);
   
-  CGRect frame2 = CGRectMake(100, 300, 50, 50);
+  CGRect frame2 = CGRectMake(100, 300, 40, 40);
   JTMaterialSwitch *jt2 = [[JTMaterialSwitch alloc] initWithFrame:frame2
                                                         withState:JTMaterialSwitchStateOff];
   jt2.delegate = self;
-  jt2.buttonOffTintColor = [UIColor grayColor];
-  jt2.buttonOnTintColor  = [UIColor greenColor];
+  jt2.buttonOffTintColor = [UIColor blackColor];
+  jt2.buttonOnTintColor  = [UIColor orangeColor];
   jt2.buttonSize = 2.0;
   [self.view addSubview:jt2];
   
   self.labelJT2 = [[UILabel alloc] initWithFrame:CGRectMake(50, 300, 50, 50)];
   [self.view addSubview:self.labelJT2];
+  
+  JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall WithState:JTMaterialSwitchStateOn];
+  jt3.center = CGPointMake(200, 400);
+  [self.view addSubview:jt3];
+  
+  JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal WithState:JTMaterialSwitchStateOff];
+  jt4.center = CGPointMake(200, 450);
+  [self.view addSubview:jt4];
+  
+  JTMaterialSwitch *jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig WithState:JTMaterialSwitchStateOn];
+  jt5.center = CGPointMake(200, 500);
+  [self.view addSubview:jt5];
+  
 }
 
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState

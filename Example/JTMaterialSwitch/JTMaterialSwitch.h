@@ -38,6 +38,13 @@ typedef enum {
   JTMaterialSwitchStateOff
 } JTMaterialSwitchState;
 
+#pragma mark - Initial JTMaterialSwitch size (big, normal, small)
+typedef enum {
+  JTMaterialSwitchSizeBig,
+  JTMaterialSwitchSizeNormal,
+  JTMaterialSwitchSizeSmall
+} JTMaterialSwitchSize;
+
 
 @protocol JTMaterialSwitchDelegate <NSObject>
 
@@ -89,5 +96,7 @@ typedef enum {
  *  @return A JTFadingInfoView with frame and initial position
  */
 - (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state;
+
+- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state;
   
 @end
