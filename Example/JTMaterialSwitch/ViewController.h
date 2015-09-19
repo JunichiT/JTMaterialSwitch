@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "JTMaterialSwitch.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<JTMaterialSwitchDelegate>
 
+@property (nonatomic, strong) UILabel *labelJT2;
 
 @end
 

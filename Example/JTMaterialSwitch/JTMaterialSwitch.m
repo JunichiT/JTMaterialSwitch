@@ -45,7 +45,7 @@
   // initialize parameters
   self.buttonOnTintColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
   self.buttonOffTintColor = [UIColor whiteColor];
-  self.sliderThickness = 7.0;
+  self.sliderThickness = 10.0;
   self.buttonSize = 20.0;
   bouceOffset = 3.0f;
   
@@ -93,7 +93,19 @@
 
 - (void)switchButtonTapped: (id)sender
 {
+  // Delegate method
+  if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
+    // sampleMethod2を呼び出す
+    if (self.isOn == true) {
+      [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
+    }
+    else{
+      [self.delegate switchStateChanged:JTMaterialSwitchStateOn];
+    }
+  }
+  
   [self changeButtonPosition];
+
 }
 
 - (BOOL)getSwitchState
@@ -104,6 +116,17 @@
 //The event handling method
 - (void)sliderTapped:(UITapGestureRecognizer *)recognizer
 {
+  // Delegate method
+  if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
+    // sampleMethod2を呼び出す
+    if (self.isOn == true) {
+      [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
+    }
+    else{
+      [self.delegate switchStateChanged:JTMaterialSwitchStateOn];
+    }
+  }
+  
   [self changeButtonPosition];
 }
 

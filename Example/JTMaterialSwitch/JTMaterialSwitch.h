@@ -38,9 +38,21 @@ typedef enum {
   JTMaterialSwitchStateOff
 } JTMaterialSwitchState;
 
+
+@protocol JTMaterialSwitchDelegate <NSObject>
+
+// Delegate method
+- (void)switchStateChanged:(JTMaterialSwitchState)currentState;
+
+@end
+
 @interface JTMaterialSwitch : UIView
 
+
 #pragma mark - Properties
+#pragma Delegate
+@property (nonatomic, assign) id<JTMaterialSwitchDelegate> delegate;
+
 #pragma State
 /** A Boolean value whether the switch is set ON */
 @property (nonatomic) BOOL isOn;
