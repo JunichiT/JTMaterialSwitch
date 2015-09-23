@@ -98,5 +98,8 @@ typedef enum {
 - (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state;
 
 - (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state;
-  
+
+- (void)setButtonOnTintColor: (UIColor *)tintColor;
+- (void)setButtonOffTintColor: (UIColor *)tintColor;
+
 @end

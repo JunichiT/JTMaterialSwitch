@@ -29,9 +29,8 @@
   JTMaterialSwitch *jt2 = [[JTMaterialSwitch alloc] initWithFrame:frame2
                                                         withState:JTMaterialSwitchStateOff];
   jt2.delegate = self;
-  jt2.buttonOffTintColor = [UIColor blackColor];
-  jt2.buttonOnTintColor  = [UIColor orangeColor];
-  jt2.buttonSize = 2.0;
+  [jt2 setButtonOffTintColor:[UIColor blackColor]];
+  [jt2 setButtonOnTintColor:[UIColor orangeColor]];
   [self.view addSubview:jt2];
   
   self.labelJT2 = [[UILabel alloc] initWithFrame:CGRectMake(50, 300, 50, 50)];

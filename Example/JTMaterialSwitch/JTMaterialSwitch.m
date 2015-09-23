@@ -33,6 +33,9 @@
   float bouceOffset;
 }
 
+@synthesize buttonOffTintColor = _buttonOffTintColor;
+@synthesize buttonOnTintColor = _buttonOnTintColor;
+
 - (id)init {
   self = [super init];
   
@@ -209,6 +212,21 @@
 - (BOOL)getSwitchState
 {
   return self.isOn;
+}
+
+- (void)setButtonOffTintColor: (UIColor *)tintColor
+{
+  _buttonOffTintColor = tintColor;
+  [self.sliderButton setNeedsDisplay];
+  NSLog(@"( ･`д･´)");
+
+}
+
+- (void)setButtonOnTintColor: (UIColor *)tintColor
+{
+  _buttonOnTintColor = tintColor;
+  [self.sliderButton setNeedsDisplay];
+  NSLog(@"( ･`д･´)");
 }
 
 //The event handling method
