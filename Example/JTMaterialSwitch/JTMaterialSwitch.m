@@ -135,8 +135,8 @@
   
   UITapGestureRecognizer *singleTap =
   [[UITapGestureRecognizer alloc] initWithTarget:self
-                                          action:@selector(sliderTapped:)];
-  [self.slider addGestureRecognizer:singleTap];
+                                          action:@selector(switchAreaTapped:)];
+  [self addGestureRecognizer:singleTap];
   
   return self;
 }
@@ -187,8 +187,8 @@
   
   UITapGestureRecognizer *singleTap =
   [[UITapGestureRecognizer alloc] initWithTarget:self
-                                          action:@selector(sliderTapped:)];
-  [self.slider addGestureRecognizer:singleTap];
+                                          action:@selector(switchAreaTapped:)];
+  [self addGestureRecognizer:singleTap];
   
   return self;
 }
@@ -243,7 +243,7 @@
 }
 
 //The event handling method
-- (void)sliderTapped:(UITapGestureRecognizer *)recognizer
+- (void)switchAreaTapped:(UITapGestureRecognizer *)recognizer
 {
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {

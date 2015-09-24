@@ -36,7 +36,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JTMaterialSwitch/JTMaterialSwitch.m"
@@ -45,7 +45,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
             endingLineNumber = "247"
-            landmarkName = "-sliderTapped:"
+            landmarkName = "-switchAreaTapped:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
