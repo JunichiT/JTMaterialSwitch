@@ -109,8 +109,8 @@
   
   [self addSubview:self.sliderButton];
   
-  buttonOnPosition = self.frame.size.width - self.sliderButton.frame.size.width + bouceOffset;
-  buttonOffPosition = self.sliderButton.frame.origin.x - bouceOffset;
+  buttonOnPosition = self.frame.size.width - self.sliderButton.frame.size.width/* + bouceOffset*/;
+  buttonOffPosition = self.sliderButton.frame.origin.x/* - bouceOffset*/;
   
   // Set button's initial position from state property
   switch (state) {
@@ -269,7 +269,7 @@
                      animations:^{
                        //アニメーションで変化させたい値を設定する(最終的に変更したい値)
                        CGRect buttonFrame = self.sliderButton.frame;
-                       buttonFrame.origin.x = buttonOffPosition;
+                       buttonFrame.origin.x = buttonOffPosition-bouceOffset;
                        self.sliderButton.frame = buttonFrame;
                        self.sliderButton.backgroundColor = self.buttonOffTintColor;
 //                       self.sliderButton.backgroundColor = [UIColor whiteColor];
@@ -284,7 +284,7 @@
                                         animations:^{
                                           // Bounce to the position
                                           CGRect buttonFrame = self.sliderButton.frame;
-                                          buttonFrame.origin.x = buttonOffPosition+bouceOffset;
+                                          buttonFrame.origin.x = buttonOffPosition;
                                           self.sliderButton.frame = buttonFrame;
                                         }];
                      }];
@@ -298,7 +298,7 @@
                      animations:^{
                        //アニメーションで変化させたい値を設定する(最終的に変更したい値)
                        CGRect buttonFrame = self.sliderButton.frame;
-                       buttonFrame.origin.x = buttonOnPosition;
+                       buttonFrame.origin.x = buttonOnPosition+bouceOffset;
                        self.sliderButton.frame = buttonFrame;
                        self.sliderButton.backgroundColor = self.buttonOnTintColor;
 //                       self.sliderButton.backgroundColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
@@ -313,7 +313,7 @@
                                         animations:^{
                                           // Bounce to the position
                                           CGRect buttonFrame = self.sliderButton.frame;
-                                          buttonFrame.origin.x = buttonOnPosition-bouceOffset;
+                                          buttonFrame.origin.x = buttonOnPosition;
                                           self.sliderButton.frame = buttonFrame;
                                         }];
                      }];

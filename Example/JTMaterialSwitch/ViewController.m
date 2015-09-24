@@ -39,17 +39,14 @@
   JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall WithState:JTMaterialSwitchStateOn];
   jt3.center = CGPointMake(200, 400);
   jt3.buttonOnTintColor = [UIColor greenColor];
-  jt3.backgroundColor = [UIColor lightGrayColor];
   [self.view addSubview:jt3];
   
   JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal WithState:JTMaterialSwitchStateOff];
   jt4.center = CGPointMake(200, 450);
-  jt4.backgroundColor = [UIColor lightGrayColor];
   [self.view addSubview:jt4];
   
   JTMaterialSwitch *jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig WithState:JTMaterialSwitchStateOn];
   jt5.center = CGPointMake(200, 500);
-  jt5.backgroundColor = [UIColor lightGrayColor];
   [self.view addSubview:jt5];
   
 }
