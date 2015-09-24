@@ -46,8 +46,11 @@
 - (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state {
   
   // initialize parameters
-  self.buttonOnTintColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
-  self.buttonOffTintColor = [UIColor whiteColor];
+  self.buttonOnTintColor  = [UIColor colorWithRed:52./255. green:109./255. blue:241./255. alpha:1.0];
+  self.buttonOffTintColor = [UIColor colorWithRed:249./255. green:249./255. blue:249./255. alpha:1.0];
+  self.sliderOnTintColor = [UIColor colorWithRed:143./255. green:179./255. blue:247./255. alpha:1.0];
+  self.sliderOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
+
   bouceOffset = 3.0f;
   
   CGRect frame;
@@ -58,25 +61,25 @@
   switch (size) {
     case JTMaterialSwitchSizeBig:
       frame = CGRectMake(0, 0, 60, 45);
-      self.sliderThickness = 15.0;
+      self.sliderThickness = 20.0;
       self.buttonSize = 30.0;
       break;
     
     case JTMaterialSwitchSizeNormal:
       frame = CGRectMake(0, 0, 40, 30);
-      self.sliderThickness = 10.0;
+      self.sliderThickness = 13.0;
       self.buttonSize = 20.0;
       break;
       
     case JTMaterialSwitchSizeSmall:
       frame = CGRectMake(0, 0, 30, 25);
-      self.sliderThickness = 7.5;
+      self.sliderThickness = 10;
       self.buttonSize = 15.0;
       break;
       
     default:
       frame = CGRectMake(0, 0, 40, 30);
-      self.sliderThickness = 10.0;
+      self.sliderThickness = 13.0;
       self.buttonSize = 20.0;
       break;
   }
@@ -101,8 +104,8 @@
   self.sliderButton = [[UIButton alloc] initWithFrame:buttonFrame];
   self.sliderButton.backgroundColor = [UIColor whiteColor];
   self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
-  self.sliderButton.layer.shadowOpacity = 1.0f;
-  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+  self.sliderButton.layer.shadowOpacity = 1.5;
+  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.5);
   self.sliderButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
   [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
   [self.sliderButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
@@ -198,9 +201,11 @@
   [super willMoveToSuperview:newSuperview];
   if(self.isOn == true) {
     self.sliderButton.backgroundColor = self.buttonOnTintColor;
+    self.slider.backgroundColor = self.sliderOnTintColor;
   }
   else {
     self.sliderButton.backgroundColor = self.buttonOffTintColor;
+    self.slider.backgroundColor = self.sliderOffTintColor;
   }
   
 }
@@ -273,7 +278,7 @@
                        self.sliderButton.frame = buttonFrame;
                        self.sliderButton.backgroundColor = self.buttonOffTintColor;
 //                       self.sliderButton.backgroundColor = [UIColor whiteColor];
-                       self.slider.backgroundColor = [UIColor lightGrayColor];
+                       self.slider.backgroundColor = self.sliderOffTintColor;
                      }
                      completion:^(BOOL finished){
                        // change state to false
@@ -301,6 +306,7 @@
                        buttonFrame.origin.x = buttonOnPosition+bouceOffset;
                        self.sliderButton.frame = buttonFrame;
                        self.sliderButton.backgroundColor = self.buttonOnTintColor;
+                       self.slider.backgroundColor = self.sliderOnTintColor;
 //                       self.sliderButton.backgroundColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
 //                       self.slider.backgroundColor = [UIColor colorWithRed:127./255. green:164./255. blue:255./255. alpha:1.0];
                      }

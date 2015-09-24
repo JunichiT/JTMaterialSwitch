@@ -11,7 +11,7 @@
 
 @interface ViewController : UIViewController<JTMaterialSwitchDelegate>
 
-@property (nonatomic, strong) UILabel *labelJT2;
+@property (nonatomic, strong) UILabel *statusLabel;
 
 @end
 

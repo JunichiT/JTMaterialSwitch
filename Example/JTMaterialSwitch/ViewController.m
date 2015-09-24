@@ -18,27 +18,12 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
   
-  CGRect frame = CGRectMake(100, 100, 50, 50);
-  JTMaterialSwitch *jt = [[JTMaterialSwitch alloc] initWithFrame:frame
-                                                       withState:JTMaterialSwitchStateOn];
-//  jt.backgroundColor = [UIColor darkGrayColor];
-  [self.view addSubview:jt];
-  jt.center = CGPointMake(230, 130);
-  
-  CGRect frame2 = CGRectMake(100, 300, 40, 40);
-  JTMaterialSwitch *jt2 = [[JTMaterialSwitch alloc] initWithFrame:frame2
-                                                        withState:JTMaterialSwitchStateOff];
-  jt2.delegate = self;
-  [jt2 setButtonOffTintColor:[UIColor blackColor]];
-  [jt2 setButtonOnTintColor:[UIColor orangeColor]];
-  [self.view addSubview:jt2];
-  
-  self.labelJT2 = [[UILabel alloc] initWithFrame:CGRectMake(50, 300, 50, 50)];
-  [self.view addSubview:self.labelJT2];
+  self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 400, 50, 50)];
+  [self.view addSubview:self.statusLabel];
   
   JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall WithState:JTMaterialSwitchStateOn];
   jt3.center = CGPointMake(200, 400);
-  jt3.buttonOnTintColor = [UIColor greenColor];
+  jt3.delegate = self;
   [self.view addSubview:jt3];
   
   JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal WithState:JTMaterialSwitchStateOff];
@@ -54,10 +39,10 @@
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState
 {
   if (currentState == JTMaterialSwitchStateOn) {
-    [self.labelJT2 setText:@"ON"];
+    [self.statusLabel setText:@"ON"];
   }
   else{
-    [self.labelJT2 setText:@"OFF"];
+    [self.statusLabel setText:@"OFF"];
   }
   
 }
