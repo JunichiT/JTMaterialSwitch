@@ -39,7 +39,6 @@
 
 - (id)init {
   self = [super init];
-  
   return self;
 }
 
@@ -223,6 +222,8 @@
   }
   
   [self changeButtonPosition];
+  
+  [self sendActionsForControlEvents:UIControlEventValueChanged];
 //  [self rippleEffect];
 
 }
@@ -262,13 +263,14 @@
   }
   
   [self changeButtonPosition];
+  [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)changeButtonPosition
 {
   if (self.isOn == true) {
     // switch movement animation
-    [UIView animateWithDuration:0.10f
+    [UIView animateWithDuration:0.15f
                           delay:0.05f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
@@ -285,7 +287,7 @@
                        self.isOn = false;
                        NSLog(@"now isOn: %d", self.isOn);
                        // Bouncing effect: Move button a bit, for better UX
-                       [UIView animateWithDuration:0.10f
+                       [UIView animateWithDuration:0.15f
                                         animations:^{
                                           // Bounce to the position
                                           CGRect buttonFrame = self.sliderButton.frame;
@@ -297,7 +299,7 @@
   
   else {
     // switch movement animation
-    [UIView animateWithDuration:0.10f
+    [UIView animateWithDuration:0.15f
                           delay:0.05f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
@@ -315,7 +317,7 @@
                        self.isOn = true;
                        NSLog(@"now isOn: %d", self.isOn);
                        // Bouncing effect: Move button a bit, for better UX
-                       [UIView animateWithDuration:0.10f
+                       [UIView animateWithDuration:0.15f
                                         animations:^{
                                           // Bounce to the position
                                           CGRect buttonFrame = self.sliderButton.frame;

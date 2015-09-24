@@ -53,7 +53,7 @@ typedef enum {
 
 @end
 
-@interface JTMaterialSwitch : UIView
+@interface JTMaterialSwitch : UIControl
 
 
 #pragma mark - Properties

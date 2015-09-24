@@ -24,6 +24,7 @@
   JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall WithState:JTMaterialSwitchStateOn];
   jt3.center = CGPointMake(200, 400);
   jt3.delegate = self;
+  [jt3 addTarget:self action:@selector(hoge) forControlEvents:UIControlEventValueChanged];
   [self.view addSubview:jt3];
   
   JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal WithState:JTMaterialSwitchStateOff];
@@ -34,6 +35,10 @@
   jt5.center = CGPointMake(200, 500);
   [self.view addSubview:jt5];
   
+}
+
+- (void)hoge{
+  NSLog(@"hoge(*´ڡ`●)");
 }
 
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState
