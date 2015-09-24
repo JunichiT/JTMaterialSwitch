@@ -38,6 +38,7 @@
   
   JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall WithState:JTMaterialSwitchStateOn];
   jt3.center = CGPointMake(200, 400);
+  jt3.buttonOnTintColor = [UIColor greenColor];
   [self.view addSubview:jt3];
   
   JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal WithState:JTMaterialSwitchStateOff];

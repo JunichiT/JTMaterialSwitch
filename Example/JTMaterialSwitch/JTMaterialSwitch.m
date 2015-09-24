@@ -26,6 +26,7 @@
 //  THE SOFTWARE.
 
 #import "JTMaterialSwitch.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation JTMaterialSwitch {
   float buttonOnPosition;
@@ -192,11 +193,22 @@
   return self;
 }
 
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+  [super willMoveToSuperview:newSuperview];
+  if(self.isOn == true) {
+    self.sliderButton.backgroundColor = self.buttonOnTintColor;
+  }
+  else {
+    self.sliderButton.backgroundColor = self.buttonOffTintColor;
+  }
+  
+}
+
 - (void)switchButtonTapped: (id)sender
 {
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
-    // sampleMethod2を呼び出す
     if (self.isOn == true) {
       [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
     }
@@ -206,6 +218,7 @@
   }
   
   [self changeButtonPosition];
+//  [self rippleEffect];
 
 }
 
@@ -250,8 +263,8 @@
 {
   if (self.isOn == true) {
     // switch movement animation
-    [UIView animateWithDuration:0.15f
-                          delay:0.1f
+    [UIView animateWithDuration:0.10f
+                          delay:0.05f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                        //アニメーションで変化させたい値を設定する(最終的に変更したい値)
@@ -267,7 +280,7 @@
                        self.isOn = false;
                        NSLog(@"now isOn: %d", self.isOn);
                        // Bouncing effect: Move button a bit, for better UX
-                       [UIView animateWithDuration:0.15f
+                       [UIView animateWithDuration:0.10f
                                         animations:^{
                                           // Bounce to the position
                                           CGRect buttonFrame = self.sliderButton.frame;
@@ -279,8 +292,8 @@
   
   else {
     // switch movement animation
-    [UIView animateWithDuration:0.15f
-                          delay:0.1f
+    [UIView animateWithDuration:0.10f
+                          delay:0.05f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                        //アニメーションで変化させたい値を設定する(最終的に変更したい値)
@@ -296,7 +309,7 @@
                        self.isOn = true;
                        NSLog(@"now isOn: %d", self.isOn);
                        // Bouncing effect: Move button a bit, for better UX
-                       [UIView animateWithDuration:0.15f
+                       [UIView animateWithDuration:0.10f
                                         animations:^{
                                           // Bounce to the position
                                           CGRect buttonFrame = self.sliderButton.frame;
@@ -322,7 +335,63 @@
 }
 
 // Touch circle effect
+- (void)rippleEffect
+{
+  if (true) {
+    UIColor *stroke = [UIColor colorWithWhite:0.8 alpha:0.3];
+    
+    CGRect pathFrame = CGRectMake(-CGRectGetMidX(self.sliderButton.bounds), -CGRectGetMidY(self.sliderButton.bounds), self.sliderButton.bounds.size.width, self.sliderButton.bounds.size.height);
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.frame.size.height/2];
+    
+    // accounts for left/right offset and contentOffset of scroll view
+    CGPoint shapePosition = [self convertPoint:self.center fromView:nil];
+    
+    CAShapeLayer *circleShape = [CAShapeLayer layer];
+    circleShape.path = path.CGPath;
+    circleShape.position = shapePosition;
+    circleShape.fillColor = [UIColor blueColor].CGColor;
+    circleShape.opacity = 0;
+    circleShape.strokeColor = stroke.CGColor;
+    circleShape.lineWidth = 0;
+    
+    [self.layer addSublayer:circleShape];
+    
+    
+    [CATransaction begin];
+    
+    //remove layer after animation completed
+    [CATransaction setCompletionBlock:^{
+      [circleShape removeFromSuperlayer];
+    }];
+    
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.5, 2.5, 1)];
+    
+    CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    alphaAnimation.fromValue = @1;
+    alphaAnimation.toValue = @0;
+    
+    CAAnimationGroup *animation = [CAAnimationGroup animation];
+    animation.animations = @[scaleAnimation, alphaAnimation];
+    animation.duration = 0.5f;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    [circleShape addAnimation:animation forKey:nil];
+    
+    [CATransaction commit];
+  }
+  
+  [UIView animateWithDuration:0.1 animations:^{
+    self.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.9].CGColor;
+  }completion:^(BOOL finished) {
+    [UIView animateWithDuration:0.2 animations:^{
+      self.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:0.9].CGColor;
+    }completion:^(BOOL finished) {
 
+    }];
+    
+  }];
+}
 
 
 @end
