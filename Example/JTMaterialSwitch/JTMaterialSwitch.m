@@ -355,21 +355,26 @@
 {
   [super setEnabled:enabled];
   
-  if (enabled == YES) {
-    if (self.isOn == true) {
-      self.sliderButton.backgroundColor = self.buttonOnTintColor;
-      self.slider.backgroundColor = self.sliderOnTintColor;
+  [UIView animateWithDuration:0.1 animations:^{
+    if (enabled == YES) {
+      if (self.isOn == true) {
+        self.sliderButton.backgroundColor = self.buttonOnTintColor;
+        self.slider.backgroundColor = self.sliderOnTintColor;
+      }
+      else {
+        self.sliderButton.backgroundColor = self.buttonOffTintColor;
+        self.slider.backgroundColor = self.sliderOffTintColor;
+      }
     }
+    // if disabled
     else {
-      self.sliderButton.backgroundColor = self.buttonOffTintColor;
-      self.slider.backgroundColor = self.sliderOffTintColor;
+      self.sliderButton.backgroundColor = [UIColor colorWithRed:174./255. green:174./255. blue:174./255. alpha:1.0];
+      self.slider.backgroundColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
     }
-  }
-  // if disabled
-  else {
-    self.sliderButton.backgroundColor = [UIColor colorWithRed:174./255. green:174./255. blue:174./255. alpha:1.0];
-    self.slider.backgroundColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
-  }
+  }completion:^(BOOL finished) {
+    
+  }];
+  
   
 }
 
