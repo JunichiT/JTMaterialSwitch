@@ -8,7 +8,9 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController (){
+  JTMaterialSwitch *jt5;
+}
 
 @end
 
@@ -31,7 +33,7 @@
   jt4.center = CGPointMake(200, 450);
   [self.view addSubview:jt4];
   
-  JTMaterialSwitch *jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig WithState:JTMaterialSwitchStateOn];
+  jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig WithState:JTMaterialSwitchStateOn];
   jt5.center = CGPointMake(200, 500);
   [self.view addSubview:jt5];
   
@@ -44,9 +46,11 @@
 {
   if (currentState == JTMaterialSwitchStateOn) {
     [self.statusLabel setText:@"ON"];
+    [jt5 setEnabled:YES];
   }
   else{
     [self.statusLabel setText:@"OFF"];
+    [jt5 setEnabled:NO];
   }
   
 }
