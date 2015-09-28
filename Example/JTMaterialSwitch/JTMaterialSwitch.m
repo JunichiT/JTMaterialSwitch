@@ -352,17 +352,31 @@
 }
 
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{
+//  UITouch *touch = [[event touchesForView:btn] anyObject];
+//  CGPoint prevPos = [touch previousLocationInView:btn];
+//  CGPoint pos = [touch locationInView:btn];
+//  float dX = pos.x-prevPos.x;
+//  
+//  if (btn.frame.origin.x >= buttonOffPosition && btn.frame.origin.x <= buttonOnPosition) {
+//    btn.center=CGPointMake(btn.center.x+dX, btn.center.y);
+//    NSLog(@"buttonOffPos: %f", buttonOffPosition);
+//    NSLog(@"btn.center.x+dX: %f", btn.center.x+dX);
+//    NSLog(@"buttonOnPos: %f", buttonOnPosition);
+//  }
   UITouch *touch = [[event touchesForView:btn] anyObject];
   CGPoint prevPos = [touch previousLocationInView:btn];
   CGPoint pos = [touch locationInView:btn];
   float dX = pos.x-prevPos.x;
   
-  if (btn.frame.origin.x >= buttonOffPosition && btn.frame.origin.x <= buttonOnPosition) {
-    btn.center=CGPointMake(btn.center.x+dX, btn.center.y);
-    NSLog(@"buttonOffPos: %f", buttonOffPosition);
-    NSLog(@"btn.center.x+dX: %f", btn.center.x+dX);
-    NSLog(@"buttonOnPos: %f", buttonOnPosition);
-  }
+  //Get the new origin after this motion
+  float newXOrigin = btn.frame.origin.x + dX;
+  //Make sure it's within your two bounds
+  newXOrigin = MIN(newXOrigin,buttonOnPosition);
+  newXOrigin = MAX(newXOrigin,buttonOffPosition);
+  //Now get the new dX value staying in bounds
+  dX = newXOrigin - btn.frame.origin.x;
+  
+  btn.center=CGPointMake(btn.center.x+dX, btn.center.y);
 }
 
 // Touch circle effect
