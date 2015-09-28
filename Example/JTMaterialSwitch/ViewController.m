@@ -38,7 +38,6 @@
 }
 
 - (void)hoge{
-  NSLog(@"hoge(*´ڡ`●)");
 }
 
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState

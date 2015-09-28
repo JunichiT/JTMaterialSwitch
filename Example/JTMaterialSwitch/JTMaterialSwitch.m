@@ -34,9 +34,6 @@
   float bouceOffset;
 }
 
-@synthesize buttonOffTintColor = _buttonOffTintColor;
-@synthesize buttonOnTintColor = _buttonOnTintColor;
-
 - (id)init {
   self = [super init];
   return self;
@@ -143,6 +140,40 @@
   return self;
 }
 
+//- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state WithStyle:(JTMaterialSwitchStyle)style {
+//  self = [self initWithSize:size WithState:state];
+//  
+//  // Determine switch size
+//  switch (style) {
+//    case JTMaterialSwitchSizeBig:
+//      frame = CGRectMake(0, 0, 60, 45);
+//      self.sliderThickness = 20.0;
+//      self.buttonSize = 30.0;
+//      break;
+//      
+//    case JTMaterialSwitchSizeNormal:
+//      frame = CGRectMake(0, 0, 40, 30);
+//      self.sliderThickness = 13.0;
+//      self.buttonSize = 20.0;
+//      break;
+//      
+//    case JTMaterialSwitchSizeSmall:
+//      frame = CGRectMake(0, 0, 30, 25);
+//      self.sliderThickness = 10;
+//      self.buttonSize = 15.0;
+//      break;
+//      
+//    default:
+//      frame = CGRectMake(0, 0, 40, 30);
+//      self.sliderThickness = 13.0;
+//      self.buttonSize = 20.0;
+//      break;
+//  }
+//  
+//  return self;
+//}
+
+
 - (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state {
   self = [super initWithFrame:frame];
   
@@ -209,6 +240,7 @@
   
 }
 
+
 - (void)switchButtonTapped: (id)sender
 {
   // Delegate method
@@ -224,28 +256,13 @@
   [self changeButtonPosition];
   
   [self sendActionsForControlEvents:UIControlEventValueChanged];
-//  [self rippleEffect];
+  [self rippleEffect];
 
 }
 
 - (BOOL)getSwitchState
 {
   return self.isOn;
-}
-
-- (void)setButtonOffTintColor: (UIColor *)tintColor
-{
-  _buttonOffTintColor = tintColor;
-  [self.sliderButton setNeedsDisplay];
-  NSLog(@"( ･`д･´)");
-
-}
-
-- (void)setButtonOnTintColor: (UIColor *)tintColor
-{
-  _buttonOnTintColor = tintColor;
-  [self.sliderButton setNeedsDisplay];
-  NSLog(@"( ･`д･´)");
 }
 
 //The event handling method
@@ -263,11 +280,15 @@
   }
   
   [self changeButtonPosition];
+  [self rippleEffect];
   [self sendActionsForControlEvents:UIControlEventValueChanged];
+  
+
 }
 
 - (void)changeButtonPosition
 {
+  NSLog(@"Button origin pos: %@", NSStringFromCGRect(self.sliderButton.frame));
   if (self.isOn == true) {
     // switch movement animation
     [UIView animateWithDuration:0.15f
@@ -286,6 +307,7 @@
                        // change state to false
                        self.isOn = false;
                        NSLog(@"now isOn: %d", self.isOn);
+                       NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
                        // Bouncing effect: Move button a bit, for better UX
                        [UIView animateWithDuration:0.15f
                                         animations:^{
@@ -316,6 +338,7 @@
                        // change state to true
                        self.isOn = true;
                        NSLog(@"now isOn: %d", self.isOn);
+                       NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
                        // Bouncing effect: Move button a bit, for better UX
                        [UIView animateWithDuration:0.15f
                                         animations:^{
@@ -346,27 +369,29 @@
 - (void)rippleEffect
 {
   if (true) {
-    UIColor *stroke = [UIColor colorWithWhite:0.8 alpha:0.3];
     
+//    CGRect pathFrame = CGRectMake(-CGRectGetMidX(self.sliderButton.bounds), -CGRectGetMidY(self.sliderButton.bounds), self.sliderButton.bounds.size.width, self.sliderButton.bounds.size.height);
+//    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius];
     CGRect pathFrame = CGRectMake(-CGRectGetMidX(self.sliderButton.bounds), -CGRectGetMidY(self.sliderButton.bounds), self.sliderButton.bounds.size.width, self.sliderButton.bounds.size.height);
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.frame.size.height/2];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius];
     
     // accounts for left/right offset and contentOffset of scroll view
-    CGPoint shapePosition = [self convertPoint:self.center fromView:nil];
+//    CGPoint shapePosition = [self.sliderButton convertPoint:self.center fromView:nil];
     
     CAShapeLayer *circleShape = [CAShapeLayer layer];
     circleShape.path = path.CGPath;
-    circleShape.position = shapePosition;
-    circleShape.fillColor = [UIColor blueColor].CGColor;
+//    circleShape.position = shapePosition;
+    circleShape.position = CGPointMake(self.sliderButton.center.x, self.sliderButton.center.y);
+//    circleShape.fillColor = [UIColor blueColor].CGColor;
     circleShape.opacity = 0;
-    circleShape.strokeColor = stroke.CGColor;
+    circleShape.strokeColor = [UIColor clearColor].CGColor;
+    circleShape.fillColor = [UIColor colorWithRed:211./255. green:211.255 blue:211.255 alpha:0.8].CGColor;
     circleShape.lineWidth = 0;
-    
-    [self.layer addSublayer:circleShape];
+    NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
+    [self.sliderButton.layer addSublayer:circleShape];
     
     
     [CATransaction begin];
-    
     //remove layer after animation completed
     [CATransaction setCompletionBlock:^{
       [circleShape removeFromSuperlayer];
@@ -382,23 +407,27 @@
     
     CAAnimationGroup *animation = [CAAnimationGroup animation];
     animation.animations = @[scaleAnimation, alphaAnimation];
-    animation.duration = 0.5f;
+    animation.duration = 0.4f;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     [circleShape addAnimation:animation forKey:nil];
     
     [CATransaction commit];
+    NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
   }
-  
-  [UIView animateWithDuration:0.1 animations:^{
-    self.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.9].CGColor;
-  }completion:^(BOOL finished) {
-    [UIView animateWithDuration:0.2 animations:^{
-      self.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:0.9].CGColor;
-    }completion:^(BOOL finished) {
 
-    }];
-    
-  }];
+//
+//  [UIView animateWithDuration:0.1 animations:^{
+//    self.sliderButton.alpha = 0.4;
+//    self.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.9].CGColor;
+//  }completion:^(BOOL finished) {
+//    [UIView animateWithDuration:0.2 animations:^{
+//      self.sliderButton.alpha = 1;
+//      self.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:0.9].CGColor;
+//    }completion:^(BOOL finished) {
+//      
+//    }];
+//    
+//  }];
 }
 
 
