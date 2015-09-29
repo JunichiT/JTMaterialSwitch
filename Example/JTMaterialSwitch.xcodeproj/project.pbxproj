@@ -506,6 +506,7 @@
 				44F6285C1B9C534A008E8EC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		44F6285D1B9C534A008E8EC2 /* Build configuration list for PBXNativeTarget "JTMaterialSwitchTests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +515,7 @@
 				44F6285F1B9C534A008E8EC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		44F628601B9C534A008E8EC2 /* Build configuration list for PBXNativeTarget "JTMaterialSwitchUITests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +524,7 @@
 				44F628621B9C534A008E8EC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

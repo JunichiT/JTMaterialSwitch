@@ -103,6 +103,7 @@
   self.sliderButton.layer.shadowOpacity = 1.5;
   self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.5);
   self.sliderButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+  [self.sliderButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
   [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
   [self.sliderButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
   
@@ -243,6 +244,7 @@
 
 - (void)switchButtonTapped: (id)sender
 {
+  NSLog(@"touch up inside");
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
     if (self.isOn == true) {
@@ -256,7 +258,7 @@
   [self changeButtonPosition];
   
   [self sendActionsForControlEvents:UIControlEventValueChanged];
-  [self rippleEffect];
+//  [self rippleEffect];
 
 }
 
@@ -280,7 +282,7 @@
   }
   
   [self changeButtonPosition];
-  [self rippleEffect];
+//  [self rippleEffect];
   [self sendActionsForControlEvents:UIControlEventValueChanged];
   
 
@@ -378,18 +380,58 @@
   
 }
 
+- (void)onTouchDown:(UIButton*)btn withEvent:(UIEvent*)event{
+  NSLog(@"touchDown called");
+  
+  float rippleScale = 2.0;
+  CGRect pathFrame = CGRectZero;
+  pathFrame.origin.x = -self.sliderButton.frame.size.width/(rippleScale * 2);
+  pathFrame.origin.y = -self.sliderButton.frame.size.height/(rippleScale * 2);
+  pathFrame.size.height = self.sliderButton.frame.size.height * rippleScale;
+  pathFrame.size.width = pathFrame.size.height;
+  NSLog(@"");
+  NSLog(@"Button State: %d", self.isOn);
+  NSLog(@"sliderButton pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+  
+  UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius*2];
+  
+  // accounts for left/right offset and contentOffset of scroll view
+  //    CGPoint shapePosition = [self.sliderButton convertPoint:self.center fromView:nil];
+  
+  CAShapeLayer *circleShape = [CAShapeLayer layer];
+  circleShape.path = path.CGPath;
+  circleShape.frame = pathFrame;
+  circleShape.opacity = .0;
+  circleShape.strokeColor = [UIColor clearColor].CGColor;
+  circleShape.fillColor = [UIColor colorWithRed:211./255. green:211.255 blue:211.255 alpha:.8].CGColor;
+  circleShape.lineWidth = 0;
+  NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
+  [self.sliderButton.layer insertSublayer:circleShape atIndex:1];
+//  [self.layer insertSublayer:circleShape below:self.sliderButton.layer];
+  
+  [CATransaction begin];
+  
+  CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+  scaleAnimation.fromValue = [NSNumber numberWithFloat:0.0];
+  scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
+  
+  CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+  alphaAnimation.fromValue = @0;
+  alphaAnimation.toValue = @1;
+  
+  CAAnimationGroup *animation = [CAAnimationGroup animation];
+  animation.animations = @[scaleAnimation, alphaAnimation];
+  animation.duration = 0.4f;
+  animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+  [circleShape addAnimation:animation forKey:nil];
+  
+  [CATransaction commit];
+  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
+  
+}
+
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{
-//  UITouch *touch = [[event touchesForView:btn] anyObject];
-//  CGPoint prevPos = [touch previousLocationInView:btn];
-//  CGPoint pos = [touch locationInView:btn];
-//  float dX = pos.x-prevPos.x;
-//  
-//  if (btn.frame.origin.x >= buttonOffPosition && btn.frame.origin.x <= buttonOnPosition) {
-//    btn.center=CGPointMake(btn.center.x+dX, btn.center.y);
-//    NSLog(@"buttonOffPos: %f", buttonOffPosition);
-//    NSLog(@"btn.center.x+dX: %f", btn.center.x+dX);
-//    NSLog(@"buttonOnPos: %f", buttonOnPosition);
-//  }
+
   UITouch *touch = [[event touchesForView:btn] anyObject];
   CGPoint prevPos = [touch previousLocationInView:btn];
   CGPoint pos = [touch locationInView:btn];
@@ -397,13 +439,24 @@
   
   //Get the new origin after this motion
   float newXOrigin = btn.frame.origin.x + dX;
-  //Make sure it's within your two bounds
-  newXOrigin = MIN(newXOrigin,buttonOnPosition);
-  newXOrigin = MAX(newXOrigin,buttonOffPosition);
-  //Now get the new dX value staying in bounds
-  dX = newXOrigin - btn.frame.origin.x;
   
-  btn.center=CGPointMake(btn.center.x+dX, btn.center.y);
+  if (newXOrigin > buttonOnPosition) {
+    NSLog(@"Needs to set button pos to ON");
+  }
+  
+  else if (newXOrigin < buttonOffPosition) {
+    NSLog(@"Needs to set button pos to Off");
+  }
+  else {
+    //Make sure it's within two bounds
+    newXOrigin = MIN(newXOrigin,buttonOnPosition);
+    newXOrigin = MAX(newXOrigin,buttonOffPosition);
+    //Now get the new dX value staying in bounds
+    dX = newXOrigin - btn.frame.origin.x;
+    
+    btn.center=CGPointMake(btn.center.x+dX, btn.center.y);
+    
+  }
 }
 
 // Touch circle effect
