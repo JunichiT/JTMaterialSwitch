@@ -35,7 +35,6 @@
   
   jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig WithState:JTMaterialSwitchStateOn];
   jt5.center = CGPointMake(200, 500);
-  jt5.backgroundColor = [UIColor brownColor];
   [self.view addSubview:jt5];
   
 }

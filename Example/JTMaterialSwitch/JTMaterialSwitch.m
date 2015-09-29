@@ -32,6 +32,7 @@
   float buttonOnPosition;
   float buttonOffPosition;
   float bouceOffset;
+  CAShapeLayer *circleShape;
 }
 
 - (id)init {
@@ -258,7 +259,6 @@
   [self changeButtonPosition];
   
   [self sendActionsForControlEvents:UIControlEventValueChanged];
-//  [self rippleEffect];
 
 }
 
@@ -282,7 +282,6 @@
   }
   
   [self changeButtonPosition];
-//  [self rippleEffect];
   [self sendActionsForControlEvents:UIControlEventValueChanged];
   
 
@@ -351,6 +350,31 @@
                                         }];
                      }];
   }
+
+  circleShape.opacity = .0;
+  [CATransaction begin];
+  
+  //remove layer after animation completed
+  [CATransaction setCompletionBlock:^{
+    [circleShape removeFromSuperlayer];
+  }];
+  
+  CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+  scaleAnimation.fromValue = [NSNumber numberWithFloat:0.5];
+  scaleAnimation.toValue = [NSNumber numberWithFloat:1.2];
+  
+  CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+  alphaAnimation.fromValue = @0.2;
+  alphaAnimation.toValue = @0;
+  
+  CAAnimationGroup *animation = [CAAnimationGroup animation];
+  animation.animations = @[scaleAnimation, alphaAnimation];
+  animation.duration = 0.6f;
+  animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+  [circleShape addAnimation:animation forKey:nil];
+  
+  [CATransaction commit];
+  
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -397,13 +421,13 @@
   
   // accounts for left/right offset and contentOffset of scroll view
   //    CGPoint shapePosition = [self.sliderButton convertPoint:self.center fromView:nil];
-  
-  CAShapeLayer *circleShape = [CAShapeLayer layer];
+  circleShape = [CAShapeLayer layer];
   circleShape.path = path.CGPath;
   circleShape.frame = pathFrame;
-  circleShape.opacity = .0;
+  circleShape.opacity = .2;
   circleShape.strokeColor = [UIColor clearColor].CGColor;
-  circleShape.fillColor = [UIColor colorWithRed:211./255. green:211.255 blue:211.255 alpha:.8].CGColor;
+//  circleShape.fillColor = [UIColor colorWithRed:211./255. green:211.255 blue:211.255 alpha:.8].CGColor;
+  circleShape.fillColor = [UIColor blueColor].CGColor;
   circleShape.lineWidth = 0;
   NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
   [self.sliderButton.layer insertSublayer:circleShape atIndex:1];
@@ -417,7 +441,7 @@
   
   CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
   alphaAnimation.fromValue = @0;
-  alphaAnimation.toValue = @1;
+  alphaAnimation.toValue = @0.2;
   
   CAAnimationGroup *animation = [CAAnimationGroup animation];
   animation.animations = @[scaleAnimation, alphaAnimation];
@@ -458,71 +482,5 @@
     
   }
 }
-
-// Touch circle effect
-- (void)rippleEffect
-{
-  if (true) {
-    
-//    CGRect pathFrame = CGRectMake(-CGRectGetMidX(self.sliderButton.bounds), -CGRectGetMidY(self.sliderButton.bounds), self.sliderButton.bounds.size.width, self.sliderButton.bounds.size.height);
-//    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius];
-    CGRect pathFrame = CGRectMake(-CGRectGetMidX(self.sliderButton.bounds), -CGRectGetMidY(self.sliderButton.bounds), self.sliderButton.bounds.size.width, self.sliderButton.bounds.size.height);
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius];
-    
-    // accounts for left/right offset and contentOffset of scroll view
-//    CGPoint shapePosition = [self.sliderButton convertPoint:self.center fromView:nil];
-    
-    CAShapeLayer *circleShape = [CAShapeLayer layer];
-    circleShape.path = path.CGPath;
-//    circleShape.position = shapePosition;
-    circleShape.position = CGPointMake(self.sliderButton.center.x, self.sliderButton.center.y);
-//    circleShape.fillColor = [UIColor blueColor].CGColor;
-    circleShape.opacity = 0;
-    circleShape.strokeColor = [UIColor clearColor].CGColor;
-    circleShape.fillColor = [UIColor colorWithRed:211./255. green:211.255 blue:211.255 alpha:0.8].CGColor;
-    circleShape.lineWidth = 0;
-    NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
-    [self.sliderButton.layer addSublayer:circleShape];
-    
-    
-    [CATransaction begin];
-    //remove layer after animation completed
-    [CATransaction setCompletionBlock:^{
-      [circleShape removeFromSuperlayer];
-    }];
-    
-    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
-    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.5, 2.5, 1)];
-    
-    CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    alphaAnimation.fromValue = @1;
-    alphaAnimation.toValue = @0;
-    
-    CAAnimationGroup *animation = [CAAnimationGroup animation];
-    animation.animations = @[scaleAnimation, alphaAnimation];
-    animation.duration = 0.4f;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    [circleShape addAnimation:animation forKey:nil];
-    
-    [CATransaction commit];
-    NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
-  }
-
-//
-//  [UIView animateWithDuration:0.1 animations:^{
-//    self.sliderButton.alpha = 0.4;
-//    self.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.9].CGColor;
-//  }completion:^(BOOL finished) {
-//    [UIView animateWithDuration:0.2 animations:^{
-//      self.sliderButton.alpha = 1;
-//      self.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:0.9].CGColor;
-//    }completion:^(BOOL finished) {
-//      
-//    }];
-//    
-//  }];
-}
-
 
 @end
