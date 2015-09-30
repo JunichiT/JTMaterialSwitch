@@ -69,12 +69,6 @@ typedef enum {
 /** A Boolean value whether the ripple animation effect is enabled or not */
 @property (nonatomic) BOOL isRippleEnabled;
 
-#pragma Size
-/** A CGFloat value to represent the slider thickness of this switch */
-@property (nonatomic) CGFloat sliderThickness;
-/** A CGFloat value to represent the switch button size(width and height) */
-@property (nonatomic) CGFloat buttonSize;
-
 #pragma Colour
 /** An UIColor property to represent the colour of the switch button when position is ON */
 @property (nonatomic, strong) UIColor *buttonOnTintColor;
@@ -99,22 +93,29 @@ typedef enum {
 
 #pragma mark - Initializer
 /**
- *  Initializes a JTMaterialSwitch with a initial switch position(on or off).
+ *  Initializes a JTMaterialSwitch with a initial switch state position and size.
  *
- *  @param frame A CGRect value for this view's frame
- *  @param state A JTMaterialSwitchState enum as this view's initial switch pos
+ *  @param size A JTMaterialSwitchSize enum as this view's size(big, normal, small)
+ *  @param state A JTMaterialSwitchState enum as this view's initial switch pos(ON/OFF)
  *
- *  @return A JTFadingInfoView with frame and initial position
+ *  @return A JTFadingInfoView with size and initial position
  */
-- (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state;
-
 - (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state;
 
+/**
+ *  Initializes a JTMaterialSwitch with a initial switch size, style and state.
+ *
+ *  @param size A JTMaterialSwitchSize enum as this view's size(big, normal, small)
+ *  @param state A JTMaterialSwitchStyle enum as this view's initial style
+ *  @param state A JTMaterialSwitchState enum as this view's initial switch pos(ON/OFF)
+ *
+ *  @return A JTFadingInfoView with size, style and initial position
+ */
 - (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state;
 
-  
+/**
+ *  Using init method is prohibited. Use above designated initializers instead.
+ */
 - (id)init __attribute__((unavailable("init is not available")));
-
-
 
 @end

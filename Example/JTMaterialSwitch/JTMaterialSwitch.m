@@ -28,6 +28,15 @@
 #import "JTMaterialSwitch.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface JTMaterialSwitch()
+#pragma Size
+/** A CGFloat value to represent the slider thickness of this switch */
+@property (nonatomic) CGFloat sliderThickness;
+/** A CGFloat value to represent the switch button size(width and height) */
+@property (nonatomic) CGFloat buttonSize;
+
+@end
+
 @implementation JTMaterialSwitch {
   float buttonOnPosition;
   float buttonOffPosition;
@@ -37,16 +46,17 @@
 }
 
 // init is prohibited for designated initializer
-- (id)init {
+- (id)init
+{
   [NSException raise:NSGenericException
-              format:@"Disabled. Use +[[%@ alloc] %@] instead",
+              format:@"Disabled to call init method. Use +[[%@ alloc] %@] instead",
    NSStringFromClass([self class]),
    NSStringFromSelector(@selector(initWithSize:WithState:))];
   return nil;
 }
 
-- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state {
-  
+- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state
+{
   // initialize parameters
   self.buttonOnTintColor  = [UIColor colorWithRed:52./255. green:109./255. blue:241./255. alpha:1.0];
   self.buttonOffTintColor = [UIColor colorWithRed:249./255. green:249./255. blue:249./255. alpha:1.0];
@@ -112,9 +122,9 @@
   self.sliderButton.backgroundColor = [UIColor whiteColor];
   self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
   self.sliderButton.layer.shadowOpacity = 0.5;
-  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.5);
+  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 2.0);
   self.sliderButton.layer.shadowColor = [UIColor blackColor].CGColor;
-  self.sliderButton.layer.shadowRadius = 5.0f;
+  self.sliderButton.layer.shadowRadius = 4.0f;
   [self.sliderButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
   [self.sliderButton addTarget:self action:@selector(onTouchUpOutside:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
   [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -154,7 +164,8 @@
   return self;
 }
 
-- (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state {
+- (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state
+{
   self = [self initWithSize:size WithState:state];
   buttonStyle = style;
   // Determine switch style from preset colour set
@@ -195,60 +206,6 @@
   return self;
 }
 
-
-- (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state {
-  self = [super initWithFrame:frame];
-  
-  // initialize parameters
-  self.buttonOnTintColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
-  self.buttonOffTintColor = [UIColor whiteColor];
-  self.sliderThickness = 10.0;
-  self.buttonSize = 20.0;
-  bounceOffset = 4.0f;
-  
-
-  CGRect sliderFrame = CGRectZero;
-  sliderFrame.size.height = self.sliderThickness;
-  sliderFrame.size.width = frame.size.width;
-  sliderFrame.origin.x = 0.0;
-  sliderFrame.origin.y = (frame.size.height-sliderFrame.size.height)/2;
-  
-  self.slider = [[UIView alloc] initWithFrame:sliderFrame];
-  self.slider.backgroundColor = [UIColor grayColor];
-  self.slider.layer.cornerRadius = MIN(self.slider.frame.size.height, self.slider.frame.size.width)/2;
-  self.isOn = false;
-  [self addSubview:self.slider];
-  
-  CGRect buttonFrame = CGRectZero;
-  buttonFrame.size.height = self.buttonSize;
-  buttonFrame.size.width = buttonFrame.size.height;
-  buttonFrame.origin.x = 0.0;
-  buttonFrame.origin.y = (frame.size.height-buttonFrame.size.height)/2;
-  
-  self.sliderButton = [[UIButton alloc] initWithFrame:buttonFrame];
-  self.sliderButton.backgroundColor = [UIColor whiteColor];
-  self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
-  self.sliderButton.layer.shadowOpacity = 0.5;
-  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.5);
-  self.sliderButton.layer.shadowColor = [UIColor blackColor].CGColor;
-  self.sliderButton.layer.shadowRadius = 5.0f;
-  [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-  [self.sliderButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
-
-  [self addSubview:self.sliderButton];
-  
-  
-  buttonOnPosition = self.frame.size.width - self.sliderButton.frame.size.width;
-  buttonOffPosition = self.sliderButton.frame.origin.x;
-  
-  UITapGestureRecognizer *singleTap =
-  [[UITapGestureRecognizer alloc] initWithTarget:self
-                                          action:@selector(switchAreaTapped:)];
-  [self addGestureRecognizer:singleTap];
-  
-  return self;
-}
-
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
   [super willMoveToSuperview:newSuperview];
@@ -271,7 +228,6 @@
   
 }
 
-
 - (void)switchButtonTapped: (id)sender
 {
   NSLog(@"touch up inside");
@@ -288,9 +244,7 @@
   }
   
   [self changeButtonPosition];
-  
   [self sendActionsForControlEvents:UIControlEventValueChanged];
-
 }
 
 - (BOOL)getSwitchState
@@ -314,8 +268,6 @@
   
   [self changeButtonPosition];
   [self sendActionsForControlEvents:UIControlEventValueChanged];
-  
-
 }
 
 - (void)changeButtonPosition
@@ -436,7 +388,7 @@
     [self createRippleShape];
   }
   
-  circleShape.opacity = .0;
+  circleShape.opacity = 0.0;
   [CATransaction begin];
   
   //remove layer after animation completed
@@ -486,11 +438,10 @@
   }completion:^(BOOL finished) {
     
   }];
-  
-  
 }
 
-- (void)onTouchDown:(UIButton*)btn withEvent:(UIEvent*)event{
+- (void)onTouchDown:(UIButton*)btn withEvent:(UIEvent*)event
+{
   NSLog(@"touchDown called");
   if (self.isRippleEnabled == YES) {
     [self createRippleShape];
@@ -514,10 +465,10 @@
   
   [CATransaction commit];
 //  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
-  
 }
 
-- (void)onTouchUpOutside:(UIButton*)btn withEvent:(UIEvent*)event{
+- (void)onTouchUpOutside:(UIButton*)btn withEvent:(UIEvent*)event
+{
   NSLog(@"Touch released at ouside");
   UITouch *touch = [[event touchesForView:btn] anyObject];
   CGPoint prevPos = [touch previousLocationInView:btn];
@@ -542,7 +493,8 @@
   }
 }
 
-- (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{
+- (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event
+{
   //This code can go awry if there is more than one finger on the screen, careful
   UITouch *touch = [[event touchesForView:btn] anyObject];
   CGPoint prevPos = [touch previousLocationInView:btn];

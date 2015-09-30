@@ -41,8 +41,8 @@
 //  jt4.isBounceEnabled = NO;
   [self.view addSubview:jt4];
   
-  jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig
-                                         style:JTMaterialSwitchStyleDark
+  jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
+                                         style:JTMaterialSwitchStyleDefault
                                          state:JTMaterialSwitchStateOn];
 
   jt5.center = CGPointMake(200, 400);
