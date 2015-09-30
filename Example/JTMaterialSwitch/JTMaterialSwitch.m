@@ -105,6 +105,7 @@
   self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.5);
   self.sliderButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
   [self.sliderButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
+  [self.sliderButton addTarget:self action:@selector(onTouchUpOutside:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
   [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
   [self.sliderButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
   
@@ -246,6 +247,8 @@
 - (void)switchButtonTapped: (id)sender
 {
   NSLog(@"touch up inside");
+  NSLog(@"Slider midPosX: %f", CGRectGetMidX(self.slider.frame));
+  NSLog(@"%@", NSStringFromCGRect(self.sliderButton.frame));
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
     if (self.isOn == true) {
@@ -291,72 +294,117 @@
 {
   NSLog(@"Button origin pos: %@", NSStringFromCGRect(self.sliderButton.frame));
   if (self.isOn == true) {
-    // switch movement animation
-    [UIView animateWithDuration:0.15f
-                          delay:0.05f
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                       //アニメーションで変化させたい値を設定する(最終的に変更したい値)
-                       CGRect buttonFrame = self.sliderButton.frame;
-                       buttonFrame.origin.x = buttonOffPosition-bouceOffset;
-                       self.sliderButton.frame = buttonFrame;
-                       self.sliderButton.backgroundColor = self.buttonOffTintColor;
-//                       self.sliderButton.backgroundColor = [UIColor whiteColor];
-                       self.slider.backgroundColor = self.sliderOffTintColor;
-                     }
-                     completion:^(BOOL finished){
-                       // change state to false
-                       self.isOn = false;
-                       NSLog(@"now isOn: %d", self.isOn);
-                       NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
-                       // Bouncing effect: Move button a bit, for better UX
-                       [UIView animateWithDuration:0.15f
-                                        animations:^{
-                                          // Bounce to the position
-                                          CGRect buttonFrame = self.sliderButton.frame;
-                                          buttonFrame.origin.x = buttonOffPosition;
-                                          self.sliderButton.frame = buttonFrame;
-                                        }];
-                     }];
+    [self changeButtonStateOFFwithAnimation];
   }
   
   else {
-    // switch movement animation
-    [UIView animateWithDuration:0.15f
-                          delay:0.05f
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                       //アニメーションで変化させたい値を設定する(最終的に変更したい値)
-                       CGRect buttonFrame = self.sliderButton.frame;
-                       buttonFrame.origin.x = buttonOnPosition+bouceOffset;
-                       self.sliderButton.frame = buttonFrame;
-                       self.sliderButton.backgroundColor = self.buttonOnTintColor;
-                       self.slider.backgroundColor = self.sliderOnTintColor;
-//                       self.sliderButton.backgroundColor = [UIColor colorWithRed:49./255. green:117./255. blue:193./255. alpha:1.0];
-//                       self.slider.backgroundColor = [UIColor colorWithRed:127./255. green:164./255. blue:255./255. alpha:1.0];
-                     }
-                     completion:^(BOOL finished){
-                       // change state to true
-                       self.isOn = true;
-                       NSLog(@"now isOn: %d", self.isOn);
-                       NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
-                       // Bouncing effect: Move button a bit, for better UX
-                       [UIView animateWithDuration:0.15f
-                                        animations:^{
-                                          // Bounce to the position
-                                          CGRect buttonFrame = self.sliderButton.frame;
-                                          buttonFrame.origin.x = buttonOnPosition;
-                                          self.sliderButton.frame = buttonFrame;
-                                        }];
-                     }];
+    [self changeButtonStateONwithAnimation];
   }
+  
+  [self removeRippleShape];
+}
 
+- (void)changeButtonStateONwithAnimation
+{
+  // switch movement animation
+  [UIView animateWithDuration:0.15f
+                        delay:0.05f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     //アニメーションで変化させたい値を設定する(最終的に変更したい値)
+                     CGRect buttonFrame = self.sliderButton.frame;
+                     buttonFrame.origin.x = buttonOnPosition+bouceOffset;
+                     self.sliderButton.frame = buttonFrame;
+                     self.sliderButton.backgroundColor = self.buttonOnTintColor;
+                     self.slider.backgroundColor = self.sliderOnTintColor;
+                   }
+                   completion:^(BOOL finished){
+                     // change state to true
+                     self.isOn = true;
+                     NSLog(@"now isOn: %d", self.isOn);
+                     NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+                     // Bouncing effect: Move button a bit, for better UX
+                     [UIView animateWithDuration:0.15f
+                                      animations:^{
+                                        // Bounce to the position
+                                        CGRect buttonFrame = self.sliderButton.frame;
+                                        buttonFrame.origin.x = buttonOnPosition;
+                                        self.sliderButton.frame = buttonFrame;
+                                      }];
+                   }];
+}
+
+- (void)changeButtonStateOFFwithAnimation
+{
+  // switch movement animation
+  [UIView animateWithDuration:0.15f
+                        delay:0.05f
+                      options:UIViewAnimationOptionCurveEaseInOut
+                   animations:^{
+                     //アニメーションで変化させたい値を設定する(最終的に変更したい値)
+                     CGRect buttonFrame = self.sliderButton.frame;
+                     buttonFrame.origin.x = buttonOffPosition-bouceOffset;
+                     self.sliderButton.frame = buttonFrame;
+                     self.sliderButton.backgroundColor = self.buttonOffTintColor;
+                     self.slider.backgroundColor = self.sliderOffTintColor;
+                   }
+                   completion:^(BOOL finished){
+                     // change state to false
+                     self.isOn = false;
+                     NSLog(@"now isOn: %d", self.isOn);
+                     NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+                     // Bouncing effect: Move button a bit, for better UX
+                     [UIView animateWithDuration:0.15f
+                                      animations:^{
+                                        // Bounce to the position
+                                        CGRect buttonFrame = self.sliderButton.frame;
+                                        buttonFrame.origin.x = buttonOffPosition;
+                                        self.sliderButton.frame = buttonFrame;
+                                      }];
+                   }];
+}
+
+- (void)createRippleShape
+{
+  float rippleScale = 2;
+  CGRect pathFrame = CGRectZero;
+  pathFrame.origin.x = -self.sliderButton.frame.size.width/(rippleScale * 2);
+  pathFrame.origin.y = -self.sliderButton.frame.size.height/(rippleScale * 2);
+  pathFrame.size.height = self.sliderButton.frame.size.height * rippleScale;
+  pathFrame.size.width = pathFrame.size.height;
+  //  NSLog(@"");
+  //  NSLog(@"Button State: %d", self.isOn);
+  //  NSLog(@"sliderButton pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+  
+  UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius*2];
+  
+  // accounts for left/right offset and contentOffset of scroll view
+  circleShape = [CAShapeLayer layer];
+  circleShape.path = path.CGPath;
+  circleShape.frame = pathFrame;
+  circleShape.opacity = .4;
+  circleShape.strokeColor = [UIColor clearColor].CGColor;
+  circleShape.fillColor = [UIColor blueColor].CGColor;
+  circleShape.lineWidth = 0;
+  //  NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
+  [self.sliderButton.layer insertSublayer:circleShape atIndex:1];
+  //  [self.layer insertSublayer:circleShape below:self.sliderButton.layer];
+}
+
+
+- (void)removeRippleShape
+{
+  if ( circleShape == nil) {
+    [self createRippleShape];
+  }
+  
   circleShape.opacity = .0;
   [CATransaction begin];
   
   //remove layer after animation completed
   [CATransaction setCompletionBlock:^{
     [circleShape removeFromSuperlayer];
+    circleShape = nil;
   }];
   
   CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -364,17 +412,17 @@
   scaleAnimation.toValue = [NSNumber numberWithFloat:1.2];
   
   CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-  alphaAnimation.fromValue = @0.2;
+  alphaAnimation.fromValue = @0.4;
   alphaAnimation.toValue = @0;
   
   CAAnimationGroup *animation = [CAAnimationGroup animation];
   animation.animations = @[scaleAnimation, alphaAnimation];
-  animation.duration = 0.6f;
+  animation.duration = 0.4f;
   animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
   [circleShape addAnimation:animation forKey:nil];
   
   [CATransaction commit];
-  
+  NSLog(@"Ripple removed");
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -407,31 +455,7 @@
 - (void)onTouchDown:(UIButton*)btn withEvent:(UIEvent*)event{
   NSLog(@"touchDown called");
   
-  float rippleScale = 2.0;
-  CGRect pathFrame = CGRectZero;
-  pathFrame.origin.x = -self.sliderButton.frame.size.width/(rippleScale * 2);
-  pathFrame.origin.y = -self.sliderButton.frame.size.height/(rippleScale * 2);
-  pathFrame.size.height = self.sliderButton.frame.size.height * rippleScale;
-  pathFrame.size.width = pathFrame.size.height;
-  NSLog(@"");
-  NSLog(@"Button State: %d", self.isOn);
-  NSLog(@"sliderButton pos: %@", NSStringFromCGRect(self.sliderButton.frame));
-  
-  UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius*2];
-  
-  // accounts for left/right offset and contentOffset of scroll view
-  //    CGPoint shapePosition = [self.sliderButton convertPoint:self.center fromView:nil];
-  circleShape = [CAShapeLayer layer];
-  circleShape.path = path.CGPath;
-  circleShape.frame = pathFrame;
-  circleShape.opacity = .2;
-  circleShape.strokeColor = [UIColor clearColor].CGColor;
-//  circleShape.fillColor = [UIColor colorWithRed:211./255. green:211.255 blue:211.255 alpha:.8].CGColor;
-  circleShape.fillColor = [UIColor blueColor].CGColor;
-  circleShape.lineWidth = 0;
-  NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
-  [self.sliderButton.layer insertSublayer:circleShape atIndex:1];
-//  [self.layer insertSublayer:circleShape below:self.sliderButton.layer];
+  [self createRippleShape];
   
   [CATransaction begin];
   
@@ -441,7 +465,7 @@
   
   CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
   alphaAnimation.fromValue = @0;
-  alphaAnimation.toValue = @0.2;
+  alphaAnimation.toValue = @0.4;
   
   CAAnimationGroup *animation = [CAAnimationGroup animation];
   animation.animations = @[scaleAnimation, alphaAnimation];
@@ -450,8 +474,31 @@
   [circleShape addAnimation:animation forKey:nil];
   
   [CATransaction commit];
-  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
+//  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
   
+}
+
+- (void)onTouchUpOutside:(UIButton*)btn withEvent:(UIEvent*)event{
+  NSLog(@"Touch released at ouside");
+  UITouch *touch = [[event touchesForView:btn] anyObject];
+  CGPoint prevPos = [touch previousLocationInView:btn];
+  CGPoint pos = [touch locationInView:btn];
+  float dX = pos.x-prevPos.x;
+  
+  //Get the new origin after this motion
+  float newXOrigin = btn.frame.origin.x + dX;
+  NSLog(@"Released tap X pos: %f", newXOrigin);
+  
+  if (newXOrigin >= self.slider.frame.size.width/2) {
+    NSLog(@"Button pos should be set *ON*");
+    [self changeButtonStateONwithAnimation];
+  }
+  else {
+    NSLog(@"Button pos should be set *OFF*");
+    [self changeButtonStateOFFwithAnimation];
+  }
+  
+  [self removeRippleShape];
 }
 
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{
@@ -465,11 +512,12 @@
   float newXOrigin = btn.frame.origin.x + dX;
   
   if (newXOrigin > buttonOnPosition) {
-    NSLog(@"Needs to set button pos to ON");
+//    NSLog(@"Needs to set button pos to ON");
+//    [self changeButtonPosition];
   }
-  
   else if (newXOrigin < buttonOffPosition) {
-    NSLog(@"Needs to set button pos to Off");
+//    NSLog(@"Needs to set button pos to Off");
+//    [self changeButtonPosition];
   }
   else {
     //Make sure it's within two bounds
