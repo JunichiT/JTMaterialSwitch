@@ -41,13 +41,17 @@
 //  jt4.isBounceEnabled = NO;
   [self.view addSubview:jt4];
   
-  jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
+  jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig
                                          style:JTMaterialSwitchStyleDefault
                                          state:JTMaterialSwitchStateOn];
 
   jt5.center = CGPointMake(200, 400);
   jt5.isBounceEnabled = NO;
   [self.view addSubview:jt5];
+  
+  UISwitch *uiswitch = [[UISwitch alloc] init];
+  uiswitch.center = CGPointMake(200, 350);
+  [self.view addSubview:uiswitch];
     
 }
 

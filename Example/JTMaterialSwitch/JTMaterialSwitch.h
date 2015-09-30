@@ -2,7 +2,7 @@
 //  JTMaterialSwitch.h
 //  JTMaterialSwitch
 //
-//  Created by Junichi Tsurukawa on 2015/07/29.
+//  Created by Junichi Tsurukawa on 2015/09/06.
 //
 //  The MIT License (MIT)
 //  Copyright (c) 2015 Junichi Tsurukawa. All rights reserved.

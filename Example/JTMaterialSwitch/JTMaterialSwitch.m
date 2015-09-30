@@ -2,7 +2,7 @@
 //  JTMaterialSwitch.m
 //  JTMaterialSwitch
 //
-//  Created by Junichi Tsurukawa on 2015/07/29.
+//  Created by Junichi Tsurukawa on 2015/09/06.
 //
 //  The MIT License (MIT)
 //  Copyright (c) 2015 Junichi Tsurukawa. All rights reserved.
@@ -77,21 +77,21 @@
   // Determine switch size
   switch (size) {
     case JTMaterialSwitchSizeBig:
-      frame = CGRectMake(0, 0, 60, 45);
-      self.sliderThickness = 20.0;
-      self.buttonSize = 30.0;
+      frame = CGRectMake(0, 0, 50, 40);
+      self.sliderThickness = 23.0;
+      self.buttonSize = 31.0;
       break;
     
     case JTMaterialSwitchSizeNormal:
       frame = CGRectMake(0, 0, 40, 30);
-      self.sliderThickness = 13.0;
-      self.buttonSize = 20.0;
+      self.sliderThickness = 17.0;
+      self.buttonSize = 24.0;
       break;
       
     case JTMaterialSwitchSizeSmall:
       frame = CGRectMake(0, 0, 30, 25);
-      self.sliderThickness = 10;
-      self.buttonSize = 15.0;
+      self.sliderThickness = 13.0;
+      self.buttonSize = 18.0;
       break;
       
     default:
@@ -122,7 +122,7 @@
   self.sliderButton.backgroundColor = [UIColor whiteColor];
   self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
   self.sliderButton.layer.shadowOpacity = 0.5;
-  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.0);
   self.sliderButton.layer.shadowColor = [UIColor blackColor].CGColor;
   self.sliderButton.layer.shadowRadius = 4.0f;
   [self.sliderButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
@@ -220,7 +220,7 @@
   }
   
   if (self.isBounceEnabled == YES) {
-    bounceOffset = 4.0f;
+    bounceOffset = 3.0f;
   }
   else {
     bounceOffset = 0.0f;
@@ -230,9 +230,9 @@
 
 - (void)switchButtonTapped: (id)sender
 {
-  NSLog(@"touch up inside");
-  NSLog(@"Slider midPosX: %f", CGRectGetMidX(self.slider.frame));
-  NSLog(@"%@", NSStringFromCGRect(self.sliderButton.frame));
+  // NSLog(@"touch up inside");
+  // NSLog(@"Slider midPosX: %f", CGRectGetMidX(self.slider.frame));
+  // NSLog(@"%@", NSStringFromCGRect(self.sliderButton.frame));
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
     if (self.isOn == true) {
@@ -272,11 +272,10 @@
 
 - (void)changeButtonPosition
 {
-  NSLog(@"Button origin pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+  // NSLog(@"Button origin pos: %@", NSStringFromCGRect(self.sliderButton.frame));
   if (self.isOn == true) {
     [self changeButtonStateOFFwithAnimation];
   }
-  
   else {
     [self changeButtonStateONwithAnimation];
   }
@@ -304,8 +303,8 @@
                    completion:^(BOOL finished){
                      // change state to true
                      self.isOn = true;
-                     NSLog(@"now isOn: %d", self.isOn);
-                     NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+                     // NSLog(@"now isOn: %d", self.isOn);
+                     // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
                      // Bouncing effect: Move button a bit, for better UX
                      [UIView animateWithDuration:0.15f
                                       animations:^{
@@ -338,8 +337,8 @@
                    completion:^(BOOL finished){
                      // change state to false
                      self.isOn = false;
-                     NSLog(@"now isOn: %d", self.isOn);
-                     NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+                     // NSLog(@"now isOn: %d", self.isOn);
+                     // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
                      // Bouncing effect: Move button a bit, for better UX
                      [UIView animateWithDuration:0.15f
                                       animations:^{
@@ -412,7 +411,7 @@
   [circleShape addAnimation:animation forKey:nil];
   
   [CATransaction commit];
-  NSLog(@"Ripple removed");
+  // NSLog(@"Ripple removed");
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -442,7 +441,7 @@
 
 - (void)onTouchDown:(UIButton*)btn withEvent:(UIEvent*)event
 {
-  NSLog(@"touchDown called");
+  // NSLog(@"touchDown called");
   if (self.isRippleEnabled == YES) {
     [self createRippleShape];
   }
@@ -469,7 +468,7 @@
 
 - (void)onTouchUpOutside:(UIButton*)btn withEvent:(UIEvent*)event
 {
-  NSLog(@"Touch released at ouside");
+  // NSLog(@"Touch released at ouside");
   UITouch *touch = [[event touchesForView:btn] anyObject];
   CGPoint prevPos = [touch previousLocationInView:btn];
   CGPoint pos = [touch locationInView:btn];
@@ -477,14 +476,14 @@
   
   //Get the new origin after this motion
   float newXOrigin = btn.frame.origin.x + dX;
-  NSLog(@"Released tap X pos: %f", newXOrigin);
+  // NSLog(@"Released tap X pos: %f", newXOrigin);
   
   if (newXOrigin >= self.slider.frame.size.width/2) {
-    NSLog(@"Button pos should be set *ON*");
+    // NSLog(@"Button pos should be set *ON*");
     [self changeButtonStateONwithAnimation];
   }
   else {
-    NSLog(@"Button pos should be set *OFF*");
+    // NSLog(@"Button pos should be set *OFF*");
     [self changeButtonStateOFFwithAnimation];
   }
   
