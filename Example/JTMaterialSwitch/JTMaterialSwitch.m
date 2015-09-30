@@ -31,13 +31,18 @@
 @implementation JTMaterialSwitch {
   float buttonOnPosition;
   float buttonOffPosition;
-  float bouceOffset;
+  float bounceOffset;
+  JTMaterialSwitchStyle buttonStyle;
   CAShapeLayer *circleShape;
 }
 
+// init is prohibited for designated initializer
 - (id)init {
-  self = [super init];
-  return self;
+  [NSException raise:NSGenericException
+              format:@"Disabled. Use +[[%@ alloc] %@] instead",
+   NSStringFromClass([self class]),
+   NSStringFromSelector(@selector(initWithSize:WithState:))];
+  return nil;
 }
 
 - (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state {
@@ -47,8 +52,13 @@
   self.buttonOffTintColor = [UIColor colorWithRed:249./255. green:249./255. blue:249./255. alpha:1.0];
   self.sliderOnTintColor = [UIColor colorWithRed:143./255. green:179./255. blue:247./255. alpha:1.0];
   self.sliderOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
+  self.buttonDisabledTintColor = [UIColor colorWithRed:174./255. green:174./255. blue:174./255. alpha:1.0];
+  self.sliderDisabledTintColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
+  self.isRaised = YES;
+  self.isRippleEnabled = YES;
+  self.isBounceEnabled = YES;
   self.rippleFillColor = [UIColor blueColor];
-  bouceOffset = 3.0f;
+  bounceOffset = 3.0f;
   
   CGRect frame;
   CGRect sliderFrame = CGRectZero;
@@ -101,9 +111,10 @@
   self.sliderButton = [[UIButton alloc] initWithFrame:buttonFrame];
   self.sliderButton.backgroundColor = [UIColor whiteColor];
   self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
-  self.sliderButton.layer.shadowOpacity = 1.5;
+  self.sliderButton.layer.shadowOpacity = 0.5;
   self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.5);
-  self.sliderButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+  self.sliderButton.layer.shadowColor = [UIColor blackColor].CGColor;
+  self.sliderButton.layer.shadowRadius = 5.0f;
   [self.sliderButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
   [self.sliderButton addTarget:self action:@selector(onTouchUpOutside:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
   [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -143,38 +154,46 @@
   return self;
 }
 
-//- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state WithStyle:(JTMaterialSwitchStyle)style {
-//  self = [self initWithSize:size WithState:state];
-//  
-//  // Determine switch size
-//  switch (style) {
-//    case JTMaterialSwitchSizeBig:
-//      frame = CGRectMake(0, 0, 60, 45);
-//      self.sliderThickness = 20.0;
-//      self.buttonSize = 30.0;
-//      break;
-//      
-//    case JTMaterialSwitchSizeNormal:
-//      frame = CGRectMake(0, 0, 40, 30);
-//      self.sliderThickness = 13.0;
-//      self.buttonSize = 20.0;
-//      break;
-//      
-//    case JTMaterialSwitchSizeSmall:
-//      frame = CGRectMake(0, 0, 30, 25);
-//      self.sliderThickness = 10;
-//      self.buttonSize = 15.0;
-//      break;
-//      
-//    default:
-//      frame = CGRectMake(0, 0, 40, 30);
-//      self.sliderThickness = 13.0;
-//      self.buttonSize = 20.0;
-//      break;
-//  }
-//  
-//  return self;
-//}
+- (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state {
+  self = [self initWithSize:size WithState:state];
+  buttonStyle = style;
+  // Determine switch style from preset colour set
+  // Light and Dark color styles come from Google's design guidelines
+  // https://www.google.com/design/spec/components/selection-controls.html
+  switch (style) {
+    case JTMaterialSwitchStyleLight:
+      self.buttonOnTintColor  = [UIColor colorWithRed:0./255. green:134./255. blue:117./255. alpha:1.0];
+      self.buttonOffTintColor = [UIColor colorWithRed:237./255. green:237./255. blue:237./255. alpha:1.0];
+      self.sliderOnTintColor = [UIColor colorWithRed:90./255. green:178./255. blue:169./255. alpha:1.0];
+      self.sliderOffTintColor = [UIColor colorWithRed:129./255. green:129./255. blue:129./255. alpha:1.0];
+      self.buttonDisabledTintColor = [UIColor colorWithRed:175./255. green:175./255. blue:175./255. alpha:1.0];
+      self.sliderDisabledTintColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
+      self.rippleFillColor = [UIColor grayColor];
+      break;
+      
+    case JTMaterialSwitchStyleDark:
+      self.buttonOnTintColor  = [UIColor colorWithRed:109./255. green:194./255. blue:184./255. alpha:1.0];
+      self.buttonOffTintColor = [UIColor colorWithRed:175./255. green:175./255. blue:175./255. alpha:1.0];
+      self.sliderOnTintColor = [UIColor colorWithRed:72./255. green:109./255. blue:105./255. alpha:1.0];
+      self.sliderOffTintColor = [UIColor colorWithRed:94./255. green:94./255. blue:94./255. alpha:1.0];
+      self.buttonDisabledTintColor = [UIColor colorWithRed:50./255. green:51./255. blue:50./255. alpha:1.0];
+      self.sliderDisabledTintColor = [UIColor colorWithRed:56./255. green:56./255. blue:56./255. alpha:1.0];
+      self.rippleFillColor = [UIColor grayColor];
+      break;
+      
+    default:
+      self.buttonOnTintColor  = [UIColor colorWithRed:52./255. green:109./255. blue:241./255. alpha:1.0];
+      self.buttonOffTintColor = [UIColor colorWithRed:249./255. green:249./255. blue:249./255. alpha:1.0];
+      self.sliderOnTintColor = [UIColor colorWithRed:143./255. green:179./255. blue:247./255. alpha:1.0];
+      self.sliderOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
+      self.buttonDisabledTintColor = [UIColor colorWithRed:174./255. green:174./255. blue:174./255. alpha:1.0];
+      self.sliderDisabledTintColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
+      self.rippleFillColor = [UIColor blueColor];
+      break;
+  }
+  
+  return self;
+}
 
 
 - (id)initWithFrame:(CGRect)frame withState:(JTMaterialSwitchState)state {
@@ -185,7 +204,7 @@
   self.buttonOffTintColor = [UIColor whiteColor];
   self.sliderThickness = 10.0;
   self.buttonSize = 20.0;
-  bouceOffset = 3.0f;
+  bounceOffset = 4.0f;
   
 
   CGRect sliderFrame = CGRectZero;
@@ -209,9 +228,10 @@
   self.sliderButton = [[UIButton alloc] initWithFrame:buttonFrame];
   self.sliderButton.backgroundColor = [UIColor whiteColor];
   self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
-  self.sliderButton.layer.shadowOpacity = 1.0f;
-  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-  self.sliderButton.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+  self.sliderButton.layer.shadowOpacity = 0.5;
+  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.5);
+  self.sliderButton.layer.shadowColor = [UIColor blackColor].CGColor;
+  self.sliderButton.layer.shadowRadius = 5.0f;
   [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
   [self.sliderButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
 
@@ -232,6 +252,7 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
   [super willMoveToSuperview:newSuperview];
+  
   if(self.isOn == true) {
     self.sliderButton.backgroundColor = self.buttonOnTintColor;
     self.slider.backgroundColor = self.sliderOnTintColor;
@@ -239,6 +260,13 @@
   else {
     self.sliderButton.backgroundColor = self.buttonOffTintColor;
     self.slider.backgroundColor = self.sliderOffTintColor;
+  }
+  
+  if (self.isBounceEnabled == YES) {
+    bounceOffset = 4.0f;
+  }
+  else {
+    bounceOffset = 0.0f;
   }
   
 }
@@ -301,7 +329,9 @@
     [self changeButtonStateONwithAnimation];
   }
   
-  [self removeRippleShape];
+  if (self.isRippleEnabled == YES) {
+    [self removeRippleShape];
+  }
 }
 
 - (void)changeButtonStateONwithAnimation
@@ -311,12 +341,13 @@
                         delay:0.05f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
-                     //アニメーションで変化させたい値を設定する(最終的に変更したい値)
+                     // animation which is to be
                      CGRect buttonFrame = self.sliderButton.frame;
-                     buttonFrame.origin.x = buttonOnPosition+bouceOffset;
+                     buttonFrame.origin.x = buttonOnPosition+bounceOffset;
                      self.sliderButton.frame = buttonFrame;
                      self.sliderButton.backgroundColor = self.buttonOnTintColor;
                      self.slider.backgroundColor = self.sliderOnTintColor;
+                     self.userInteractionEnabled = NO;
                    }
                    completion:^(BOOL finished){
                      // change state to true
@@ -330,6 +361,9 @@
                                         CGRect buttonFrame = self.sliderButton.frame;
                                         buttonFrame.origin.x = buttonOnPosition;
                                         self.sliderButton.frame = buttonFrame;
+                                      }
+                                      completion:^(BOOL finished){
+                                        self.userInteractionEnabled = YES;
                                       }];
                    }];
 }
@@ -343,10 +377,11 @@
                    animations:^{
                      //アニメーションで変化させたい値を設定する(最終的に変更したい値)
                      CGRect buttonFrame = self.sliderButton.frame;
-                     buttonFrame.origin.x = buttonOffPosition-bouceOffset;
+                     buttonFrame.origin.x = buttonOffPosition-bounceOffset;
                      self.sliderButton.frame = buttonFrame;
                      self.sliderButton.backgroundColor = self.buttonOffTintColor;
                      self.slider.backgroundColor = self.sliderOffTintColor;
+                     self.userInteractionEnabled = NO;
                    }
                    completion:^(BOOL finished){
                      // change state to false
@@ -360,6 +395,9 @@
                                         CGRect buttonFrame = self.sliderButton.frame;
                                         buttonFrame.origin.x = buttonOffPosition;
                                         self.sliderButton.frame = buttonFrame;
+                                      }
+                                      completion:^(BOOL finished){
+                                        self.userInteractionEnabled = YES;
                                       }];
                    }];
 }
@@ -442,8 +480,8 @@
     }
     // if disabled
     else {
-      self.sliderButton.backgroundColor = [UIColor colorWithRed:174./255. green:174./255. blue:174./255. alpha:1.0];
-      self.slider.backgroundColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
+      self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+      self.slider.backgroundColor = self.sliderDisabledTintColor;
     }
   }completion:^(BOOL finished) {
     
@@ -454,8 +492,9 @@
 
 - (void)onTouchDown:(UIButton*)btn withEvent:(UIEvent*)event{
   NSLog(@"touchDown called");
-  
-  [self createRippleShape];
+  if (self.isRippleEnabled == YES) {
+    [self createRippleShape];
+  }
   
   [CATransaction begin];
   
@@ -498,7 +537,9 @@
     [self changeButtonStateOFFwithAnimation];
   }
   
-  [self removeRippleShape];
+  if (self.isRippleEnabled == YES) {
+    [self removeRippleShape];
+  }
 }
 
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{

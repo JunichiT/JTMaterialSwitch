@@ -29,8 +29,10 @@
 
 #pragma mark - Switch type
 typedef enum {
-  JTMaterialSwitchTypeDefault
-} JTMaterialSwitchType;
+  JTMaterialSwitchStyleLight,
+  JTMaterialSwitchStyleDark,
+  JTMaterialSwitchStyleDefault
+} JTMaterialSwitchStyle;
 
 #pragma mark - Initial state (on or off)
 typedef enum {
@@ -47,26 +49,25 @@ typedef enum {
 
 
 @protocol JTMaterialSwitchDelegate <NSObject>
-
 // Delegate method
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState;
-
 @end
 
 @interface JTMaterialSwitch : UIControl
-
 
 #pragma mark - Properties
 #pragma Delegate
 @property (nonatomic, assign) id<JTMaterialSwitchDelegate> delegate;
 
 #pragma State
-/** A Boolean value whether the switch is set ON */
+/** A Boolean value that represents switch's current state(ON/OFF) */
 @property (nonatomic) BOOL isOn;
 /** A Boolean value whether the shadow of this switch button is floating */
 @property (nonatomic) BOOL isRaised;
-/** A Boolean value whether the slider of this switch button has rounded corner */
-@property (nonatomic) BOOL isSliderRounded;
+/** A Boolean value whether the bounce animation effect is enabled when state change movement */
+@property (nonatomic) BOOL isBounceEnabled;
+/** A Boolean value whether the ripple animation effect is enabled or not */
+@property (nonatomic) BOOL isRippleEnabled;
 
 #pragma Size
 /** A CGFloat value to represent the slider thickness of this switch */
@@ -75,17 +76,25 @@ typedef enum {
 @property (nonatomic) CGFloat buttonSize;
 
 #pragma Colour
-/** A UIColor property to represent the colour of the switch button when position is ON */
+/** An UIColor property to represent the colour of the switch button when position is ON */
 @property (nonatomic, strong) UIColor *buttonOnTintColor;
-/** A UIColor property to represent the colour of the switch button when position is OFF */
+/** An UIColor property to represent the colour of the switch button when position is OFF */
 @property (nonatomic, strong) UIColor *buttonOffTintColor;
-
+/** An UIColor property to represent the colour of the slider when position is ON */
 @property (nonatomic, strong) UIColor *sliderOnTintColor;
+/** An UIColor property to represent the colour of the slider when position is OFF */
 @property (nonatomic, strong) UIColor *sliderOffTintColor;
-
+/** An UIColor property to represent the colour of the switch button when position is DISABLED */
+@property (nonatomic, strong) UIColor *buttonDisabledTintColor;
+/** An UIColor property to represent the colour of the slider when position is DISABLED */
+@property (nonatomic, strong) UIColor *sliderDisabledTintColor;
+/** An UIColor property to represent the fill colour of the ripple only when ripple effect is enabled */
 @property (nonatomic, strong) UIColor *rippleFillColor;
 
+#pragma UI components
+/** An UIButton object that represents current state(ON/OFF) */
 @property (nonatomic, strong) UIButton *sliderButton;
+/** An UIView object that represents the rail for the button */
 @property (nonatomic, strong) UIView *slider;
 
 #pragma mark - Initializer
@@ -101,7 +110,11 @@ typedef enum {
 
 - (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state;
 
-- (void)setButtonOnTintColor: (UIColor *)tintColor;
-- (void)setButtonOffTintColor: (UIColor *)tintColor;
+- (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state;
+
+  
+- (id)init __attribute__((unavailable("init is not available")));
+
+
 
 @end

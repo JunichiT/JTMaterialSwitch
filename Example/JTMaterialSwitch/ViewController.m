@@ -31,21 +31,24 @@
   jt3.sliderOnTintColor = [UIColor colorWithRed:143./255. green:179./255. blue:247./255. alpha:1.0];
   jt3.sliderOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
   jt3.rippleFillColor = [UIColor grayColor];
-  [jt3 addTarget:self action:@selector(hoge) forControlEvents:UIControlEventValueChanged];
   [self.view addSubview:jt3];
   
-  JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal WithState:JTMaterialSwitchStateOff];
+  JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
+                                                           style:JTMaterialSwitchStyleLight
+                                                           state:JTMaterialSwitchStateOn];
   jt4.center = CGPointMake(200, 250);
-  jt4.rippleFillColor = [UIColor orangeColor];
+  jt4.isRippleEnabled = YES;
+//  jt4.isBounceEnabled = NO;
   [self.view addSubview:jt4];
   
-  jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig WithState:JTMaterialSwitchStateOn];
-  jt5.center = CGPointMake(200, 400);
-  [self.view addSubview:jt5];
-  
-}
+  jt5 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeBig
+                                         style:JTMaterialSwitchStyleDark
+                                         state:JTMaterialSwitchStateOn];
 
-- (void)hoge{
+  jt5.center = CGPointMake(200, 400);
+  jt5.isBounceEnabled = NO;
+  [self.view addSubview:jt5];
+    
 }
 
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState
@@ -58,7 +61,6 @@
     [self.statusLabel setText:@"OFF"];
     [jt5 setEnabled:NO];
   }
-  
 }
 
 - (void)didReceiveMemoryWarning {
