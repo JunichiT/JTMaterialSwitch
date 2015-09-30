@@ -382,13 +382,13 @@
   circleShape = [CAShapeLayer layer];
   circleShape.path = path.CGPath;
   circleShape.frame = pathFrame;
-  circleShape.opacity = .4;
+  circleShape.opacity = 0.2;
   circleShape.strokeColor = [UIColor clearColor].CGColor;
   circleShape.fillColor = [UIColor blueColor].CGColor;
   circleShape.lineWidth = 0;
   //  NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
-  [self.sliderButton.layer insertSublayer:circleShape atIndex:1];
-  //  [self.layer insertSublayer:circleShape below:self.sliderButton.layer];
+  [self.sliderButton.layer insertSublayer:circleShape below:self.sliderButton.layer];
+//    [self.layer insertSublayer:circleShape above:self.sliderButton.layer];
 }
 
 
@@ -465,7 +465,7 @@
   
   CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
   alphaAnimation.fromValue = @0;
-  alphaAnimation.toValue = @0.4;
+  alphaAnimation.toValue = @0.2;
   
   CAAnimationGroup *animation = [CAAnimationGroup animation];
   animation.animations = @[scaleAnimation, alphaAnimation];
@@ -502,32 +502,23 @@
 }
 
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event{
-
+  //This code can go awry if there is more than one finger on the screen, careful
   UITouch *touch = [[event touchesForView:btn] anyObject];
   CGPoint prevPos = [touch previousLocationInView:btn];
   CGPoint pos = [touch locationInView:btn];
   float dX = pos.x-prevPos.x;
   
-  //Get the new origin after this motion
-  float newXOrigin = btn.frame.origin.x + dX;
+  //Get the original position of the button
+  CGRect buttonFrame = btn.frame;
   
-  if (newXOrigin > buttonOnPosition) {
-//    NSLog(@"Needs to set button pos to ON");
-//    [self changeButtonPosition];
-  }
-  else if (newXOrigin < buttonOffPosition) {
-//    NSLog(@"Needs to set button pos to Off");
-//    [self changeButtonPosition];
-  }
-  else {
-    //Make sure it's within two bounds
-    newXOrigin = MIN(newXOrigin,buttonOnPosition);
-    newXOrigin = MAX(newXOrigin,buttonOffPosition);
-    //Now get the new dX value staying in bounds
-    dX = newXOrigin - btn.frame.origin.x;
-    
-    btn.center=CGPointMake(btn.center.x+dX, btn.center.y);
-    
+  buttonFrame.origin.x += dX;
+  //Make sure it's within your two bounds
+  buttonFrame.origin.x = MIN(buttonFrame.origin.x,buttonOnPosition);
+  buttonFrame.origin.x = MAX(buttonFrame.origin.x,buttonOffPosition);
+  
+  //Set the button's new frame if we need to
+  if(buttonFrame.origin.x != btn.frame.origin.x) {
+    btn.frame = buttonFrame;
   }
 }
 
