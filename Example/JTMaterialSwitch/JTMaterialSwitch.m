@@ -47,7 +47,7 @@
   self.buttonOffTintColor = [UIColor colorWithRed:249./255. green:249./255. blue:249./255. alpha:1.0];
   self.sliderOnTintColor = [UIColor colorWithRed:143./255. green:179./255. blue:247./255. alpha:1.0];
   self.sliderOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
-
+  self.rippleFillColor = [UIColor blueColor];
   bouceOffset = 3.0f;
   
   CGRect frame;
@@ -384,7 +384,7 @@
   circleShape.frame = pathFrame;
   circleShape.opacity = 0.2;
   circleShape.strokeColor = [UIColor clearColor].CGColor;
-  circleShape.fillColor = [UIColor blueColor].CGColor;
+  circleShape.fillColor = self.rippleFillColor.CGColor;
   circleShape.lineWidth = 0;
   //  NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
   [self.sliderButton.layer insertSublayer:circleShape below:self.sliderButton.layer];

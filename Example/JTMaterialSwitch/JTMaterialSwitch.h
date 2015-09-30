@@ -83,6 +83,8 @@ typedef enum {
 @property (nonatomic, strong) UIColor *sliderOnTintColor;
 @property (nonatomic, strong) UIColor *sliderOffTintColor;
 
+@property (nonatomic, strong) UIColor *rippleFillColor;
+
 @property (nonatomic, strong) UIButton *sliderButton;
 @property (nonatomic, strong) UIView *slider;
 
