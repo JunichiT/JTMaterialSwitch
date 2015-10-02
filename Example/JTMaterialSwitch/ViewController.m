@@ -20,7 +20,7 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
   
-  self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 400, 50, 50)];
+  self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 400, 150, 50)];
   [self.view addSubview:self.statusLabel];
   
   JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall
@@ -47,8 +47,15 @@
   
   UISwitch *uiswitch = [[UISwitch alloc] init];
   uiswitch.center = CGPointMake(200, 350);
+  [jt5 addTarget:self action:@selector(change) forControlEvents:UIControlEventValueChanged];
   [self.view addSubview:uiswitch];
     
+}
+
+- (void)change
+{
+  NSString *msg = [NSString stringWithFormat:@"State changed: %d", jt5.isOn];
+  [self.statusLabel setText:msg];
 }
 
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState

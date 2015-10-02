@@ -228,25 +228,6 @@
   
 }
 
-- (void)switchButtonTapped: (id)sender
-{
-  // NSLog(@"touch up inside");
-  // NSLog(@"Slider midPosX: %f", CGRectGetMidX(self.slider.frame));
-  // NSLog(@"%@", NSStringFromCGRect(self.sliderButton.frame));
-  // Delegate method
-  if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
-    if (self.isOn == true) {
-      [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
-    }
-    else{
-      [self.delegate switchStateChanged:JTMaterialSwitchStateOn];
-    }
-  }
-  
-  [self changeButtonPosition];
-  [self sendActionsForControlEvents:UIControlEventValueChanged];
-}
-
 - (BOOL)getSwitchState
 {
   return self.isOn;
@@ -291,7 +272,7 @@
   }
   
   [self changeButtonPosition];
-  [self sendActionsForControlEvents:UIControlEventValueChanged];
+//  [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)changeButtonPosition
@@ -332,7 +313,11 @@
                    }
                    completion:^(BOOL finished){
                      // change state to true
-                     self.isOn = true;
+                     if (self.isOn == NO) {
+                       self.isOn = YES;
+                       [self sendActionsForControlEvents:UIControlEventValueChanged];
+                     }
+                     self.isOn = YES;
                      // NSLog(@"now isOn: %d", self.isOn);
                      // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
                      // Bouncing effect: Move button a bit, for better UX
@@ -372,6 +357,10 @@
                    }
                    completion:^(BOOL finished){
                      // change state to false
+                     if (self.isOn == YES) {
+                       self.isOn = false;
+                       [self sendActionsForControlEvents:UIControlEventValueChanged];
+                     }
                      self.isOn = false;
                      // NSLog(@"now isOn: %d", self.isOn);
                      // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
@@ -402,6 +391,11 @@
     self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
     self.slider.backgroundColor = self.sliderDisabledTintColor;
   }
+  
+  if (self.isOn == NO) {
+    self.isOn = true;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+  }
   self.isOn = true;
 }
 
@@ -417,6 +411,11 @@
   else {
     self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
     self.slider.backgroundColor = self.sliderDisabledTintColor;
+  }
+  
+  if (self.isOn == YES) {
+    self.isOn = false;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
   }
   self.isOn = false;
 }
@@ -532,6 +531,25 @@
 //  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
 }
 
+- (void)switchButtonTapped: (id)sender
+{
+  // NSLog(@"touch up inside");
+  // NSLog(@"Slider midPosX: %f", CGRectGetMidX(self.slider.frame));
+  // NSLog(@"%@", NSStringFromCGRect(self.sliderButton.frame));
+  // Delegate method
+  if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
+    if (self.isOn == true) {
+      [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
+    }
+    else{
+      [self.delegate switchStateChanged:JTMaterialSwitchStateOn];
+    }
+  }
+  
+  [self changeButtonPosition];
+  
+}
+
 - (void)onTouchUpOutside:(UIButton*)btn withEvent:(UIEvent*)event
 {
   // NSLog(@"Touch released at ouside");
@@ -542,14 +560,21 @@
   
   //Get the new origin after this motion
   float newXOrigin = btn.frame.origin.x + dX;
-  // NSLog(@"Released tap X pos: %f", newXOrigin);
+   NSLog(@"Released tap X pos: %f", newXOrigin);
+  NSLog(@"self.slider.frame.size.width: %f", (self.frame.size.width - self.sliderButton.frame.size.width)/2);
   
-  if (newXOrigin >= self.slider.frame.size.width/2) {
-    // NSLog(@"Button pos should be set *ON*");
+  if (newXOrigin > (self.frame.size.width - self.sliderButton.frame.size.width)/2) {
+     NSLog(@"Button pos should be set *ON*");
+//    if (self.isOn == NO) {
+//      [self sendActionsForControlEvents:UIControlEventValueChanged];
+//    }
     [self changeButtonStateONwithAnimation];
   }
   else {
-    // NSLog(@"Button pos should be set *OFF*");
+     NSLog(@"Button pos should be set *OFF*");
+//    if (self.isOn == YES) {
+//      [self sendActionsForControlEvents:UIControlEventValueChanged];
+//    }
     [self changeButtonStateOFFwithAnimation];
   }
   
