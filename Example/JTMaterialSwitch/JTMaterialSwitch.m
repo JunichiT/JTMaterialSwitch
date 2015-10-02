@@ -134,9 +134,11 @@
   self.switchButton.layer.shadowRadius = 2.0f;
   // Add events for user action
   [self.switchButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
-  [self.switchButton addTarget:self action:@selector(onTouchUpOutside:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
+  [self.switchButton addTarget:self action:@selector(onTouchUpOutsideOrCanceled:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
   [self.switchButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
   [self.switchButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+  [self.switchButton addTarget:self action:@selector(onTouchUpOutsideOrCanceled:withEvent:) forControlEvents:UIControlEventTouchCancel];
+
   
   [self addSubview:self.switchButton];
   
@@ -575,7 +577,7 @@
 }
 
 // Change button state when touchUPOutside action is detected
-- (void)onTouchUpOutside:(UIButton*)btn withEvent:(UIEvent*)event
+- (void)onTouchUpOutsideOrCanceled:(UIButton*)btn withEvent:(UIEvent*)event
 {
   // NSLog(@"Touch released at ouside");
   UITouch *touch = [[event touchesForView:btn] anyObject];
