@@ -29,6 +29,13 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface JTMaterialSwitch()
+
+#pragma PROHIBITED method
+/**
+ *  Using init method is prohibited. Use above designated initializers instead.
+ */
+- (id)init __attribute__((unavailable("init is not available")));
+
 #pragma Size
 /** A CGFloat value to represent the slider thickness of this switch */
 @property (nonatomic) CGFloat sliderThickness;
@@ -42,7 +49,7 @@
   float buttonOffPosition;
   float bounceOffset;
   JTMaterialSwitchStyle buttonStyle;
-  CAShapeLayer *circleShape;
+  CAShapeLayer *rippleLayer;
 }
 
 // init is prohibited for designated initializer
@@ -55,6 +62,7 @@
   return nil;
 }
 
+// Designated initializer
 - (id)initWithSize:(JTMaterialSwitchSize)size state:(JTMaterialSwitchState)state
 {
   // initialize parameters
@@ -64,7 +72,6 @@
   self.sliderOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
   self.buttonDisabledTintColor = [UIColor colorWithRed:174./255. green:174./255. blue:174./255. alpha:1.0];
   self.sliderDisabledTintColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
-  self.isRaised = YES;
   self.isRippleEnabled = YES;
   self.isBounceEnabled = YES;
   self.rippleFillColor = [UIColor blueColor];
@@ -118,41 +125,42 @@
   self.slider.layer.cornerRadius = MIN(self.slider.frame.size.height, self.slider.frame.size.width)/2;
   [self addSubview:self.slider];
   
-  self.sliderButton = [[UIButton alloc] initWithFrame:buttonFrame];
-  self.sliderButton.backgroundColor = [UIColor whiteColor];
-  self.sliderButton.layer.cornerRadius = self.sliderButton.frame.size.height/2;
-  self.sliderButton.layer.shadowOpacity = 0.5;
-  self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-  self.sliderButton.layer.shadowColor = [UIColor blackColor].CGColor;
-  self.sliderButton.layer.shadowRadius = 2.0f;
-  [self.sliderButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
-  [self.sliderButton addTarget:self action:@selector(onTouchUpOutside:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
-  [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-  [self.sliderButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+  self.switchButton = [[UIButton alloc] initWithFrame:buttonFrame];
+  self.switchButton.backgroundColor = [UIColor whiteColor];
+  self.switchButton.layer.cornerRadius = self.switchButton.frame.size.height/2;
+  self.switchButton.layer.shadowOpacity = 0.5;
+  self.switchButton.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+  self.switchButton.layer.shadowColor = [UIColor blackColor].CGColor;
+  self.switchButton.layer.shadowRadius = 2.0f;
+  // Add events for user action
+  [self.switchButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
+  [self.switchButton addTarget:self action:@selector(onTouchUpOutside:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
+  [self.switchButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+  [self.switchButton addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
   
-  [self addSubview:self.sliderButton];
+  [self addSubview:self.switchButton];
   
-  buttonOnPosition = self.frame.size.width - self.sliderButton.frame.size.width/* + bouceOffset*/;
-  buttonOffPosition = self.sliderButton.frame.origin.x/* - bouceOffset*/;
+  buttonOnPosition = self.frame.size.width - self.switchButton.frame.size.width;
+  buttonOffPosition = self.switchButton.frame.origin.x;
   
   // Set button's initial position from state property
   switch (state) {
     case JTMaterialSwitchStateOn:
-      self.isOn = true;
-      self.sliderButton.backgroundColor = self.buttonOnTintColor;
-      CGRect buttonFrame = self.sliderButton.frame;
+      self.isOn = YES;
+      self.switchButton.backgroundColor = self.buttonOnTintColor;
+      CGRect buttonFrame = self.switchButton.frame;
       buttonFrame.origin.x = buttonOnPosition;
-      self.sliderButton.frame = buttonFrame;
+      self.switchButton.frame = buttonFrame;
       break;
       
     case JTMaterialSwitchStateOff:
-      self.isOn = false;
-      self.sliderButton.backgroundColor = self.buttonOffTintColor;
+      self.isOn = NO;
+      self.switchButton.backgroundColor = self.buttonOffTintColor;
       break;
       
     default:
-      self.isOn = false;
-      self.sliderButton.backgroundColor = self.buttonOffTintColor;
+      self.isOn = NO;
+      self.switchButton.backgroundColor = self.buttonOffTintColor;
       break;
   }
   
@@ -164,6 +172,7 @@
   return self;
 }
 
+// Designated initializer with size, style and state
 - (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state
 {
   self = [self initWithSize:size state:state];
@@ -206,33 +215,37 @@
   return self;
 }
 
+// When addSubview is called
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
   [super willMoveToSuperview:newSuperview];
   
-  if(self.isOn == true) {
-    self.sliderButton.backgroundColor = self.buttonOnTintColor;
+  // Set colors for proper positions
+  if(self.isOn == YES) {
+    self.switchButton.backgroundColor = self.buttonOnTintColor;
     self.slider.backgroundColor = self.sliderOnTintColor;
   }
   else {
-    self.sliderButton.backgroundColor = self.buttonOffTintColor;
+    self.switchButton.backgroundColor = self.buttonOffTintColor;
     self.slider.backgroundColor = self.sliderOffTintColor;
   }
   
+  // Set bounce value, 3.0 if enabled and none for disabled
   if (self.isBounceEnabled == YES) {
     bounceOffset = 3.0f;
   }
   else {
     bounceOffset = 0.0f;
   }
-  
 }
 
+// Just returns current switch state,
 - (BOOL)getSwitchState
 {
   return self.isOn;
 }
 
+// Change switch state if necessary, with the animated option parameter
 - (void)setOn:(BOOL)on animated:(BOOL)animated
 {
   if (on == YES) {
@@ -257,13 +270,38 @@
   }
 }
 
+// Override setEnabled: function for changing color to the correct style
+- (void)setEnabled:(BOOL)enabled
+{
+  [super setEnabled:enabled];
+  
+  // Animation for better transfer, better UX
+  [UIView animateWithDuration:0.1 animations:^{
+    if (enabled == YES) {
+      if (self.isOn == YES) {
+        self.switchButton.backgroundColor = self.buttonOnTintColor;
+        self.slider.backgroundColor = self.sliderOnTintColor;
+      }
+      else {
+        self.switchButton.backgroundColor = self.buttonOffTintColor;
+        self.slider.backgroundColor = self.sliderOffTintColor;
+      }
+    }
+    // if disabled
+    else {
+      self.switchButton.backgroundColor = self.buttonDisabledTintColor;
+      self.slider.backgroundColor = self.sliderDisabledTintColor;
+    }
+  }];
+}
+
 //The event handling method
 - (void)switchAreaTapped:(UITapGestureRecognizer *)recognizer
 {
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
     // sampleMethod2を呼び出す
-    if (self.isOn == true) {
+    if (self.isOn == YES) {
       [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
     }
     else{
@@ -271,14 +309,13 @@
     }
   }
   
-  [self changeButtonPosition];
-//  [self sendActionsForControlEvents:UIControlEventValueChanged];
+  [self changeButtonState];
 }
 
-- (void)changeButtonPosition
+- (void)changeButtonState
 {
-  // NSLog(@"Button origin pos: %@", NSStringFromCGRect(self.sliderButton.frame));
-  if (self.isOn == true) {
+  // NSLog(@"Button origin pos: %@", NSStringFromCGRect(self.switchButton.frame));
+  if (self.isOn == YES) {
     [self changeButtonStateOFFwithAnimation];
   }
   else {
@@ -286,7 +323,7 @@
   }
   
   if (self.isRippleEnabled == YES) {
-    [self removeRippleShape];
+    [self animateRippleEffect];
   }
 }
 
@@ -297,36 +334,35 @@
                         delay:0.05f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
-                     // animation which is to be
-                     CGRect buttonFrame = self.sliderButton.frame;
+                     CGRect buttonFrame = self.switchButton.frame;
                      buttonFrame.origin.x = buttonOnPosition+bounceOffset;
-                     self.sliderButton.frame = buttonFrame;
+                     self.switchButton.frame = buttonFrame;
                      if (self.isEnabled == YES) {
-                       self.sliderButton.backgroundColor = self.buttonOnTintColor;
+                       self.switchButton.backgroundColor = self.buttonOnTintColor;
                        self.slider.backgroundColor = self.sliderOnTintColor;
                      }
                      else {
-                       self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+                       self.switchButton.backgroundColor = self.buttonDisabledTintColor;
                        self.slider.backgroundColor = self.sliderDisabledTintColor;
                      }
                      self.userInteractionEnabled = NO;
                    }
                    completion:^(BOOL finished){
-                     // change state to true
+                     // change state to ON
                      if (self.isOn == NO) {
-                       self.isOn = YES;
+                       self.isOn = YES; // Expressly put this code here to change surely and send action correctly
                        [self sendActionsForControlEvents:UIControlEventValueChanged];
                      }
                      self.isOn = YES;
                      // NSLog(@"now isOn: %d", self.isOn);
-                     // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+                     // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.switchButton.frame));
                      // Bouncing effect: Move button a bit, for better UX
                      [UIView animateWithDuration:0.15f
                                       animations:^{
                                         // Bounce to the position
-                                        CGRect buttonFrame = self.sliderButton.frame;
+                                        CGRect buttonFrame = self.switchButton.frame;
                                         buttonFrame.origin.x = buttonOnPosition;
-                                        self.sliderButton.frame = buttonFrame;
+                                        self.switchButton.frame = buttonFrame;
                                       }
                                       completion:^(BOOL finished){
                                         self.userInteractionEnabled = YES;
@@ -341,36 +377,35 @@
                         delay:0.05f
                       options:UIViewAnimationOptionCurveEaseInOut
                    animations:^{
-                     //アニメーションで変化させたい値を設定する(最終的に変更したい値)
-                     CGRect buttonFrame = self.sliderButton.frame;
+                     CGRect buttonFrame = self.switchButton.frame;
                      buttonFrame.origin.x = buttonOffPosition-bounceOffset;
-                     self.sliderButton.frame = buttonFrame;
+                     self.switchButton.frame = buttonFrame;
                      if (self.isEnabled == YES) {
-                       self.sliderButton.backgroundColor = self.buttonOffTintColor;
+                       self.switchButton.backgroundColor = self.buttonOffTintColor;
                        self.slider.backgroundColor = self.sliderOffTintColor;
                      }
                      else {
-                       self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+                       self.switchButton.backgroundColor = self.buttonDisabledTintColor;
                        self.slider.backgroundColor = self.sliderDisabledTintColor;
                      }
                      self.userInteractionEnabled = NO;
                    }
                    completion:^(BOOL finished){
-                     // change state to false
+                     // change state to OFF
                      if (self.isOn == YES) {
-                       self.isOn = false;
+                       self.isOn = NO; // Expressly put this code here to change surely and send action correctly
                        [self sendActionsForControlEvents:UIControlEventValueChanged];
                      }
-                     self.isOn = false;
+                     self.isOn = NO;
                      // NSLog(@"now isOn: %d", self.isOn);
-                     // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+                     // NSLog(@"Button end pos: %@", NSStringFromCGRect(self.switchButton.frame));
                      // Bouncing effect: Move button a bit, for better UX
                      [UIView animateWithDuration:0.15f
                                       animations:^{
                                         // Bounce to the position
-                                        CGRect buttonFrame = self.sliderButton.frame;
+                                        CGRect buttonFrame = self.switchButton.frame;
                                         buttonFrame.origin.x = buttonOffPosition;
-                                        self.sliderButton.frame = buttonFrame;
+                                        self.switchButton.frame = buttonFrame;
                                       }
                                       completion:^(BOOL finished){
                                         self.userInteractionEnabled = YES;
@@ -378,139 +413,127 @@
                    }];
 }
 
+// Without animation
 - (void)changeButtonStateONwithoutAnimation
 {
-  CGRect buttonFrame = self.sliderButton.frame;
+  CGRect buttonFrame = self.switchButton.frame;
   buttonFrame.origin.x = buttonOnPosition;
-  self.sliderButton.frame = buttonFrame;
+  self.switchButton.frame = buttonFrame;
   if (self.isEnabled == YES) {
-    self.sliderButton.backgroundColor = self.buttonOnTintColor;
+    self.switchButton.backgroundColor = self.buttonOnTintColor;
     self.slider.backgroundColor = self.sliderOnTintColor;
   }
   else {
-    self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+    self.switchButton.backgroundColor = self.buttonDisabledTintColor;
     self.slider.backgroundColor = self.sliderDisabledTintColor;
   }
   
   if (self.isOn == NO) {
-    self.isOn = true;
+    self.isOn = YES;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
   }
-  self.isOn = true;
+  self.isOn = YES;
 }
 
+// Without animation
 - (void)changeButtonStateOFFwithoutAnimation
 {
-  CGRect buttonFrame = self.sliderButton.frame;
+  CGRect buttonFrame = self.switchButton.frame;
   buttonFrame.origin.x = buttonOffPosition;
-  self.sliderButton.frame = buttonFrame;
+  self.switchButton.frame = buttonFrame;
   if (self.isEnabled == YES) {
-    self.sliderButton.backgroundColor = self.buttonOffTintColor;
+    self.switchButton.backgroundColor = self.buttonOffTintColor;
     self.slider.backgroundColor = self.sliderOffTintColor;
   }
   else {
-    self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+    self.switchButton.backgroundColor = self.buttonDisabledTintColor;
     self.slider.backgroundColor = self.sliderDisabledTintColor;
   }
   
   if (self.isOn == YES) {
-    self.isOn = false;
+    self.isOn = NO;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
   }
-  self.isOn = false;
+  self.isOn = NO;
 }
 
-- (void)createRippleShape
+// Initialize and appear ripple effect
+- (void)initializeRipple
 {
+  // Ripple size is twice as large as switch button
   float rippleScale = 2;
-  CGRect pathFrame = CGRectZero;
-  pathFrame.origin.x = -self.sliderButton.frame.size.width/(rippleScale * 2);
-  pathFrame.origin.y = -self.sliderButton.frame.size.height/(rippleScale * 2);
-  pathFrame.size.height = self.sliderButton.frame.size.height * rippleScale;
-  pathFrame.size.width = pathFrame.size.height;
+  CGRect rippleFrame = CGRectZero;
+  rippleFrame.origin.x = -self.switchButton.frame.size.width/(rippleScale * 2);
+  rippleFrame.origin.y = -self.switchButton.frame.size.height/(rippleScale * 2);
+  rippleFrame.size.height = self.switchButton.frame.size.height * rippleScale;
+  rippleFrame.size.width = rippleFrame.size.height;
   //  NSLog(@"");
   //  NSLog(@"Button State: %d", self.isOn);
-  //  NSLog(@"sliderButton pos: %@", NSStringFromCGRect(self.sliderButton.frame));
+  //  NSLog(@"switchButton pos: %@", NSStringFromCGRect(self.switchButton.frame));
   
-  UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:self.sliderButton.layer.cornerRadius*2];
-  
-  // accounts for left/right offset and contentOffset of scroll view
-  circleShape = [CAShapeLayer layer];
-  circleShape.path = path.CGPath;
-  circleShape.frame = pathFrame;
-  circleShape.opacity = 0.2;
-  circleShape.strokeColor = [UIColor clearColor].CGColor;
-  circleShape.fillColor = self.rippleFillColor.CGColor;
-  circleShape.lineWidth = 0;
+  UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rippleFrame cornerRadius:self.switchButton.layer.cornerRadius*2];
+
+  // Set ripple layer attributes
+  rippleLayer = [CAShapeLayer layer];
+  rippleLayer.path = path.CGPath;
+  rippleLayer.frame = rippleFrame;
+  rippleLayer.opacity = 0.2;
+  rippleLayer.strokeColor = [UIColor clearColor].CGColor;
+  rippleLayer.fillColor = self.rippleFillColor.CGColor;
+  rippleLayer.lineWidth = 0;
   //  NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
-  [self.sliderButton.layer insertSublayer:circleShape below:self.sliderButton.layer];
-//    [self.layer insertSublayer:circleShape above:self.sliderButton.layer];
+  [self.switchButton.layer insertSublayer:rippleLayer below:self.switchButton.layer];
+//    [self.layer insertSublayer:circleShape above:self.switchButton.layer];
 }
 
 
-- (void)removeRippleShape
+- (void)animateRippleEffect
 {
-  if ( circleShape == nil) {
-    [self createRippleShape];
+  // Create ripple layer
+  if ( rippleLayer == nil) {
+    [self initializeRipple];
   }
   
-  circleShape.opacity = 0.0;
+  // Animation begins from here
+  rippleLayer.opacity = 0.0;
   [CATransaction begin];
   
   //remove layer after animation completed
   [CATransaction setCompletionBlock:^{
-    [circleShape removeFromSuperlayer];
-    circleShape = nil;
+    [rippleLayer removeFromSuperlayer];
+    rippleLayer = nil;
   }];
   
+  // Scale ripple to the modelate size
   CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
   scaleAnimation.fromValue = [NSNumber numberWithFloat:0.5];
-  scaleAnimation.toValue = [NSNumber numberWithFloat:1.2];
+  scaleAnimation.toValue = [NSNumber numberWithFloat:1.25];
   
+  // Alpha animation for smooth disappearing
   CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
   alphaAnimation.fromValue = @0.4;
   alphaAnimation.toValue = @0;
   
+  // Do above animations at the same time with proper duration
   CAAnimationGroup *animation = [CAAnimationGroup animation];
   animation.animations = @[scaleAnimation, alphaAnimation];
   animation.duration = 0.4f;
   animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-  [circleShape addAnimation:animation forKey:nil];
+  [rippleLayer addAnimation:animation forKey:nil];
   
   [CATransaction commit];
+  // End of animation, then remove ripple layer
   // NSLog(@"Ripple removed");
-}
-
-- (void)setEnabled:(BOOL)enabled
-{
-  [super setEnabled:enabled];
-  
-  [UIView animateWithDuration:0.1 animations:^{
-    if (enabled == YES) {
-      if (self.isOn == true) {
-        self.sliderButton.backgroundColor = self.buttonOnTintColor;
-        self.slider.backgroundColor = self.sliderOnTintColor;
-      }
-      else {
-        self.sliderButton.backgroundColor = self.buttonOffTintColor;
-        self.slider.backgroundColor = self.sliderOffTintColor;
-      }
-    }
-    // if disabled
-    else {
-      self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
-      self.slider.backgroundColor = self.sliderDisabledTintColor;
-    }
-  }];
 }
 
 - (void)onTouchDown:(UIButton*)btn withEvent:(UIEvent*)event
 {
   // NSLog(@"touchDown called");
   if (self.isRippleEnabled == YES) {
-    [self createRippleShape];
+    [self initializeRipple];
   }
   
+  // Animate for appearing ripple circle when tap and hold the switch button
   [CATransaction begin];
   
   CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -521,24 +544,26 @@
   alphaAnimation.fromValue = @0;
   alphaAnimation.toValue = @0.2;
   
+  // Do above animations at the same time with proper duration
   CAAnimationGroup *animation = [CAAnimationGroup animation];
   animation.animations = @[scaleAnimation, alphaAnimation];
   animation.duration = 0.4f;
   animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-  [circleShape addAnimation:animation forKey:nil];
+  [rippleLayer addAnimation:animation forKey:nil];
   
   [CATransaction commit];
 //  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
 }
 
+// Change button state when touchUPInside action is detected
 - (void)switchButtonTapped: (id)sender
 {
   // NSLog(@"touch up inside");
   // NSLog(@"Slider midPosX: %f", CGRectGetMidX(self.slider.frame));
-  // NSLog(@"%@", NSStringFromCGRect(self.sliderButton.frame));
+  // NSLog(@"%@", NSStringFromCGRect(self.switchButton.frame));
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
-    if (self.isOn == true) {
+    if (self.isOn == YES) {
       [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
     }
     else{
@@ -546,10 +571,10 @@
     }
   }
   
-  [self changeButtonPosition];
-  
+  [self changeButtonState];
 }
 
+// Change button state when touchUPOutside action is detected
 - (void)onTouchUpOutside:(UIButton*)btn withEvent:(UIEvent*)event
 {
   // NSLog(@"Touch released at ouside");
@@ -560,32 +585,26 @@
   
   //Get the new origin after this motion
   float newXOrigin = btn.frame.origin.x + dX;
-   NSLog(@"Released tap X pos: %f", newXOrigin);
-  NSLog(@"self.slider.frame.size.width: %f", (self.frame.size.width - self.sliderButton.frame.size.width)/2);
+   //NSLog(@"Released tap X pos: %f", newXOrigin);
   
-  if (newXOrigin > (self.frame.size.width - self.sliderButton.frame.size.width)/2) {
-     NSLog(@"Button pos should be set *ON*");
-//    if (self.isOn == NO) {
-//      [self sendActionsForControlEvents:UIControlEventValueChanged];
-//    }
+  if (newXOrigin > (self.frame.size.width - self.switchButton.frame.size.width)/2) {
+     //NSLog(@"Button pos should be set *ON*");
     [self changeButtonStateONwithAnimation];
   }
   else {
-     NSLog(@"Button pos should be set *OFF*");
-//    if (self.isOn == YES) {
-//      [self sendActionsForControlEvents:UIControlEventValueChanged];
-//    }
+     //NSLog(@"Button pos should be set *OFF*");
     [self changeButtonStateOFFwithAnimation];
   }
   
   if (self.isRippleEnabled == YES) {
-    [self removeRippleShape];
+    [self animateRippleEffect];
   }
 }
 
+// Drag the switch button
 - (void)onTouchDragInside:(UIButton*)btn withEvent:(UIEvent*)event
 {
-  //This code can go awry if there is more than one finger on the screen, careful
+  //This code can go awry if there is more than one finger on the screen
   UITouch *touch = [[event touchesForView:btn] anyObject];
   CGPoint prevPos = [touch previousLocationInView:btn];
   CGPoint pos = [touch locationInView:btn];
@@ -595,11 +614,11 @@
   CGRect buttonFrame = btn.frame;
   
   buttonFrame.origin.x += dX;
-  //Make sure it's within your two bounds
+  //Make sure it's within two bounds
   buttonFrame.origin.x = MIN(buttonFrame.origin.x,buttonOnPosition);
   buttonFrame.origin.x = MAX(buttonFrame.origin.x,buttonOffPosition);
   
-  //Set the button's new frame if we need to
+  //Set the button's new frame if need to
   if(buttonFrame.origin.x != btn.frame.origin.x) {
     btn.frame = buttonFrame;
   }

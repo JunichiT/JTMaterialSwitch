@@ -60,10 +60,8 @@ typedef enum {
 @property (nonatomic, assign) id<JTMaterialSwitchDelegate> delegate;
 
 #pragma State
-/** A Boolean value that represents switch's current state(ON/OFF) */
+/** A Boolean value that represents switch's current state(ON/OFF). YES to ON, NO to OFF the switch */
 @property (nonatomic) BOOL isOn;
-/** A Boolean value whether the shadow of this switch button is floating */
-@property (nonatomic) BOOL isRaised;
 /** A Boolean value whether the bounce animation effect is enabled when state change movement */
 @property (nonatomic) BOOL isBounceEnabled;
 /** A Boolean value whether the ripple animation effect is enabled or not */
@@ -87,7 +85,7 @@ typedef enum {
 
 #pragma UI components
 /** An UIButton object that represents current state(ON/OFF) */
-@property (nonatomic, strong) UIButton *sliderButton;
+@property (nonatomic, strong) UIButton *switchButton;
 /** An UIView object that represents the rail for the button */
 @property (nonatomic, strong) UIView *slider;
 
@@ -113,12 +111,20 @@ typedef enum {
  */
 - (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state;
 
+#pragma setter/getter
 /**
- *  Using init method is prohibited. Use above designated initializers instead.
+ *  Initializes a JTMaterialSwitch with a initial switch size, style and state.
+ *
+ *  @return A boolean value. Yes if the current switch state is ON, NO if OFF.
  */
-- (id)init __attribute__((unavailable("init is not available")));
+- (BOOL)getSwitchState;
 
-
+/**
+ *  Set switch state with or without moving animation of switch button
+ *
+ *  @param on The switch state you want to set
+ *  @param animated Yes to set with animation, NO to do without.
+ */
 - (void)setOn:(BOOL)on animated:(BOOL)animated;
 
 @end
