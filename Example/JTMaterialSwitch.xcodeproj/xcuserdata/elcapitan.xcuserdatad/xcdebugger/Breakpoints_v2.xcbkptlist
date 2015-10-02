@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JTMaterialSwitch/JTMaterialSwitch.m"
-            timestampString = "465511540.861283"
+            timestampString = "465513714.38772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "582"
-            endingLineNumber = "582"
+            startingLineNumber = "585"
+            endingLineNumber = "585"
             landmarkName = "-onTouchUpOutsideOrCanceled:withEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JTMaterialSwitch/JTMaterialSwitch.m"
+            timestampString = "465513809.798163"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "-setEnabled:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -11,9 +11,10 @@
 #import "LightStyleCell.h"
 #import "DarkStyleCell.h"
 #import "CustomizedStyleCell.h"
-
-
-
+#import "SizeBehaviorsCell.h"
+#import "BounceBehaviorsCell.h"
+#import "RippleBehaviorsCell.h"
+#import "EnabledBehaviorsCell.h"
 
 @interface DemoViewController () {
   NSArray *sectionList;
@@ -31,7 +32,10 @@
   [self.tableView registerClass:[LightStyleCell class] forCellReuseIdentifier:@"Light"];
   [self.tableView registerClass:[DarkStyleCell class] forCellReuseIdentifier:@"Dark"];
   [self.tableView registerClass:[CustomizedStyleCell class] forCellReuseIdentifier:@"CustomizedStyle"];
-
+  [self.tableView registerClass:[SizeBehaviorsCell class] forCellReuseIdentifier:@"Size"];
+  [self.tableView registerClass:[BounceBehaviorsCell class] forCellReuseIdentifier:@"Bounce"];
+  [self.tableView registerClass:[RippleBehaviorsCell class] forCellReuseIdentifier:@"Ripple"];
+  [self.tableView registerClass:[EnabledBehaviorsCell class] forCellReuseIdentifier:@"Enabled"];
   
   
   // セクション名を設定する
@@ -42,7 +46,7 @@
   NSArray *sizes = [[NSArray alloc]initWithObjects: @"Size", nil];
   NSArray *bounce = [[NSArray alloc]initWithObjects: @"Bounce", nil];
   NSArray *ripple = [[NSArray alloc]initWithObjects: @"Ripple", nil];
-  NSArray *enabled = [[NSArray alloc]initWithObjects: @"Default", nil];
+  NSArray *enabled = [[NSArray alloc]initWithObjects: @"Enabled", nil];
   
   // セルの項目をまとめる
   NSArray *datas = [NSArray arrayWithObjects: styles, sizes, bounce, ripple, enabled, nil];
