@@ -100,7 +100,7 @@ typedef enum {
  *
  *  @return A JTFadingInfoView with size and initial position
  */
-- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state;
+- (id)initWithSize:(JTMaterialSwitchSize)size state:(JTMaterialSwitchState)state;
 
 /**
  *  Initializes a JTMaterialSwitch with a initial switch size, style and state.
@@ -117,5 +117,8 @@ typedef enum {
  *  Using init method is prohibited. Use above designated initializers instead.
  */
 - (id)init __attribute__((unavailable("init is not available")));
+
+
+- (void)setOn:(BOOL)on animated:(BOOL)animated;
 
 @end

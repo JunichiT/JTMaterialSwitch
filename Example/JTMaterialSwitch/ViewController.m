@@ -23,20 +23,16 @@
   self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 400, 50, 50)];
   [self.view addSubview:self.statusLabel];
   
-  JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall WithState:JTMaterialSwitchStateOn];
+  JTMaterialSwitch *jt3 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeSmall
+                                                       state:JTMaterialSwitchStateOn];
   jt3.center = CGPointMake(200, 100);
   jt3.delegate = self;
-  jt3.buttonOnTintColor  = [UIColor colorWithRed:52./255. green:109./255. blue:241./255. alpha:1.0];
-  jt3.buttonOffTintColor = [UIColor colorWithRed:249./255. green:249./255. blue:249./255. alpha:1.0];
-  jt3.sliderOnTintColor = [UIColor colorWithRed:143./255. green:179./255. blue:247./255. alpha:1.0];
-  jt3.sliderOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
-  jt3.rippleFillColor = [UIColor grayColor];
   [self.view addSubview:jt3];
   
   JTMaterialSwitch *jt4 = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                            style:JTMaterialSwitchStyleLight
                                                            state:JTMaterialSwitchStateOn];
-  jt4.center = CGPointMake(200, 250);
+  jt4.center = CGPointMake(200, 150);
   jt4.isRippleEnabled = YES;
 //  jt4.isBounceEnabled = NO;
   [self.view addSubview:jt4];
@@ -45,8 +41,8 @@
                                          style:JTMaterialSwitchStyleDefault
                                          state:JTMaterialSwitchStateOn];
 
-  jt5.center = CGPointMake(200, 400);
-  jt5.isBounceEnabled = NO;
+  jt5.center = CGPointMake(200, 200);
+  jt5.isBounceEnabled = YES;
   [self.view addSubview:jt5];
   
   UISwitch *uiswitch = [[UISwitch alloc] init];
@@ -60,10 +56,22 @@
   if (currentState == JTMaterialSwitchStateOn) {
     [self.statusLabel setText:@"ON"];
     [jt5 setEnabled:YES];
+    if (jt5.isOn == YES) {
+      [jt5 setOn:NO animated:YES];
+    }
+    else {
+      [jt5 setOn:YES animated:YES];
+    }
   }
   else{
     [self.statusLabel setText:@"OFF"];
     [jt5 setEnabled:NO];
+    if (jt5.isOn == YES) {
+      [jt5 setOn:NO animated:NO];
+    }
+    else {
+      [jt5 setOn:YES animated:NO];
+    }
   }
 }
 

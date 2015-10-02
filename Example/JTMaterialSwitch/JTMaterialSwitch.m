@@ -51,11 +51,11 @@
   [NSException raise:NSGenericException
               format:@"Disabled to call init method. Use +[[%@ alloc] %@] instead",
    NSStringFromClass([self class]),
-   NSStringFromSelector(@selector(initWithSize:WithState:))];
+   NSStringFromSelector(@selector(initWithSize:state:))];
   return nil;
 }
 
-- (id)initWithSize:(JTMaterialSwitchSize)size WithState:(JTMaterialSwitchState)state
+- (id)initWithSize:(JTMaterialSwitchSize)size state:(JTMaterialSwitchState)state
 {
   // initialize parameters
   self.buttonOnTintColor  = [UIColor colorWithRed:52./255. green:109./255. blue:241./255. alpha:1.0];
@@ -124,7 +124,7 @@
   self.sliderButton.layer.shadowOpacity = 0.5;
   self.sliderButton.layer.shadowOffset = CGSizeMake(0.0, 1.0);
   self.sliderButton.layer.shadowColor = [UIColor blackColor].CGColor;
-  self.sliderButton.layer.shadowRadius = 4.0f;
+  self.sliderButton.layer.shadowRadius = 2.0f;
   [self.sliderButton addTarget:self action:@selector(onTouchDown:withEvent:) forControlEvents:UIControlEventTouchDown];
   [self.sliderButton addTarget:self action:@selector(onTouchUpOutside:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
   [self.sliderButton addTarget:self action:@selector(switchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -166,7 +166,7 @@
 
 - (id)initWithSize:(JTMaterialSwitchSize)size style:(JTMaterialSwitchStyle)style state:(JTMaterialSwitchState)state
 {
-  self = [self initWithSize:size WithState:state];
+  self = [self initWithSize:size state:state];
   buttonStyle = style;
   // Determine switch style from preset colour set
   // Light and Dark color styles come from Google's design guidelines
@@ -252,6 +252,30 @@
   return self.isOn;
 }
 
+- (void)setOn:(BOOL)on animated:(BOOL)animated
+{
+  if (on == YES) {
+    if (animated == YES) {
+      // set on with animation
+      [self changeButtonStateONwithAnimation];
+    }
+    else {
+      // set on without animation
+      [self changeButtonStateONwithoutAnimation];
+    }
+  }
+  else {
+    if (animated == YES) {
+      // set off with animation
+      [self changeButtonStateOFFwithAnimation];
+    }
+    else {
+      // set off without animation
+      [self changeButtonStateOFFwithoutAnimation];
+    }
+  }
+}
+
 //The event handling method
 - (void)switchAreaTapped:(UITapGestureRecognizer *)recognizer
 {
@@ -296,8 +320,14 @@
                      CGRect buttonFrame = self.sliderButton.frame;
                      buttonFrame.origin.x = buttonOnPosition+bounceOffset;
                      self.sliderButton.frame = buttonFrame;
-                     self.sliderButton.backgroundColor = self.buttonOnTintColor;
-                     self.slider.backgroundColor = self.sliderOnTintColor;
+                     if (self.isEnabled == YES) {
+                       self.sliderButton.backgroundColor = self.buttonOnTintColor;
+                       self.slider.backgroundColor = self.sliderOnTintColor;
+                     }
+                     else {
+                       self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+                       self.slider.backgroundColor = self.sliderDisabledTintColor;
+                     }
                      self.userInteractionEnabled = NO;
                    }
                    completion:^(BOOL finished){
@@ -330,8 +360,14 @@
                      CGRect buttonFrame = self.sliderButton.frame;
                      buttonFrame.origin.x = buttonOffPosition-bounceOffset;
                      self.sliderButton.frame = buttonFrame;
-                     self.sliderButton.backgroundColor = self.buttonOffTintColor;
-                     self.slider.backgroundColor = self.sliderOffTintColor;
+                     if (self.isEnabled == YES) {
+                       self.sliderButton.backgroundColor = self.buttonOffTintColor;
+                       self.slider.backgroundColor = self.sliderOffTintColor;
+                     }
+                     else {
+                       self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+                       self.slider.backgroundColor = self.sliderDisabledTintColor;
+                     }
                      self.userInteractionEnabled = NO;
                    }
                    completion:^(BOOL finished){
@@ -351,6 +387,38 @@
                                         self.userInteractionEnabled = YES;
                                       }];
                    }];
+}
+
+- (void)changeButtonStateONwithoutAnimation
+{
+  CGRect buttonFrame = self.sliderButton.frame;
+  buttonFrame.origin.x = buttonOnPosition;
+  self.sliderButton.frame = buttonFrame;
+  if (self.isEnabled == YES) {
+    self.sliderButton.backgroundColor = self.buttonOnTintColor;
+    self.slider.backgroundColor = self.sliderOnTintColor;
+  }
+  else {
+    self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+    self.slider.backgroundColor = self.sliderDisabledTintColor;
+  }
+  self.isOn = true;
+}
+
+- (void)changeButtonStateOFFwithoutAnimation
+{
+  CGRect buttonFrame = self.sliderButton.frame;
+  buttonFrame.origin.x = buttonOffPosition;
+  self.sliderButton.frame = buttonFrame;
+  if (self.isEnabled == YES) {
+    self.sliderButton.backgroundColor = self.buttonOffTintColor;
+    self.slider.backgroundColor = self.sliderOffTintColor;
+  }
+  else {
+    self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
+    self.slider.backgroundColor = self.sliderDisabledTintColor;
+  }
+  self.isOn = false;
 }
 
 - (void)createRippleShape
@@ -434,8 +502,6 @@
       self.sliderButton.backgroundColor = self.buttonDisabledTintColor;
       self.slider.backgroundColor = self.sliderDisabledTintColor;
     }
-  }completion:^(BOOL finished) {
-    
   }];
 }
 
