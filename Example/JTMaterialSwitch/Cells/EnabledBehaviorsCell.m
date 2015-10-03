@@ -15,27 +15,33 @@
   
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   
+  CGRect screenFrame = [[UIScreen mainScreen] bounds];
+
   JTMaterialSwitch *jtSwitchEnabledOFF = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                          style:JTMaterialSwitchStyleLight
-                                                                         state:JTMaterialSwitchStateOn];
-  jtSwitchEnabledOFF.center = CGPointMake(self.contentView.frame.size.width/3, 30);
-  [jtSwitchEnabledOFF setEnabled:NO];
+                                                                         state:JTMaterialSwitchStateOff];
+  jtSwitchEnabledOFF.center = CGPointMake(screenFrame.size.width/3, 30);
+  [jtSwitchEnabledOFF setEnabled:false];
   [self.contentView addSubview:jtSwitchEnabledOFF];
   
   JTMaterialSwitch *jtSwitchEnabledON= [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                        style:JTMaterialSwitchStyleLight
                                                                        state:JTMaterialSwitchStateOn];
-  jtSwitchEnabledON.center = CGPointMake(self.contentView.frame.size.width*2/3, 30);
+  jtSwitchEnabledON.center = CGPointMake(screenFrame.size.width*2/3, 30);
   [jtSwitchEnabledON setEnabled:YES]; // default value
   [self.contentView addSubview:jtSwitchEnabledON];
   
   UILabel *labelEnabledOFF = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
-  labelEnabledOFF.center = CGPointMake(self.contentView.frame.size.width/3, 60);
+  labelEnabledOFF.center = CGPointMake(screenFrame.size.width/3, 60);
+  labelEnabledOFF.font = [UIFont fontWithName:@"Helvetica" size:13];
+  labelEnabledOFF.textAlignment = NSTextAlignmentCenter;
   [labelEnabledOFF setText:@"OFF"];
   [self.contentView addSubview:labelEnabledOFF];
   
   UILabel *labelEnabledON = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
-  labelEnabledON.center = CGPointMake(self.contentView.frame.size.width*2/3, 60);
+  labelEnabledON.center = CGPointMake(screenFrame.size.width*2/3, 60);
+  labelEnabledON.font = [UIFont fontWithName:@"Helvetica" size:13];
+  labelEnabledON.textAlignment = NSTextAlignmentCenter;
   [labelEnabledON setText:@"ON"];
   [self.contentView addSubview:labelEnabledON];
   

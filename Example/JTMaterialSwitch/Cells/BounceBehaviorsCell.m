@@ -15,27 +15,33 @@
   
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   
+  CGRect screenFrame = [[UIScreen mainScreen] bounds];
+
   JTMaterialSwitch *jtSwitchBounceOFF = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                      style:JTMaterialSwitchStyleLight
                                                                      state:JTMaterialSwitchStateOn];
-  jtSwitchBounceOFF.center = CGPointMake(self.contentView.frame.size.width/3, 30);
+  jtSwitchBounceOFF.center = CGPointMake(screenFrame.size.width/3, 35);
   jtSwitchBounceOFF.isBounceEnabled = NO;
   [self.contentView addSubview:jtSwitchBounceOFF];
   
   JTMaterialSwitch *jtSwitchBounceON= [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                       style:JTMaterialSwitchStyleLight
                                                                       state:JTMaterialSwitchStateOn];
-  jtSwitchBounceON.center = CGPointMake(self.contentView.frame.size.width*2/3, 30);
+  jtSwitchBounceON.center = CGPointMake(screenFrame.size.width*2/3, 35);
   jtSwitchBounceON.isBounceEnabled = YES; // default value
   [self.contentView addSubview:jtSwitchBounceON];
 
   UILabel *labelBounceOFF = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
-  labelBounceOFF.center = CGPointMake(self.contentView.frame.size.width/3, 60);
+  labelBounceOFF.center = CGPointMake(screenFrame.size.width/3, 70);
+  labelBounceOFF.font = [UIFont fontWithName:@"Helvetica" size:13];
+  labelBounceOFF.textAlignment = NSTextAlignmentCenter;
   [labelBounceOFF setText:@"OFF"];
   [self.contentView addSubview:labelBounceOFF];
   
   UILabel *labelBounceON = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
-  labelBounceON.center = CGPointMake(self.contentView.frame.size.width*2/3, 60);
+  labelBounceON.center = CGPointMake(screenFrame.size.width*2/3, 70);
+  labelBounceON.font = [UIFont fontWithName:@"Helvetica" size:13];
+  labelBounceON.textAlignment = NSTextAlignmentCenter;
   [labelBounceON setText:@"ON"];
   [self.contentView addSubview:labelBounceON];
   

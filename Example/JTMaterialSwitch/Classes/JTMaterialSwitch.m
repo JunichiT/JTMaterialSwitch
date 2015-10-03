@@ -275,6 +275,7 @@
 // Override setEnabled: function for changing color to the correct style
 - (void)setEnabled:(BOOL)enabled
 {
+  [super setEnabled:enabled];
   
   // Animation for better transfer, better UX
   [UIView animateWithDuration:0.1 animations:^{
@@ -293,11 +294,7 @@
       self.switchButton.backgroundColor = self.buttonDisabledTintColor;
       self.slider.backgroundColor = self.sliderDisabledTintColor;
     }
-  }
-   completion:^(BOOL finished) {
-     [self setNeedsDisplay];
-     [super setEnabled:enabled];
-   }];
+  }];
 }
 
 //The event handling method

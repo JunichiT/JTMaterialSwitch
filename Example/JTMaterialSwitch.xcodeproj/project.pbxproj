@@ -14,17 +14,16 @@
 		44BE60EA1BBF1FA8007A50EC /* DarkStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60E91BBF1FA8007A50EC /* DarkStyleCell.m */; settings = {ASSET_TAGS = (); }; };
 		44BE60ED1BBF2030007A50EC /* CustomizedStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60EC1BBF2030007A50EC /* CustomizedStyleCell.m */; settings = {ASSET_TAGS = (); }; };
 		44BE60F01BBF2603007A50EC /* SizeBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60EF1BBF2603007A50EC /* SizeBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60F31BBF27A6007A50EC /* BounceBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60F21BBF27A6007A50EC /* BounceBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
 		44BE60F61BBF2843007A50EC /* RippleBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60F51BBF2843007A50EC /* RippleBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
 		44BE60F91BBF28AF007A50EC /* EnabledBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60F81BBF28AF007A50EC /* EnabledBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
+		44BE60FD1BC077AB007A50EC /* JTMaterialSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60FC1BC077AB007A50EC /* JTMaterialSwitch.m */; settings = {ASSET_TAGS = (); }; };
+		44BE61001BC077D4007A50EC /* BounceBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60FF1BC077D4007A50EC /* BounceBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
 		44F628321B9C534A008E8EC2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628311B9C534A008E8EC2 /* main.m */; };
 		44F628351B9C534A008E8EC2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628341B9C534A008E8EC2 /* AppDelegate.m */; };
-		44F628381B9C534A008E8EC2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628371B9C534A008E8EC2 /* ViewController.m */; };
 		44F6283D1B9C534A008E8EC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44F6283C1B9C534A008E8EC2 /* Assets.xcassets */; };
 		44F628401B9C534A008E8EC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F6283E1B9C534A008E8EC2 /* LaunchScreen.storyboard */; };
 		44F6284B1B9C534A008E8EC2 /* JTMaterialSwitchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F6284A1B9C534A008E8EC2 /* JTMaterialSwitchTests.m */; };
 		44F628561B9C534A008E8EC2 /* JTMaterialSwitchUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628551B9C534A008E8EC2 /* JTMaterialSwitchUITests.m */; };
-		44F628651B9C5555008E8EC2 /* JTMaterialSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628641B9C5555008E8EC2 /* JTMaterialSwitch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,18 +57,18 @@
 		44BE60EC1BBF2030007A50EC /* CustomizedStyleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomizedStyleCell.m; path = Cells/CustomizedStyleCell.m; sourceTree = "<group>"; };
 		44BE60EE1BBF2603007A50EC /* SizeBehaviorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SizeBehaviorsCell.h; path = Cells/SizeBehaviorsCell.h; sourceTree = "<group>"; };
 		44BE60EF1BBF2603007A50EC /* SizeBehaviorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SizeBehaviorsCell.m; path = Cells/SizeBehaviorsCell.m; sourceTree = "<group>"; };
-		44BE60F11BBF27A6007A50EC /* BounceBehaviorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BounceBehaviorsCell.h; sourceTree = "<group>"; };
-		44BE60F21BBF27A6007A50EC /* BounceBehaviorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BounceBehaviorsCell.m; sourceTree = "<group>"; };
 		44BE60F41BBF2843007A50EC /* RippleBehaviorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RippleBehaviorsCell.h; path = Cells/RippleBehaviorsCell.h; sourceTree = "<group>"; };
 		44BE60F51BBF2843007A50EC /* RippleBehaviorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RippleBehaviorsCell.m; path = Cells/RippleBehaviorsCell.m; sourceTree = "<group>"; };
 		44BE60F71BBF28AF007A50EC /* EnabledBehaviorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnabledBehaviorsCell.h; path = Cells/EnabledBehaviorsCell.h; sourceTree = "<group>"; };
 		44BE60F81BBF28AF007A50EC /* EnabledBehaviorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EnabledBehaviorsCell.m; path = Cells/EnabledBehaviorsCell.m; sourceTree = "<group>"; };
+		44BE60FB1BC077AB007A50EC /* JTMaterialSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTMaterialSwitch.h; path = Classes/JTMaterialSwitch.h; sourceTree = "<group>"; };
+		44BE60FC1BC077AB007A50EC /* JTMaterialSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTMaterialSwitch.m; path = Classes/JTMaterialSwitch.m; sourceTree = "<group>"; };
+		44BE60FE1BC077D4007A50EC /* BounceBehaviorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BounceBehaviorsCell.h; path = Cells/BounceBehaviorsCell.h; sourceTree = "<group>"; };
+		44BE60FF1BC077D4007A50EC /* BounceBehaviorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BounceBehaviorsCell.m; path = Cells/BounceBehaviorsCell.m; sourceTree = "<group>"; };
 		44F6282D1B9C534A008E8EC2 /* JTMaterialSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JTMaterialSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F628311B9C534A008E8EC2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		44F628331B9C534A008E8EC2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		44F628341B9C534A008E8EC2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		44F628361B9C534A008E8EC2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		44F628371B9C534A008E8EC2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		44F6283C1B9C534A008E8EC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44F6283F1B9C534A008E8EC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44F628411B9C534A008E8EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,8 +78,6 @@
 		44F628511B9C534A008E8EC2 /* JTMaterialSwitchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JTMaterialSwitchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F628551B9C534A008E8EC2 /* JTMaterialSwitchUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTMaterialSwitchUITests.m; sourceTree = "<group>"; };
 		44F628571B9C534A008E8EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44F628631B9C5555008E8EC2 /* JTMaterialSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTMaterialSwitch.h; sourceTree = "<group>"; };
-		44F628641B9C5555008E8EC2 /* JTMaterialSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTMaterialSwitch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,17 +105,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		44BE60CA1BBEF7DC007A50EC /* Demo */ = {
-			isa = PBXGroup;
-			children = (
-				44BE60D51BBF09F6007A50EC /* Cells */,
-				44BE60D21BBEFE03007A50EC /* DemoViewController.xib */,
-				44BE60E11BBF1647007A50EC /* DemoViewController.h */,
-				44BE60E21BBF1647007A50EC /* DemoViewController.m */,
-			);
-			name = Demo;
-			sourceTree = "<group>";
-		};
 		44BE60D51BBF09F6007A50EC /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,14 +118,23 @@
 				44BE60EC1BBF2030007A50EC /* CustomizedStyleCell.m */,
 				44BE60EE1BBF2603007A50EC /* SizeBehaviorsCell.h */,
 				44BE60EF1BBF2603007A50EC /* SizeBehaviorsCell.m */,
-				44BE60F11BBF27A6007A50EC /* BounceBehaviorsCell.h */,
-				44BE60F21BBF27A6007A50EC /* BounceBehaviorsCell.m */,
+				44BE60FE1BC077D4007A50EC /* BounceBehaviorsCell.h */,
+				44BE60FF1BC077D4007A50EC /* BounceBehaviorsCell.m */,
 				44BE60F41BBF2843007A50EC /* RippleBehaviorsCell.h */,
 				44BE60F51BBF2843007A50EC /* RippleBehaviorsCell.m */,
 				44BE60F71BBF28AF007A50EC /* EnabledBehaviorsCell.h */,
 				44BE60F81BBF28AF007A50EC /* EnabledBehaviorsCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		44BE60FA1BC07732007A50EC /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				44BE60FB1BC077AB007A50EC /* JTMaterialSwitch.h */,
+				44BE60FC1BC077AB007A50EC /* JTMaterialSwitch.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		44F628241B9C534A008E8EC2 = {
@@ -165,17 +160,17 @@
 		44F6282F1B9C534A008E8EC2 /* JTMaterialSwitch */ = {
 			isa = PBXGroup;
 			children = (
-				44BE60CA1BBEF7DC007A50EC /* Demo */,
+				44BE60FA1BC07732007A50EC /* Classes */,
+				44BE60D51BBF09F6007A50EC /* Cells */,
+				44BE60D21BBEFE03007A50EC /* DemoViewController.xib */,
+				44BE60E11BBF1647007A50EC /* DemoViewController.h */,
+				44BE60E21BBF1647007A50EC /* DemoViewController.m */,
 				44F628331B9C534A008E8EC2 /* AppDelegate.h */,
 				44F628341B9C534A008E8EC2 /* AppDelegate.m */,
-				44F628361B9C534A008E8EC2 /* ViewController.h */,
-				44F628371B9C534A008E8EC2 /* ViewController.m */,
 				44F6283C1B9C534A008E8EC2 /* Assets.xcassets */,
 				44F6283E1B9C534A008E8EC2 /* LaunchScreen.storyboard */,
 				44F628411B9C534A008E8EC2 /* Info.plist */,
 				44F628301B9C534A008E8EC2 /* Supporting Files */,
-				44F628631B9C5555008E8EC2 /* JTMaterialSwitch.h */,
-				44F628641B9C5555008E8EC2 /* JTMaterialSwitch.m */,
 			);
 			path = JTMaterialSwitch;
 			sourceTree = "<group>";
@@ -336,19 +331,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44F628651B9C5555008E8EC2 /* JTMaterialSwitch.m in Sources */,
-				44F628381B9C534A008E8EC2 /* ViewController.m in Sources */,
 				44BE60F01BBF2603007A50EC /* SizeBehaviorsCell.m in Sources */,
 				44F628351B9C534A008E8EC2 /* AppDelegate.m in Sources */,
 				44F628321B9C534A008E8EC2 /* main.m in Sources */,
 				44BE60E31BBF1647007A50EC /* DemoViewController.m in Sources */,
+				44BE60FD1BC077AB007A50EC /* JTMaterialSwitch.m in Sources */,
 				44BE60EA1BBF1FA8007A50EC /* DarkStyleCell.m in Sources */,
-				44BE60F31BBF27A6007A50EC /* BounceBehaviorsCell.m in Sources */,
 				44BE60F91BBF28AF007A50EC /* EnabledBehaviorsCell.m in Sources */,
 				44BE60DC1BBF11C9007A50EC /* DefaultStyleCell.m in Sources */,
 				44BE60ED1BBF2030007A50EC /* CustomizedStyleCell.m in Sources */,
 				44BE60E61BBF1B91007A50EC /* LightStyleCell.m in Sources */,
 				44BE60F61BBF2843007A50EC /* RippleBehaviorsCell.m in Sources */,
+				44BE61001BC077D4007A50EC /* BounceBehaviorsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
