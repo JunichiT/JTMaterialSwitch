@@ -26,10 +26,10 @@
                                                                 state:JTMaterialSwitchStateOn];
   jtSwitch.center = CGPointMake(screenFrame.size.width*6/7, 45);
   // Custom behaviors to each component
-  jtSwitch.buttonOnTintColor  = [UIColor colorWithRed:237./255. green:159./255. blue:53./255. alpha:1.0];
-  jtSwitch.buttonOffTintColor = [UIColor colorWithRed:232./255. green:233./255. blue:232./255. alpha:1.0];
-  jtSwitch.sliderOnTintColor  = [UIColor colorWithRed:243./255. green:204./255. blue:146./255. alpha:1.0];
-  jtSwitch.sliderOffTintColor = [UIColor colorWithRed:164./255. green:164./255. blue:164./255. alpha:1.0];
+  jtSwitch.thumbOnTintColor  = [UIColor colorWithRed:237./255. green:159./255. blue:53./255. alpha:1.0];
+  jtSwitch.thumbOffTintColor = [UIColor colorWithRed:232./255. green:233./255. blue:232./255. alpha:1.0];
+  jtSwitch.trackOnTintColor  = [UIColor colorWithRed:243./255. green:204./255. blue:146./255. alpha:1.0];
+  jtSwitch.trackOffTintColor = [UIColor colorWithRed:164./255. green:164./255. blue:164./255. alpha:1.0];
   jtSwitch.rippleFillColor = [UIColor greenColor];
   [self.contentView addSubview:jtSwitch];
   

@@ -33,11 +33,11 @@
   [buttonDescriptionLabel setText:@"Thumb On: #007562  Off: #E8E9E8"];
   [self.contentView addSubview:buttonDescriptionLabel];
   
-  UILabel *sliderDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 60, screenFrame.size.width-60, 20)];
-  sliderDescriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
-  sliderDescriptionLabel.textColor = [UIColor grayColor];
-  [sliderDescriptionLabel setText:@"Track   On: #48A599  Off: #6E6E6E"];
-  [self.contentView addSubview:sliderDescriptionLabel];
+  UILabel *trackDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 60, screenFrame.size.width-60, 20)];
+  trackDescriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+  trackDescriptionLabel.textColor = [UIColor grayColor];
+  [trackDescriptionLabel setText:@"Track   On: #48A599  Off: #6E6E6E"];
+  [self.contentView addSubview:trackDescriptionLabel];
   
   return self;
 }

@@ -68,26 +68,26 @@ typedef enum {
 @property (nonatomic) BOOL isRippleEnabled;
 
 #pragma Colour
-/** An UIColor property to represent the colour of the switch button when position is ON */
-@property (nonatomic, strong) UIColor *buttonOnTintColor;
-/** An UIColor property to represent the colour of the switch button when position is OFF */
-@property (nonatomic, strong) UIColor *buttonOffTintColor;
-/** An UIColor property to represent the colour of the slider when position is ON */
-@property (nonatomic, strong) UIColor *sliderOnTintColor;
-/** An UIColor property to represent the colour of the slider when position is OFF */
-@property (nonatomic, strong) UIColor *sliderOffTintColor;
-/** An UIColor property to represent the colour of the switch button when position is DISABLED */
-@property (nonatomic, strong) UIColor *buttonDisabledTintColor;
-/** An UIColor property to represent the colour of the slider when position is DISABLED */
-@property (nonatomic, strong) UIColor *sliderDisabledTintColor;
+/** An UIColor property to represent the colour of the switch thumb when position is ON */
+@property (nonatomic, strong) UIColor *thumbOnTintColor;
+/** An UIColor property to represent the colour of the switch thumb when position is OFF */
+@property (nonatomic, strong) UIColor *thumbOffTintColor;
+/** An UIColor property to represent the colour of the track when position is ON */
+@property (nonatomic, strong) UIColor *trackOnTintColor;
+/** An UIColor property to represent the colour of the track when position is OFF */
+@property (nonatomic, strong) UIColor *trackOffTintColor;
+/** An UIColor property to represent the colour of the switch thumb when position is DISABLED */
+@property (nonatomic, strong) UIColor *thumbDisabledTintColor;
+/** An UIColor property to represent the colour of the track when position is DISABLED */
+@property (nonatomic, strong) UIColor *trackDisabledTintColor;
 /** An UIColor property to represent the fill colour of the ripple only when ripple effect is enabled */
 @property (nonatomic, strong) UIColor *rippleFillColor;
 
 #pragma UI components
 /** An UIButton object that represents current state(ON/OFF) */
-@property (nonatomic, strong) UIButton *switchButton;
-/** An UIView object that represents the rail for the button */
-@property (nonatomic, strong) UIView *slider;
+@property (nonatomic, strong) UIButton *switchThumb;
+/** An UIView object that represents the track for the thumb */
+@property (nonatomic, strong) UIView *track;
 
 #pragma mark - Initializer
 /**
@@ -131,7 +131,7 @@ typedef enum {
 - (BOOL)getSwitchState;
 
 /**
- *  Set switch state with or without moving animation of switch button
+ *  Set switch state with or without moving animation of switch thumb
  *
  *  @param on The switch state you want to set
  *  @param animated Yes to set with animation, NO to do without.

@@ -33,17 +33,17 @@
   jtSwitch.center = CGPointMake(screenFrame.size.width*6/7, 45);
   [self.contentView addSubview:jtSwitch];
   
-  UILabel *buttonDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 40, screenFrame.size.width-60, 20)];
-  buttonDescriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
-  buttonDescriptionLabel.textColor = [UIColor grayColor];
-  [buttonDescriptionLabel setText:@"Thumb On: #244DF2  Off: #F7F7F7"];
-  [self.contentView addSubview:buttonDescriptionLabel];
+  UILabel *thumbDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 40, screenFrame.size.width-60, 20)];
+  thumbDescriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+  thumbDescriptionLabel.textColor = [UIColor grayColor];
+  [thumbDescriptionLabel setText:@"Thumb On: #244DF2  Off: #F7F7F7"];
+  [self.contentView addSubview:thumbDescriptionLabel];
   
-  UILabel *sliderDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 60, screenFrame.size.width-60, 20)];
-  sliderDescriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
-  sliderDescriptionLabel.textColor = [UIColor grayColor];
-  [sliderDescriptionLabel setText:@"Track   On: #7C9FF8  Off: #B4B4B4"];
-  [self.contentView addSubview:sliderDescriptionLabel];
+  UILabel *trackDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 60, screenFrame.size.width-60, 20)];
+  trackDescriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+  trackDescriptionLabel.textColor = [UIColor grayColor];
+  [trackDescriptionLabel setText:@"Track   On: #7C9FF8  Off: #B4B4B4"];
+  [self.contentView addSubview:trackDescriptionLabel];
   
   return self;
 }
