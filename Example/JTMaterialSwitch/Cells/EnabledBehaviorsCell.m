@@ -29,7 +29,6 @@
                                                                        style:JTMaterialSwitchStyleLight
                                                                        state:JTMaterialSwitchStateOff];
   
-  [jtSwitchEnabledON addTarget:self action:@selector(changeState) forControlEvents:UIControlEventValueChanged];
   jtSwitchEnabledON.center = CGPointMake(screenFrame.size.width*2/3, 30);
   [self.contentView addSubview:jtSwitchEnabledON];
   [jtSwitchEnabledON setEnabled:YES]; // default value
