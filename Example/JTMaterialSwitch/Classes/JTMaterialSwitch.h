@@ -62,6 +62,8 @@ typedef enum {
 #pragma State
 /** A Boolean value that represents switch's current state(ON/OFF). YES to ON, NO to OFF the switch */
 @property (nonatomic) BOOL isOn;
+/** A Boolean value that represents switch's interaction mode. YES to ON, NO to OFF the switch */
+@property (nonatomic) BOOL isEnabled;
 /** A Boolean value whether the bounce animation effect is enabled when state change movement */
 @property (nonatomic) BOOL isBounceEnabled;
 /** A Boolean value whether the ripple animation effect is enabled or not */

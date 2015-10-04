@@ -66,6 +66,7 @@
   self.trackOffTintColor = [UIColor colorWithRed:193./255. green:193./255. blue:193./255. alpha:1.0];
   self.thumbDisabledTintColor = [UIColor colorWithRed:174./255. green:174./255. blue:174./255. alpha:1.0];
   self.trackDisabledTintColor = [UIColor colorWithRed:203./255. green:203./255. blue:203./255. alpha:1.0];
+  self.isEnabled = YES;
   self.isRippleEnabled = YES;
   self.isBounceEnabled = YES;
   self.rippleFillColor = [UIColor blueColor];
@@ -226,6 +227,11 @@
     self.track.backgroundColor = self.trackOffTintColor;
   }
   
+  if (self.isEnabled == NO) {
+    self.switchThumb.backgroundColor = self.thumbDisabledTintColor;
+    self.track.backgroundColor = self.trackDisabledTintColor;
+  }
+  
   // Set bounce value, 3.0 if enabled and none for disabled
   if (self.isBounceEnabled == YES) {
     bounceOffset = 3.0f;
@@ -282,11 +288,13 @@
         self.switchThumb.backgroundColor = self.thumbOffTintColor;
         self.track.backgroundColor = self.trackOffTintColor;
       }
+      self.isEnabled = YES;
     }
     // if disabled
     else {
       self.switchThumb.backgroundColor = self.thumbDisabledTintColor;
       self.track.backgroundColor = self.trackDisabledTintColor;
+      self.isEnabled = NO;
     }
   }];
 }
