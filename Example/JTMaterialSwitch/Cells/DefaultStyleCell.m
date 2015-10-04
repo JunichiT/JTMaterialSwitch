@@ -21,6 +21,12 @@
   [styleLabel setText:@"JTMaterialSwitchStyleDefault:"];
   [self.contentView addSubview:styleLabel];
   
+  /**
+   *  The following code is actually the same as the below initialization.
+   *
+   *  // The easiest way to use JTMaterialSwitch!
+   *  JTMaterialSwitch *jtSwitch = [[JTMaterialSwitch alloc] init];
+   */
   JTMaterialSwitch *jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                 style:JTMaterialSwitchStyleDefault
                                                                 state:JTMaterialSwitchStateOn];

@@ -91,6 +91,17 @@ typedef enum {
 
 #pragma mark - Initializer
 /**
+ *  Initializes a JTMaterialSwitch in the easiest way with default parameters.
+ *
+ *  @JTMaterialSwitchStyle: JTMaterialSwitchStyleDefault,
+ *  @JTMaterialSwitchState: JTMaterialSwitchStateOn,
+ *  @JTMaterialSwitchSize: JTMaterialSwitchSizeNormal
+ *
+ *  @return A JTFadingInfoView with above parameters
+ */
+- (id)init;
+
+/**
  *  Initializes a JTMaterialSwitch with a initial switch state position and size.
  *
  *  @param size A JTMaterialSwitchSize enum as this view's size(big, normal, small)

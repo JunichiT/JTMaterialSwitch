@@ -30,12 +30,6 @@
 
 @interface JTMaterialSwitch()
 
-#pragma PROHIBITED method
-/**
- *  Using init method is prohibited. Use above designated initializers instead.
- */
-- (id)init __attribute__((unavailable("init is not available")));
-
 #pragma Size
 /** A CGFloat value to represent the slider thickness of this switch */
 @property (nonatomic) CGFloat sliderThickness;
@@ -52,14 +46,14 @@
   CAShapeLayer *rippleLayer;
 }
 
-// init is prohibited for designated initializer
+// the easiest initializing way
 - (id)init
 {
-  [NSException raise:NSGenericException
-              format:@"Disabled to call init method. Use +[[%@ alloc] %@] instead",
-   NSStringFromClass([self class]),
-   NSStringFromSelector(@selector(initWithSize:state:))];
-  return nil;
+  self = [self initWithSize:JTMaterialSwitchSizeNormal
+                      style:JTMaterialSwitchStyleDefault
+                      state:JTMaterialSwitchStateOn];
+  
+  return self;
 }
 
 // Designated initializer
