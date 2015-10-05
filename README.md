@@ -12,8 +12,7 @@ This library has cool and sophisticated animations, ripple effect and bounce eff
 
 With this library, you can easily implement material design switch to your app. 
 
-![Screen shot](Docs/switches.png)
- 
+<img src="Docs/switches.gif" width="600">
  
 ## Installation
 `JTMaterialSwitch` is available on CocoaPods.
@@ -37,7 +36,7 @@ The simplest setup:
 This is the simplest and easiest initialization. 
 The style, size and initial state of `JTMaterialSwitch` instance is set to all default value as shown below.
 
-<img src="Docs/simple.gif" width="90">
+ ![Screen shot](Docs/simple.gif)
 
 In addition, this library also has following designated initializers to set these parameters.
 
