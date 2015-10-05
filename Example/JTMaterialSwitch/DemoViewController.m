@@ -2,8 +2,8 @@
 //  DemoViewController.m
 //  JTMaterialSwitch
 //
-//  Created by El Capitan on 2015/10/03.
-//  Copyright © 2015年 Junichi Tsurukawa. All rights reserved.
+//  Created by Junichi Tsurukawa on 2015/10/03.
+//  Copyright 2015 Junichi Tsurukawa. All rights reserved.
 //
 
 #import "DemoViewController.h"
@@ -38,17 +38,14 @@
   [self.tableView registerClass:[EnabledBehaviorsCell class] forCellReuseIdentifier:@"Enabled"];
   
   
-  // セクション名を設定する
   sectionList =  [NSArray arrayWithObjects: @"Style", @"Size", @"Bounce", @"Ripple Effect", @"Enabled", nil];
   
-  // セルの項目を作成する
   NSArray *styles = [[NSArray alloc]initWithObjects: @"Default", @"Light", @"Dark", @"CustomizedStyle", nil];
   NSArray *sizes = [[NSArray alloc]initWithObjects: @"Size", nil];
   NSArray *bounce = [[NSArray alloc]initWithObjects: @"Bounce", nil];
   NSArray *ripple = [[NSArray alloc]initWithObjects: @"Ripple", nil];
   NSArray *enabled = [[NSArray alloc]initWithObjects: @"Enabled", nil];
   
-  // セルの項目をまとめる
   NSArray *datas = [NSArray arrayWithObjects: styles, sizes, bounce, ripple, enabled, nil];
   dataSource = [NSDictionary dictionaryWithObjects:datas forKeys:sectionList];
   
@@ -90,9 +87,7 @@
   NSString *cellIdentifier = [items objectAtIndex:indexPath.row];
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   
-  // セルが作成されていないか?
   if (!cell) { // yes
-    // セルを作成
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
   }
   

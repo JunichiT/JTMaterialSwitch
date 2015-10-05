@@ -2,8 +2,8 @@
 //  AppDelegate.m
 //  JTMaterialSwitch
 //
-//  Created by El Capitan on 2015/09/06.
-//  Copyright © 2015年 Junichi Tsurukawa. All rights reserved.
+//  Created by Junichi Tsurukawa on 2015/10/03.
+//  Copyright 2015 Junichi Tsurukawa. All rights reserved.
 //
 
 #import "AppDelegate.h"
