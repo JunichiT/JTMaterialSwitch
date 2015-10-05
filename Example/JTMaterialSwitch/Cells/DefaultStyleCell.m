@@ -9,28 +9,32 @@
 #import "DefaultStyleCell.h"
 #import "JTMaterialSwitch.h"
 
-@implementation DefaultStyleCell
+@implementation DefaultStyleCell {
+  UILabel *styleLabel;
+  JTMaterialSwitch *jtSwitch;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   
   CGRect screenFrame = [[UIScreen mainScreen] bounds];
-  UILabel *styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
-  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+  styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
+  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
   [styleLabel setText:@"JTMaterialSwitchStyleDefault:"];
   [self.contentView addSubview:styleLabel];
   
   /**
    *  The following code is actually the same as the below initialization.
-   *
+   *  
    *  // The easiest way to use JTMaterialSwitch!
    *  JTMaterialSwitch *jtSwitch = [[JTMaterialSwitch alloc] init];
    */
-  JTMaterialSwitch *jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
+  jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                 style:JTMaterialSwitchStyleDefault
                                                                 state:JTMaterialSwitchStateOn];
   jtSwitch.center = CGPointMake(screenFrame.size.width*6/7, 45);
+  [jtSwitch addTarget:self action:@selector(stateChanged) forControlEvents:UIControlEventValueChanged];
   [self.contentView addSubview:jtSwitch];
   
   UILabel *thumbDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 40, screenFrame.size.width-60, 20)];
@@ -48,5 +52,14 @@
   return self;
 }
 
+- (void)stateChanged
+{
+  if(jtSwitch.isOn == YES) {
+    [styleLabel setText:@"JTMaterialSwitchStyleDefault: ON"];
+  }
+  else {
+    [styleLabel setText:@"JTMaterialSwitchStyleDefault: OFF"];
+  }
+}
 
 @end

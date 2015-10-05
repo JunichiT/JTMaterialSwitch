@@ -7,34 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44BE60D41BBEFE03007A50EC /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44BE60D21BBEFE03007A50EC /* DemoViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		44BE60DC1BBF11C9007A50EC /* DefaultStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60DA1BBF11C9007A50EC /* DefaultStyleCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60E31BBF1647007A50EC /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60E21BBF1647007A50EC /* DemoViewController.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60E61BBF1B91007A50EC /* LightStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60E51BBF1B91007A50EC /* LightStyleCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60EA1BBF1FA8007A50EC /* DarkStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60E91BBF1FA8007A50EC /* DarkStyleCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60ED1BBF2030007A50EC /* CustomizedStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60EC1BBF2030007A50EC /* CustomizedStyleCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60F01BBF2603007A50EC /* SizeBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60EF1BBF2603007A50EC /* SizeBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60F61BBF2843007A50EC /* RippleBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60F51BBF2843007A50EC /* RippleBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60F91BBF28AF007A50EC /* EnabledBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60F81BBF28AF007A50EC /* EnabledBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
-		44BE60FD1BC077AB007A50EC /* JTMaterialSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60FC1BC077AB007A50EC /* JTMaterialSwitch.m */; settings = {ASSET_TAGS = (); }; };
-		44BE61001BC077D4007A50EC /* BounceBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60FF1BC077D4007A50EC /* BounceBehaviorsCell.m */; settings = {ASSET_TAGS = (); }; };
+		44BE60D41BBEFE03007A50EC /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44BE60D21BBEFE03007A50EC /* DemoViewController.xib */; };
+		44BE60DC1BBF11C9007A50EC /* DefaultStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60DA1BBF11C9007A50EC /* DefaultStyleCell.m */; };
+		44BE60E31BBF1647007A50EC /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60E21BBF1647007A50EC /* DemoViewController.m */; };
+		44BE60E61BBF1B91007A50EC /* LightStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60E51BBF1B91007A50EC /* LightStyleCell.m */; };
+		44BE60EA1BBF1FA8007A50EC /* DarkStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60E91BBF1FA8007A50EC /* DarkStyleCell.m */; };
+		44BE60ED1BBF2030007A50EC /* CustomizedStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60EC1BBF2030007A50EC /* CustomizedStyleCell.m */; };
+		44BE60F01BBF2603007A50EC /* SizeBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60EF1BBF2603007A50EC /* SizeBehaviorsCell.m */; };
+		44BE60F61BBF2843007A50EC /* RippleBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60F51BBF2843007A50EC /* RippleBehaviorsCell.m */; };
+		44BE60F91BBF28AF007A50EC /* EnabledBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60F81BBF28AF007A50EC /* EnabledBehaviorsCell.m */; };
+		44BE60FD1BC077AB007A50EC /* JTMaterialSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60FC1BC077AB007A50EC /* JTMaterialSwitch.m */; };
+		44BE61001BC077D4007A50EC /* BounceBehaviorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE60FF1BC077D4007A50EC /* BounceBehaviorsCell.m */; };
 		44F628321B9C534A008E8EC2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628311B9C534A008E8EC2 /* main.m */; };
 		44F628351B9C534A008E8EC2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628341B9C534A008E8EC2 /* AppDelegate.m */; };
 		44F6283D1B9C534A008E8EC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44F6283C1B9C534A008E8EC2 /* Assets.xcassets */; };
-		44F628401B9C534A008E8EC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44F6283E1B9C534A008E8EC2 /* LaunchScreen.storyboard */; };
 		44F6284B1B9C534A008E8EC2 /* JTMaterialSwitchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F6284A1B9C534A008E8EC2 /* JTMaterialSwitchTests.m */; };
-		44F628561B9C534A008E8EC2 /* JTMaterialSwitchUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F628551B9C534A008E8EC2 /* JTMaterialSwitchUITests.m */; };
+		566094471BC2E7CF00716A47 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 566094451BC2E7CF00716A47 /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		44F628471B9C534A008E8EC2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 44F628251B9C534A008E8EC2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 44F6282C1B9C534A008E8EC2;
-			remoteInfo = JTMaterialSwitch;
-		};
-		44F628521B9C534A008E8EC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 44F628251B9C534A008E8EC2 /* Project object */;
 			proxyType = 1;
@@ -70,14 +62,11 @@
 		44F628331B9C534A008E8EC2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		44F628341B9C534A008E8EC2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		44F6283C1B9C534A008E8EC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		44F6283F1B9C534A008E8EC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44F628411B9C534A008E8EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44F628461B9C534A008E8EC2 /* JTMaterialSwitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JTMaterialSwitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F6284A1B9C534A008E8EC2 /* JTMaterialSwitchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTMaterialSwitchTests.m; sourceTree = "<group>"; };
 		44F6284C1B9C534A008E8EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		44F628511B9C534A008E8EC2 /* JTMaterialSwitchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JTMaterialSwitchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		44F628551B9C534A008E8EC2 /* JTMaterialSwitchUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JTMaterialSwitchUITests.m; sourceTree = "<group>"; };
-		44F628571B9C534A008E8EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		566094461BC2E7CF00716A47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,13 +78,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		44F628431B9C534A008E8EC2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44F6284E1B9C534A008E8EC2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -142,7 +124,6 @@
 			children = (
 				44F6282F1B9C534A008E8EC2 /* JTMaterialSwitch */,
 				44F628491B9C534A008E8EC2 /* JTMaterialSwitchTests */,
-				44F628541B9C534A008E8EC2 /* JTMaterialSwitchUITests */,
 				44F6282E1B9C534A008E8EC2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,7 +133,6 @@
 			children = (
 				44F6282D1B9C534A008E8EC2 /* JTMaterialSwitch.app */,
 				44F628461B9C534A008E8EC2 /* JTMaterialSwitchTests.xctest */,
-				44F628511B9C534A008E8EC2 /* JTMaterialSwitchUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,8 +147,8 @@
 				44BE60E21BBF1647007A50EC /* DemoViewController.m */,
 				44F628331B9C534A008E8EC2 /* AppDelegate.h */,
 				44F628341B9C534A008E8EC2 /* AppDelegate.m */,
+				566094451BC2E7CF00716A47 /* LaunchScreen.xib */,
 				44F6283C1B9C534A008E8EC2 /* Assets.xcassets */,
-				44F6283E1B9C534A008E8EC2 /* LaunchScreen.storyboard */,
 				44F628411B9C534A008E8EC2 /* Info.plist */,
 				44F628301B9C534A008E8EC2 /* Supporting Files */,
 			);
@@ -190,15 +170,6 @@
 				44F6284C1B9C534A008E8EC2 /* Info.plist */,
 			);
 			path = JTMaterialSwitchTests;
-			sourceTree = "<group>";
-		};
-		44F628541B9C534A008E8EC2 /* JTMaterialSwitchUITests */ = {
-			isa = PBXGroup;
-			children = (
-				44F628551B9C534A008E8EC2 /* JTMaterialSwitchUITests.m */,
-				44F628571B9C534A008E8EC2 /* Info.plist */,
-			);
-			path = JTMaterialSwitchUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,24 +210,6 @@
 			productReference = 44F628461B9C534A008E8EC2 /* JTMaterialSwitchTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		44F628501B9C534A008E8EC2 /* JTMaterialSwitchUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 44F628601B9C534A008E8EC2 /* Build configuration list for PBXNativeTarget "JTMaterialSwitchUITests" */;
-			buildPhases = (
-				44F6284D1B9C534A008E8EC2 /* Sources */,
-				44F6284E1B9C534A008E8EC2 /* Frameworks */,
-				44F6284F1B9C534A008E8EC2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				44F628531B9C534A008E8EC2 /* PBXTargetDependency */,
-			);
-			name = JTMaterialSwitchUITests;
-			productName = JTMaterialSwitchUITests;
-			productReference = 44F628511B9C534A008E8EC2 /* JTMaterialSwitchUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -270,10 +223,6 @@
 						CreatedOnToolsVersion = 7.0;
 					};
 					44F628451B9C534A008E8EC2 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 44F6282C1B9C534A008E8EC2;
-					};
-					44F628501B9C534A008E8EC2 = {
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = 44F6282C1B9C534A008E8EC2;
 					};
@@ -294,7 +243,6 @@
 			targets = (
 				44F6282C1B9C534A008E8EC2 /* JTMaterialSwitch */,
 				44F628451B9C534A008E8EC2 /* JTMaterialSwitchTests */,
-				44F628501B9C534A008E8EC2 /* JTMaterialSwitchUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -304,20 +252,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44F628401B9C534A008E8EC2 /* LaunchScreen.storyboard in Resources */,
 				44BE60D41BBEFE03007A50EC /* DemoViewController.xib in Resources */,
+				566094471BC2E7CF00716A47 /* LaunchScreen.xib in Resources */,
 				44F6283D1B9C534A008E8EC2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		44F628441B9C534A008E8EC2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44F6284F1B9C534A008E8EC2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -354,14 +295,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		44F6284D1B9C534A008E8EC2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44F628561B9C534A008E8EC2 /* JTMaterialSwitchUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -370,20 +303,15 @@
 			target = 44F6282C1B9C534A008E8EC2 /* JTMaterialSwitch */;
 			targetProxy = 44F628471B9C534A008E8EC2 /* PBXContainerItemProxy */;
 		};
-		44F628531B9C534A008E8EC2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 44F6282C1B9C534A008E8EC2 /* JTMaterialSwitch */;
-			targetProxy = 44F628521B9C534A008E8EC2 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		44F6283E1B9C534A008E8EC2 /* LaunchScreen.storyboard */ = {
+		566094451BC2E7CF00716A47 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				44F6283F1B9C534A008E8EC2 /* Base */,
+				566094461BC2E7CF00716A47 /* Base */,
 			);
-			name = LaunchScreen.storyboard;
+			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -425,7 +353,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -463,7 +391,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -475,6 +403,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = JTMaterialSwitch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -487,6 +416,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = JTMaterialSwitch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -519,30 +449,6 @@
 			};
 			name = Release;
 		};
-		44F628611B9C534A008E8EC2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = JTMaterialSwitchUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.junichi.JTMaterialSwitchUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = JTMaterialSwitch;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		44F628621B9C534A008E8EC2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = JTMaterialSwitchUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.junichi.JTMaterialSwitchUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = JTMaterialSwitch;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -569,15 +475,6 @@
 			buildConfigurations = (
 				44F6285E1B9C534A008E8EC2 /* Debug */,
 				44F6285F1B9C534A008E8EC2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		44F628601B9C534A008E8EC2 /* Build configuration list for PBXNativeTarget "JTMaterialSwitchUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				44F628611B9C534A008E8EC2 /* Debug */,
-				44F628621B9C534A008E8EC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

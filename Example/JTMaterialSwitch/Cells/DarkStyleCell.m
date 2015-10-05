@@ -9,22 +9,26 @@
 #import "DarkStyleCell.h"
 #import "JTMaterialSwitch.h"
 
-@implementation DarkStyleCell
+@implementation DarkStyleCell {
+  UILabel *styleLabel;
+  JTMaterialSwitch *jtSwitch;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   
   CGRect screenFrame = [[UIScreen mainScreen] bounds];
-  UILabel *styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
-  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+  styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
+  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
   [styleLabel setText:@"JTMaterialSwitchStyleDark:"];
   [self.contentView addSubview:styleLabel];
   
-  JTMaterialSwitch *jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
+  jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                 style:JTMaterialSwitchStyleDark
                                                                 state:JTMaterialSwitchStateOn];
   jtSwitch.center = CGPointMake(screenFrame.size.width*6/7, 45);
+  [jtSwitch addTarget:self action:@selector(stateChanged) forControlEvents:UIControlEventValueChanged];
   [self.contentView addSubview:jtSwitch];
   
   UILabel *thumbDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 40, screenFrame.size.width-60, 20)];
@@ -40,6 +44,16 @@
   [self.contentView addSubview:trackDescriptionLabel];
   
   return self;
+}
+
+- (void)stateChanged
+{
+  if(jtSwitch.isOn == YES) {
+    [styleLabel setText:@"JTMaterialSwitchStyleDark: ON"];
+  }
+  else {
+    [styleLabel setText:@"JTMaterialSwitchStyleDark: OFF"];
+  }
 }
 
 @end

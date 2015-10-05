@@ -9,19 +9,22 @@
 #import "CustomizedStyleCell.h"
 #import "JTMaterialSwitch.h"
 
-@implementation CustomizedStyleCell
+@implementation CustomizedStyleCell {
+  UILabel *styleLabel;
+  JTMaterialSwitch *jtSwitch;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   
   CGRect screenFrame = [[UIScreen mainScreen] bounds];
-  UILabel *styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
-  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+  styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
+  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
   [styleLabel setText:@"Customized Style:"];
   [self.contentView addSubview:styleLabel];
   
-  JTMaterialSwitch *jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
+  jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                 style:JTMaterialSwitchStyleDefault
                                                                 state:JTMaterialSwitchStateOn];
   jtSwitch.center = CGPointMake(screenFrame.size.width*6/7, 45);
@@ -31,6 +34,7 @@
   jtSwitch.trackOnTintColor  = [UIColor colorWithRed:243./255. green:204./255. blue:146./255. alpha:1.0];
   jtSwitch.trackOffTintColor = [UIColor colorWithRed:164./255. green:164./255. blue:164./255. alpha:1.0];
   jtSwitch.rippleFillColor = [UIColor greenColor];
+  [jtSwitch addTarget:self action:@selector(stateChanged) forControlEvents:UIControlEventValueChanged];
   [self.contentView addSubview:jtSwitch];
   
   UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 40, screenFrame.size.width-60, 20)];
@@ -46,6 +50,16 @@
   [self.contentView addSubview:subDescriptionLabel];
   
   return self;
+}
+
+- (void)stateChanged
+{
+  if(jtSwitch.isOn == YES) {
+    [styleLabel setText:@"Customized Style: ON"];
+  }
+  else {
+    [styleLabel setText:@"Customized Style: OFF"];
+  }
 }
 
 @end

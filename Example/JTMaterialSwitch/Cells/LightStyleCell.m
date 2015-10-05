@@ -9,22 +9,26 @@
 #import "LightStyleCell.h"
 #import "JTMaterialSwitch.h"
 
-@implementation LightStyleCell
+@implementation LightStyleCell {
+  UILabel *styleLabel;
+  JTMaterialSwitch *jtSwitch;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   
   CGRect screenFrame = [[UIScreen mainScreen] bounds];
-  UILabel *styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
-  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+  styleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, screenFrame.size.width-60, 20)];
+  styleLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
   [styleLabel setText:@"JTMaterialSwitchStyleLight:"];
   [self.contentView addSubview:styleLabel];
   
-  JTMaterialSwitch *jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
+  jtSwitch = [[JTMaterialSwitch alloc] initWithSize:JTMaterialSwitchSizeNormal
                                                                 style:JTMaterialSwitchStyleLight
                                                                 state:JTMaterialSwitchStateOn];
   jtSwitch.center = CGPointMake(screenFrame.size.width*6/7, 45);
+  [jtSwitch addTarget:self action:@selector(stateChanged) forControlEvents:UIControlEventValueChanged];
   [self.contentView addSubview:jtSwitch];
   
   UILabel *buttonDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 40, screenFrame.size.width-60, 20)];
@@ -40,6 +44,16 @@
   [self.contentView addSubview:trackDescriptionLabel];
   
   return self;
+}
+
+- (void)stateChanged
+{
+  if(jtSwitch.isOn == YES) {
+    [styleLabel setText:@"JTMaterialSwitchStyleLight: ON"];
+  }
+  else {
+    [styleLabel setText:@"JTMaterialSwitchStyleLight: OFF"];
+  }
 }
 
 @end
