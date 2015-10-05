@@ -36,7 +36,7 @@ The simplest setup:
 This is the simplest and easiest initialization. 
 The style, size and initial state of `JTMaterialSwitch` instance is set to all default value as shown below.
 
- ![Screen shot](Docs/simple.gif)
+<img src="Docs/simple.gif" width="200">
 
 In addition, this library also has following designated initializers to set these parameters.
 
