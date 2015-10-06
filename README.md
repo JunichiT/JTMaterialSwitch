@@ -123,4 +123,4 @@ iOS 7.0 or later
 Junichi Tsurukawa <j.tsurukawa@gmail.com>
 
 ## License
-JTFadingInfoView is available under the MIT license.
+JTMaterialSwitch is available under the MIT license.
