@@ -1,5 +1,6 @@
 ![JTMaterialSwitch](Docs/JTMaterialSwitch_Title.png)
 
+[![CI Status](http://img.shields.io/travis/JunichiTsurukawa/JTMaterialSwitch.svg?style=flat)](https://travis-ci.org/JunichiTsurukawa/JTMaterialSwitch)
 [![Version](https://img.shields.io/cocoapods/v/JTMaterialSwitch.svg?style=flat)](http://cocoapods.org/pods/JTMaterialSwitch)
 [![License](https://img.shields.io/cocoapods/l/JTMaterialSwitch.svg?style=flat)](http://cocoapods.org/pods/JTMaterialSwitch)
 [![Platform](https://img.shields.io/cocoapods/p/JTMaterialSwitch.svg?style=flat)](http://cocoapods.org/pods/JTMaterialSwitch)
