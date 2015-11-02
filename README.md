@@ -6,13 +6,19 @@
 [![Platform](https://img.shields.io/cocoapods/p/JTMaterialSwitch.svg?style=flat)](http://cocoapods.org/pods/JTMaterialSwitch)
 
 ## Overview
+<img src="Docs/JTMaterialSwitch.png" width="250" align="right" />
+
 `JTMaterialSwitch` is google's material design like switch UI with animation features.
 
 This library has cool and sophisticated animations, ripple effect and bounce effect. Also, customizable properties can be tweaked behaviors and enhance your application UI cool.
 
 With this library, you can easily implement material design switch to your app. 
 
-<img src="Docs/switches.gif" width="600">
+<br/>
+
+<br/>
+
+<img src="Docs/switches.gif" width="400" />
  
 ## Installation
 `JTMaterialSwitch` is available on CocoaPods.
