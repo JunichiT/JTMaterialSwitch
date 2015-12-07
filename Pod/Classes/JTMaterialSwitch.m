@@ -75,7 +75,7 @@
   CGRect frame;
   CGRect trackFrame = CGRectZero;
   CGRect thumbFrame = CGRectZero;
-
+  
   // Determine switch size
   switch (size) {
     case JTMaterialSwitchSizeBig:
@@ -83,7 +83,7 @@
       self.trackThickness = 23.0;
       self.thumbSize = 31.0;
       break;
-    
+      
     case JTMaterialSwitchSizeNormal:
       frame = CGRectMake(0, 0, 40, 30);
       self.trackThickness = 17.0;
@@ -133,7 +133,7 @@
   [self.switchThumb addTarget:self action:@selector(switchThumbTapped:) forControlEvents:UIControlEventTouchUpInside];
   [self.switchThumb addTarget:self action:@selector(onTouchDragInside:withEvent:) forControlEvents:UIControlEventTouchDragInside];
   [self.switchThumb addTarget:self action:@selector(onTouchUpOutsideOrCanceled:withEvent:) forControlEvents:UIControlEventTouchCancel];
-
+  
   
   [self addSubview:self.switchThumb];
   
@@ -225,6 +225,8 @@
   else {
     self.switchThumb.backgroundColor = self.thumbOffTintColor;
     self.track.backgroundColor = self.trackOffTintColor;
+    // set initial position
+    [self changeThumbStateOFFwithoutAnimation];
   }
   
   if (self.isEnabled == NO) {
@@ -304,7 +306,6 @@
 {
   // Delegate method
   if ([self.delegate respondsToSelector:@selector(switchStateChanged:)]) {
-    // sampleMethod2を呼び出す
     if (self.isOn == YES) {
       [self.delegate switchStateChanged:JTMaterialSwitchStateOff];
     }
@@ -476,7 +477,7 @@
   //  NSLog(@"switchThumb pos: %@", NSStringFromCGRect(self.switchThumb.frame));
   
   UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rippleFrame cornerRadius:self.switchThumb.layer.cornerRadius*2];
-
+  
   // Set ripple layer attributes
   rippleLayer = [CAShapeLayer layer];
   rippleLayer.path = path.CGPath;
@@ -487,7 +488,7 @@
   rippleLayer.lineWidth = 0;
   //  NSLog(@"Ripple origin pos: %@", NSStringFromCGRect(circleShape.frame));
   [self.switchThumb.layer insertSublayer:rippleLayer below:self.switchThumb.layer];
-//    [self.layer insertSublayer:circleShape above:self.switchThumb.layer];
+  //    [self.layer insertSublayer:circleShape above:self.switchThumb.layer];
 }
 
 
@@ -556,7 +557,7 @@
   [rippleLayer addAnimation:animation forKey:nil];
   
   [CATransaction commit];
-//  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
+  //  NSLog(@"Ripple end pos: %@", NSStringFromCGRect(circleShape.frame));
 }
 
 // Change thumb state when touchUPInside action is detected
@@ -589,14 +590,14 @@
   
   //Get the new origin after this motion
   float newXOrigin = btn.frame.origin.x + dX;
-   //NSLog(@"Released tap X pos: %f", newXOrigin);
+  //NSLog(@"Released tap X pos: %f", newXOrigin);
   
   if (newXOrigin > (self.frame.size.width - self.switchThumb.frame.size.width)/2) {
-     //NSLog(@"thumb pos should be set *ON*");
+    //NSLog(@"thumb pos should be set *ON*");
     [self changeThumbStateONwithAnimation];
   }
   else {
-     //NSLog(@"thumb pos should be set *OFF*");
+    //NSLog(@"thumb pos should be set *OFF*");
     [self changeThumbStateOFFwithAnimation];
   }
   
