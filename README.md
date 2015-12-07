@@ -121,6 +121,7 @@ JTMaterialSwitch has many prateters to customize behaviors as you like.
 
 ## Change History
 1.1   Bug Fix
+
 1.0.0 Initial Release
 
 ## Requirements
