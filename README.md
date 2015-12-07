@@ -120,6 +120,7 @@ JTMaterialSwitch has many prateters to customize behaviors as you like.
  ![Screen shot](Docs/bounce_ripple_enabled.gif)
 
 ## Change History
+1.1   Bug Fix
 1.0.0 Initial Release
 
 ## Requirements
